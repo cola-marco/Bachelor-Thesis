@@ -1,22 +1,113 @@
 \chapter{Descrizione dello stage}
 \label{cap:descrizione-stage}
 
-\intro{Il capitolo approfondisce il progetto di stage, descrivendo gli obiettivi e le attività svolte, la metodologia di lavoro adottata e un’analisi preventiva dei principali rischi e relative strategie di mitigazione.}\\
+\intro{Il capitolo approfondisce il progetto di stage, descrivendo gli obiettivi e le attività svolte, la metodologia di lavoro adottata e un'analisi preventiva dei principali rischi e relative strategie di mitigazione.}\\
 
 \section{Introduzione al progetto}
+Lo stage è stato svolto presso l'azienda Kirey Group S.r.l., realtà consolidata nell'ambito della fornitura di prodotti e servizi informatici, con clienti internazionali e una forte specializzazione nei settori \emph{Banking}, \emph{Insurance}, \emph{Oil\&Gas} e Pubblica Amministrazione. \\ 
+L'attività si è inserita nel contesto del team \gls{apmg}\glsfirstoccur e ha avuto come obiettivo principale la realizzazione e il collaudo di una soluzione per il monitoraggio delle performance di una \emph{web application}. \\
+Il progetto è stato sviluppato interamente in ambiente \emph{Linux} mediante \emph{Windows Subsystem for Linux}, utilizzando la \emph{suite} \emph{Elastic Stack} e i suoi principali componenti: \emph{Elasticsearch} per la gestione dei dati, \emph{Kibana} per la visualizzazione, \emph{Logstash} per l'ingestione e la trasformazione dei log, \emph{Beats} e \emph{Fleet Server} per la raccolta distribuita delle metriche e \emph{APM Server/Agent} per il tracciamento delle \emph{performance} applicative. \\ 
+Sono stati realizzati sviluppi in \emph{Python} e \emph{Java} per l'estensione delle funzionalità e l'integrazione di algoritmi di \gls{aig}\glsfirstoccur e \emph{Machine Learning}, con l'obiettivo di rilevare automaticamente anomalie e problematiche di prestazione.  
+La finalità complessiva è quella di fornire un sistema scalabile, proattivo e ben documentato, capace di garantire prestazioni ottimali e un monitoraggio continuo della \emph{web application}.  
+
+
+\section{Pianificazione}
+Tutte le attività saranno condotte in affiancamento a un tutor aziendale che curerà sia la parte di formazione che di indirizzamento delle attività.
+A tal fine sono previsti dei momenti di confronto settimanali per valutare lo stato di avanzamento delle attività e dei momenti quotidiani di confronto sulle problematiche riscontrate.
+Le attività proposte si collocano all'interno di un progetto più ampio portato avanti in Kirey da un team di persone eterogeneo.
+Al termine dello stage sarà previsto un momento di presentazione dei risultati ottenuti a tutto il team.
+L'infrastruttura tecnologica e le piattaforme su cui girerà l'applicazione saranno messe a disposizione da Kirey.
+
 
 \section{Analisi preventiva dei rischi}
 
 Durante la fase di analisi iniziale sono stati individuati alcuni possibili rischi a cui si potrà andare incontro.
 Si è quindi proceduto a elaborare delle possibili soluzioni per far fronte a tali rischi.\\
 
-\begin{risk}{Performance del simulatore hardware}
-    \riskdescription{le performance del simulatore hardware e la comunicazione con questo potrebbero risultare lenti o non abbastanza buoni da causare il fallimento dei test}
-    \risksolution{coinvolgimento del responsabile a capo del progetto relativo il simulatore hardware}
-    \label{risk:hardware-simulator} 
+\begin{risk}{Inesperienza nella suite Elastic}
+    \riskdescription{La limitata esperienza iniziale nell'utilizzo della \emph{Elastic Stack} (\emph{Elasticsearch}, \emph{Kibana}, \emph{Logstash}, \emph{APM}) potrebbe comportare difficoltà nella configurazione e nell'integrazione delle componenti, rallentando lo sviluppo del progetto}
+    \risksolution{Organizzazione di momenti di confronto con il tutor aziendale e studio personale della documentazione, al fine di acquisire le competenze necessarie}
+    \label{risk:elastic-inexperience}
 \end{risk}
 
+\vspace{1em}
+
+\begin{risk}{Integrazione tra componenti Elastic}
+    \riskdescription{La comunicazione tra i diversi moduli della \emph{suite} \emph{Elastic} (\emph{Elasticsearch}, \emph{Kibana}, \emph{Logstash}, \emph{APM}) potrebbe presentare problemi di configurazione, causando ritardi o malfunzionamenti nell'acquisizione dei dati}
+    \risksolution{Esecuzione di test di connettività e validazione progressiva delle \emph{pipeline}, con il supporto del \emph{tutor} aziendale per la risoluzione dei problemi}
+    \label{risk:elastic-integration}
+\end{risk}
+
+\vspace{1em}
+
+\begin{risk}{Qualità e coerenza dei dati raccolti}
+    \riskdescription{I dati acquisiti dagli agenti potrebbero risultare incompleti, duplicati o non coerenti, compromettendo le analisi e le \emph{dashboard}}
+    \risksolution{Definizione di regole di filtraggio e validazione all'interno delle \emph{pipeline} \emph{Logstash} ed esecuzione di test di integrità sugli indici \emph{Elasticsearch}}
+    \label{risk:data-quality}
+\end{risk}
+
+\vspace{1em}
+
+\begin{risk}{Scalabilità e carico del sistema}
+    \riskdescription{L'aumento del volume dei dati e delle richieste potrebbe impattare sulle prestazioni della piattaforma, riducendo l'efficienza del monitoraggio}
+    \risksolution{Implementazione di strategie di \emph{scaling} orizzontale e utilizzo di metriche di \emph{Kibana} per monitorare l'impatto del carico in tempo reale}
+    \label{risk:scalability}
+\end{risk}
+
+\vspace{1em}
+
+\begin{risk}{Implementazione di algoritmi di Machine Learning}
+    \riskdescription{L'integrazione di modelli di \emph{Machine Learning} per il rilevamento delle anomalie potrebbe richiedere competenze specifiche e tempi di sviluppo più lunghi del previsto}
+    \risksolution{Formazione preliminare su tecniche di \emph{Machine Learning} e utilizzo di librerie e \emph{framework} consolidati per accelerare lo sviluppo}
+    \label{risk:ml-implementation}
+\end{risk}
+
+\vspace{1em}
+
+\begin{risk}{Problemi di configurazione delle pipeline Logstash}
+    \riskdescription{Errori di configurazione nelle \emph{pipeline} di \emph{Logstash} potrebbero causare la perdita, la duplicazione o la trasformazione errata dei dati raccolti, compromettendo l'affidabilità delle analisi}
+    \risksolution{Adozione di un approccio con \emph{test} di validazione a ogni modifica delle \emph{pipeline} e utilizzo di ambienti di prova per verificare la correttezza del flusso dei dati prima della messa in produzione}
+    \label{risk:logstash-pipeline}
+\end{risk}
+
+
 \section{Requisiti e obiettivi}
+Gli obiettivi del progetto sono stati classificati in base alla loro priorità secondo le seguenti notazioni:
 
+\begin{itemize}
+    \item \textbf{Ob} (Requisiti Obbligatori) - requisiti essenziali e imprescindibili per il successo del progetto, vincolanti in quanto obiettivo primario richiesto dal committente;
+    \item \textbf{D} (Requisiti Desiderabili) - requisiti importanti ma non critici, la cui assenza non compromette il progetto, non vincolanti o strettamente necessari, ma dal riconoscibile valore aggiunto;
+    \item \textbf{Op} (Requisiti Opzionali) - requisiti desiderabili ma non essenziali, rappresentanti valore aggiunto non strettamente competitivo.
+\end{itemize}
 
-\section{Pianificazione}
+\vspace{1em}
+
+Durante il periodo di stage si prevede il raggiungimento dei seguenti obiettivi:
+
+\begin{itemize}
+    \item \textbf{Preparazione dell'ambiente per l'implementazione della soluzione:}  
+        \begin{itemize}
+            \item \textbf{Ob1.1:} Individuazione delle componenti ed eventuali librerie da utilizzare;
+            \item \textbf{Ob1.2:} Installazione e configurazione delle componenti;
+            \item \textbf{Ob1.3:} Verifica del corretto funzionamento dell’ambiente e test di connettività tra componenti.
+        \end{itemize}
+    \item \textbf{Implementazione estrazione dati dalla web application:}  
+        \begin{itemize}
+            \item \textbf{Ob2.1:} Configurazione \emph{agent} (\emph{Beats/APM}) per la raccolta dati della navigazione;
+            \item \textbf{Ob2.2:} Implementazione \emph{pipeline} di \emph{log} tramite \emph{Logstash} per filtraggio e inoltro dati in \emph{Elasticsearch};
+            \item \textbf{Ob2.3:} Verifica della corretta acquisizione dei dati e loro indicizzazione in \emph{Elasticsearch}.
+        \end{itemize}
+    \item \textbf{Implementazione elaborazione dati e rappresentazione grafica dei dati:}  
+        \begin{itemize}
+            \item \textbf{Ob3.1:} Sviluppo \emph{script} \emph{Python/Java} per il monitoraggio sintetico (\emph{Selenium}) e generazione di traffico \emph{log};
+            \item \textbf{Ob3.2:} Analisi e aggregazione dati in \emph{Elasticsearch}, con \emph{query} e visualizzazioni preliminari;
+            \item \textbf{Ob3.3:} Creazione dashboard avanzate su \emph{Kibana} con metriche di \emph{performance}, accesso e flussi utente;
+            \item \textbf{Op3.4:} Configurazione regole di \emph{alerting} e notifiche per anomalie rilevate in tempo reale.
+        \end{itemize}
+    \item \textbf{Documentazione dettagliata:}  
+        \begin{itemize}
+            \item \textbf{Ob4.1:} Descrizione delle tecnologie e prodotti utilizzati;
+            \item \textbf{Ob4.2:} Descrizione dei flussi logici del progetto e delle funzionalità dell'applicazione;
+            \item \textbf{D4.3:} Pro/contro di ogni componente e criticità nell'applicazione.
+        \end{itemize}
+\end{itemize} 
