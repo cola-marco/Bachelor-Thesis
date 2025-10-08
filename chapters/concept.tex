@@ -23,7 +23,7 @@
 %\label{uc:scenario-principale}
 %\end{usecase}
 
-\section{Tracciamento dei requisiti}
+\section{Requisiti del sistema}
 
 A seguito di un'attenta attività di analisi del progetto e degli obiettivi tecnici e funzionali prefissati, sono state redatte le tabelle di tracciamento che riassumono in modo strutturato i requisiti individuati. \\
 Durante questa fase sono state identificate differenti tipologie di requisiti, distinte sia in base alla loro categoria (funzionale, non funzionale, qualitativo o di vincolo), sia in base alla loro priorità di implementazione (obbligatorio, desiderabile o opzionale).
@@ -56,8 +56,8 @@ Nelle tabelle \ref{tab:requisiti-funzionali}, \ref{tab:requisiti-non-funzionali}
 
 
 \newpage
-\section{Requisiti funzionali}
-Descrivono cosa deve fare il sistema.
+\subsection{Requisiti funzionali}
+I requisiti funzionali descrivono cosa deve fare il sistema.
 Sono le funzionalità concrete che la soluzione deve offrire per raggiungere gli obiettivi del progetto.
 
 \begin{table}[h]
@@ -67,77 +67,100 @@ Sono le funzionalità concrete che la soluzione deve offrire per raggiungere gli
 \hline\hline
 \textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione}\\
 \hline
-RO1     & Individuazione delle componenti ed eventuali librerie da utilizzare & Obbligatorio \\
+ROF-1     & Il sistema deve permettere la raccolta automatica di metriche e \emph{log} relativi alla \emph{web application} tramite agenti \emph{OpenTelemetry} o \emph{Elastic APM}. & Obbligatorio \\
 \hline
 
 \hline
-RO2     & Installazione e configurazione delle componenti & UC2 \\
+ROF-2     & Il sistema deve inviare i dati raccolti agli \emph{endpoint} \emph{Elasticsearch} per l'analisi e l'indicizzazione. & Obbligatorio \\
 \hline
 
 \hline
-RO3     & Verifica del corretto funzionamento dell'ambiente e test di connettività tra componenti & UC3 \\
+ROF-3     & Il sistema deve consentire la creazione di \emph{pipeline} di \emph{log} tramite \emph{Logstash} per filtraggio, trasformazione e inoltro dei dati in \emph{Elasticsearch}. & Obbligatorio \\
 \hline
 
 \hline
-RO4     & Configurazione agent (Beats/APM) per la raccolta dati della navigazione & UC3 \\
+ROF-4     & Il sistema deve prevedere la configurazione di \emph{Elastic Agents} (\emph{Beats}/\emph{\gls{apm}}) per la raccolta dati della navigazione. & Obbligatorio \\
 \hline
 
 \hline
-RO5     & Implementazione pipeline di log tramite Logstash per filtraggio e inoltro dati in Elasticsearch & UC3 \\
+ROF-5     & Il sistema deve generare \emph{dashboard} avanzate e visualizzazioni in \emph{Kibana}, con metriche di \emph{performance}, accesso e flussi utente. & Obbligatorio \\
 \hline
 
 \hline
-RO6     & Verifica della corretta acquisizione dei dati e loro indicizzazione in Elasticsearch & UC3 \\
+ROF-6     & Il sistema deve permettere la verifica della corretta acquisizione dei dati e la loro indicizzazione in \emph{Elasticsearch}. & Obbligatorio \\
 \hline
 
 \hline
-RO7     & Sviluppo script Python/Java per il monitoraggio sintetico (Selenium) e generazione di traffico log & UC3 \\
+ROF-7     & Il sistema deve prevedere lo sviluppo e l'esecuzione di \emph{script} automatizzati in \emph{Python} o \emph{Java} per la simulazione del traffico utente (\emph{Synthetic Monitoring}). & Obbligatorio \\
 \hline
 
 \hline
-RO8     & Analisi e aggregazione dati in Elasticsearch, con query e visualizzazioni preliminari & UC3 \\
+ROF-8     & Deve essere possibile filtrare e ricercare i \emph{log} per \emph{host}, servizio, livello di severità o periodo temporale. & Obbligatorio \\
 \hline
 
 \hline
-RO8     & Analisi e aggregazione dati in Elasticsearch, con query e visualizzazioni preliminari & UC3 \\
+RDF-9     & Il sistema dovrebbe prevedere la configurazione di regole di \emph{alerting} e notifiche in tempo reale per anomalie rilevate. & Desiderabile \\
 \hline
 
 \hline
-RO9     & Creazione dashboard avanzate su Kibana con metriche di performance, accesso e flussi utente & UC3 \\
+RDF-10     & Il sistema dovrebbe integrare algoritmi di \emph{Machine Learning} per l'individuazione automatica di anomalie. & Desiderabile \\
 \hline
 
 \hline
-RO10     & Descrizione delle tecnologie e prodotti utilizzati & UC3 \\
+RDF-11     & Il sistema dovrebbe consentire l'esportazione delle \emph{dashboard} o dei risultati delle \emph{query} in formato \gls{pdf}\glsfirstoccur o \gls{csv}\glsfirstoccur. & Desiderabile \\
 \hline
 
 \hline
-RO11     & Descrizione dei flussi logici del progetto e delle funzionalità dell'applicazione & UC3 \\
+RZF-12     & Il sistema può prevedere un modulo aggiuntivo per la generazione automatica di report periodici delle metriche raccolte. & Opzionale \\
 \hline
+
+\hline
+RZF-13     & Il sistema può consentire l'importazione automatica delle configurazioni APM da ambienti di \emph{test} o \emph{staging}. & Opzionale \\
+\hline
+
 \end{tabularx}
 \end{table}%
 
 \newpage
-\section{Requisiti non funzionali}
-Definiscono come il sistema deve comportarsi, cioè le sue proprietà di qualità interna.
-Non aggiungono nuove funzioni, ma impongono vincoli di prestazioni, sicurezza, disponibilità, scalabilità, affidabilità, manutenibilità.
+\subsection{Requisiti non funzionali}
+I requisiti non funzionali definiscono come il sistema deve comportarsi, cioè le sue proprietà di qualità interna.
+Non aggiungono nuove funzioni, ma impongono vincoli di prestazioni, sicurezza, disponibilità, scalabilità, affidabilità e manutenibilità.
 
 \begin{table}[h]
 \caption{Tabella del tracciamento dei requisiti non funzionali}
 \label{tab:requisiti-non-funzionali}
 \begin{tabularx}{\textwidth}{lXl}
 \hline\hline
-\textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case}\\
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione}\\
 \hline
-RD1    & Pro/contro di ogni componente e criticità nell'applicazione & - \\
+RON-1    & Il sistema deve essere scalabile e consentire l'aggiunta di nuove fonti di dati o agenti senza compromettere la stabilità. & - Obbligatorio \\
 \hline
+
+\hline
+RON-2    & Il sistema deve garantire l'affidabilità nella trasmissione e nella conservazione dei dati raccolti. & - Obbligatorio \\
+\hline
+
+\hline
+RON-3    & La piattaforma deve assicurare un tempo di latenza accettabile nella visualizzazione dei dati (< 5 secondi per l'aggiornamento delle dashboard). & - Obbligatorio \\
+\hline
+
+\hline
+RDN-4    & Il sistema dovrebbe garantire la possibilità di eseguire \emph{test} di carico e stress per valutare la stabilità dell'ambiente. & - Desiderabile \\
+\hline
+
+\hline
+RDN-5    & Il sistema dovrebbe supportare l'autenticazione per la gestione degli accessi a \emph{Kibana}. & - Desiderabile \\
+\hline
+
+
 \end{tabularx}
 \end{table}%
 
 
 \newpage
-\section{Requisiti qualitativi}
-Specificano proprietà qualitative che influenzano l'esperienza d'uso, la manutenibilità o l'efficienza.
-Sono simili ai non funzionali, ma si concentrano su aspetti percepibili o progettuali, come semplicità, chiarezza, flessibilità o estendibilità.
+\subsection{Requisiti qualitativi}
+I requisiti qualitativi specificano le proprietà qualitative che influenzano l'esperienza d'uso e la manutenibilità.
+Si concentrano su aspetti percepibili, come semplicità, chiarezza, flessibilità o estendibilità.
 
 \begin{table}[h]
 \caption{Tabella del tracciamento dei requisiti qualitativi}
@@ -146,24 +169,82 @@ Sono simili ai non funzionali, ma si concentrano su aspetti percepibili o proget
 \hline\hline
 \textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case}\\
 \hline
-RO1    & Configurazione regole di alerting e notifiche per anomalie rilevate in tempo reale & - \\
+ROQ-1    & L'interfaccia di \emph{Kibana} deve offrire una rappresentazione chiara e intuitiva delle metriche principali. & - Obbligatorio \\
 \hline
+
+\hline
+ROQ-2    & I dati devono essere visualizzabili in forma aggregata e filtrabile in base a intervalli temporali e categorie di evento. & - Obbligatorio\\
+\hline
+
+\hline
+ROQ-3    & Le \emph{dashboard} devono presentare una chiara distinzione cromatica tra metriche positive, neutre e anomale. & - Obbligatorio\\
+\hline
+
+\hline
+RDQ-4    & Le \emph{dashboard} dovrebbero essere personalizzabili dall'utente secondo criteri di interesse (\emph{performance}, accessi, flussi). & - Desiderabile \\
+\hline
+
+\hline
+RZQ-5    & Il sistema può includere un \emph{layout dark/light mode} o temi grafici personalizzati per una migliore leggibilità. & - Opzionale \\
+\hline
+
 \end{tabularx}
 \end{table}%
 
 \newpage
-\section{Requisiti di vincolo}
+\subsection{Requisiti di vincolo}
 Impongono limitazioni o condizioni esterne al progetto: ambienti, tecnologie, compatibilità, strumenti, standard aziendali o legali.
 
-\begin{table}[h]
+\begin{table}[H]
 \caption{Tabella del tracciamento dei requisiti di vincolo}
 \label{tab:requisiti-vincolo}
 \begin{tabularx}{\textwidth}{lXl}
 \hline\hline
 \textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case}\\
 \hline
-RO1    & Configurazione regole di alerting e notifiche per anomalie rilevate in tempo reale & - \\
+ROV-1    & Il sistema deve utilizzare i prodotti della suite \emph{Elastic Stack} (\emph{Elasticsearch, Logstash, Kibana, Beats, APM Server/Agent}). & - Obbligatorio \\
 \hline
+
+\hline
+ROV-2    & L'ambiente operativo deve essere \emph{Linux} (\emph{Red Hat} o distribuzioni equivalenti). & - Obbligatorio \\
+\hline
+
+\hline
+ROV-3    & Tutti i componenti \emph{software} devono essere compatibili con la versione di \emph{Linux} installata sull'ambiente aziendale (es. \emph{Ubuntu 22.04 LTS} o \emph{Red Hat 9}). & - Obbligatorio \\
+\hline
+
+\hline
+ROV-4    & Le componenti devono rispettare le seguenti versioni minime:
+
+\begin{itemize}
+    \item \emph{Python} >= 3.10
+    \item \emph{Java} >= 16
+    \item \emph{Node.js} >= 17
+    \item \emph{Logstash} >= 8.10
+    \item \emph{Kibana} >= 8.10
+    \item \emph{Beats} >= 8.10
+    \item \emph{APM Server} >= 8.10
+    \item \emph{Elasticsearch} >= 8.10
+    \item \emph{OpenTelemetry} >= 1.0
+\end{itemize}& - Obbligatorio \\
+\hline
+
+\hline
+ROV-5    & La \emph{web application} deve essere compatibile con i principali \emph{browser} (\emph{Chrome} >= 120, \emph{Firefox} >= 115, \emph{Edge} >= 120, \emph{Apple Safari} >= 15). & - Obbligatorio \\
+\hline
+
+\hline
+ROV-6    & Tutte le configurazioni devono essere eseguite in un ambiente \emph{Docker} o su infrastruttura fornita da Kirey Group. & - Obbligatorio \\
+\hline
+
+\hline
+RDV-7    & La documentazione tecnica deve essere redatta in formato \emph{Markdown}, \emph{LaTeX} o \gls{pdf}, seguendo gli standard aziendali. & - Desiderabile \\
+\hline
+
+\hline
+RDV-8    & Il sistema dovrebbe consentire la distribuzione automatizzata tramite \emph{Docker Compose}. & - Desiderabile \\
+\hline
+
 \end{tabularx}
 \end{table}
 
@@ -173,33 +254,51 @@ RO1    & Configurazione regole di alerting e notifiche per anomalie rilevate in 
 \begin{center}
 \captionof{table}{Riepilogo dei requisiti}
 \label{tab:requisiti-riepilogo}
-\begin{tabular}{|l|p{10cm}|}
+\begin{tabular}{|l|c|c|c|c|}
 \hline
-\textbf{Tipologia} & \textbf{Quantità} \\
+\textbf{Tipologia} & \textbf{Obbligatorio} & \textbf{Desiderabile} & \textbf{Opzionale} & \textbf{Totale} \\
 \hline
-RF-O1 & Il sistema deve raccogliere metriche tramite agenti OpenTelemetry. \\
+\textbf{Funzionali} & 8 & 3 & 2 & 13 \\
 \hline
-RF-O2 & Le metriche devono essere inviate a Elasticsearch per l’analisi. \\
+
 \hline
+\textbf{Non funzionali} & 3 & 2 & 0 & 5 \\
+\hline
+
+\hline
+\textbf{Qualitativi} & 3 & 1 & 1 & 5 \\
+\hline
+
+\hline
+\textbf{Di Vincolo} & 6 & 2 & 0 & 8 \\
+\hline
+
+\hline
+\textbf{Totale} &  &  &  & 31 \\
+\hline
+
 \end{tabular}
 \end{center}
 
 \newpage
-\section{Rappresentazione Architetturale}
-La rappresentazione architetturale funge da ponte tra cosa il sistema deve fare e come sarà progettato.
+\section{Rappresentazione architetturale preliminare}
+La rappresentazione architetturale descrive la struttura della soluzione proposta, evidenziando le principali componenti coinvolte nel sistema di \gls{apm} e le loro relazioni. \\
+Essa costituisce il collegamento tra la fase di analisi dei requisiti e la successiva implementazione pratica. I dettagli tecnici e i diagrammi della soluzione verranno approfonditi nel capitolo dedicato alla progettazione architetturale.
 
 
-\subsection{Scelta dell'approccio architetturale}
+\subsection{Applicazione di riferimento: Spring PetClinic}
+Per la sperimentazione del sistema di \gls{apm} è stata utilizzata come applicazione di riferimento \emph{Spring PetClinic}, una \emph{web application} \emph{open source} sviluppata in \emph{Java} e basata sul \emph{framework} \emph{Spring Boot}.  
+La scelta di \emph{PetClinic} è motivata dalla sua architettura chiara e ben documentata, composta da un livello di presentazione (\emph{controller} e \emph{template}), un livello logico (servizi) e un livello di persistenza (\emph{repository} e \emph{database} \gls{mysqlg}\glsfirstoccur).  
+Tale struttura consente di osservare comportamenti applicativi realistici, come chiamate \gls{httpg}\glsfirstoccur, interazioni con il \emph{database} e logiche di \emph{business}, fornendo un contesto ideale per testare le funzionalità di monitoraggio offerte da \emph{Elastic APM} e \emph{OpenTelemetry}.  
+
+\begin{figure}[!h] 
+    \centering 
+    \includegraphics[width=\columnwidth]{Architettura_PetClinic.png} 
+    \caption{Figura 3.1 - Architettura di Spring PetClinic}
+\end{figure}
 
 
+L'applicazione \emph{PetClinic} verrà quindi utilizzata come caso di studio per la validazione della soluzione di monitoraggio proposta, analizzando successivamente il modo in cui i diversi moduli architetturali interagiscono con essa.
 
-\subsection{Diagrammi architetturali principali}
-
-
-
-\subsection{Mappatura dei requisiti}
-Collega i requisiti definiti nella sezione 2 con i moduli architetturali che li soddisfano.
-
-
-
-\section{Conclusioni}
+%\section{Conclusioni}
+%Il presente capitolo ha illustrato l'analisi dei requisiti del sistema di \gls{apm}, la loro classificazione e la relativa mappatura sulle componenti principali dell'architettura prevista.  
