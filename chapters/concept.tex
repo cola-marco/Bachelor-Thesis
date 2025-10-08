@@ -3,76 +3,203 @@
 
 \intro{Il capitolo è dedicato all'analisi dei requisiti della piattaforma, con l'obiettivo di fornire una visione completa e dettagliata delle funzionalità e delle caratteristiche attese dal sistema. Verranno illustrate le esigenze degli utenti e del contesto operativo, evidenziando le specifiche tecniche e le funzionalità che hanno guidato le scelte progettuali.}\\
 
-\section{Casi d'uso}
+%\section{Casi d'uso}
 
-Per lo studio dei casi di utilizzo del prodotto sono stati creati dei diagrammi.
-I diagrammi dei casi d'uso (in inglese \emph{Use Case Diagram}) sono diagrammi di tipo \gls{uml}\glsfirstoccur dedicati alla descrizione delle funzioni o servizi offerti da un sistema, così come sono percepiti e utilizzati dagli attori che interagiscono col sistema stesso. \\
-Nel contesto del progetto, volto alla creazione di una piattaforma di monitoraggio per applicazioni \emph{web} con strumenti di \gls{apmg} e componenti di intelligenza artificiale per l’analisi automatica dei dati, le interazioni da parte dell’utente sono ridotte allo stretto necessario. Questo approccio minimizza l’intervento manuale, garantendo che le funzionalità principali siano accessibili in maniera intuitiva e diretta. Di conseguenza, i diagrammi dei casi d’uso risultano semplici e in numero limitato, focalizzati sulle operazioni essenziali per la raccolta, l’analisi e la visualizzazione dei dati di monitoraggio.
+%Per lo studio dei casi di utilizzo del prodotto sono stati creati dei diagrammi.
+%I diagrammi dei casi d'uso (in inglese \emph{Use Case Diagram}) sono diagrammi di tipo \gls{uml}\glsfirstoccur dedicati alla descrizione delle funzioni o servizi offerti da un sistema, così come sono percepiti e utilizzati dagli attori che interagiscono col sistema stesso. \\
+%Nel contesto del progetto, volto alla creazione di una piattaforma di monitoraggio per applicazioni \emph{web} con strumenti di \gls{apmg} e componenti di intelligenza artificiale per l’analisi automatica dei dati, le interazioni da parte dell’utente sono ridotte allo stretto necessario. Questo approccio minimizza l’intervento manuale, garantendo che le funzionalità principali siano accessibili in maniera intuitiva e diretta. Di conseguenza, i diagrammi dei casi d’uso risultano semplici e in numero limitato, focalizzati sulle operazioni essenziali per la raccolta, l’analisi e la visualizzazione dei dati di monitoraggio.
 
-\begin{figure}[!h] 
-    \centering 
-    \includegraphics[width=0.9\columnwidth]{usecase/scenario-principale} 
-    \caption{Use Case - UC0: Scenario principale}
-\end{figure}
+%\begin{figure}[!h] 
+    %\centering 
+    %\includegraphics[width=0.9\columnwidth]{usecase/scenario-principale} 
+    %\caption{Use Case - UC0: Scenario principale}
+%\end{figure}
 
-\begin{usecase}{0}{Scenario principale}
-\usecaseactors{Sviluppatore applicativi}
-\usecasepre{Lo sviluppatore è entrato nel plug-in di simulazione all'interno dell'IDE}
-\usecasedesc{La finestra di simulazione mette a disposizione i comandi per configurare, registrare o eseguire un test}
-\usecasepost{Il sistema è pronto per permettere una nuova interazione}
-\label{uc:scenario-principale}
-\end{usecase}
+%\begin{usecase}{0}{Scenario principale}
+%\usecaseactors{Sviluppatore applicativi}
+%\usecasepre{Lo sviluppatore è entrato nel plug-in di simulazione all'interno dell'IDE}
+%\usecasedesc{La finestra di simulazione mette a disposizione i comandi per configurare, registrare o eseguire un test}
+%\usecasepost{Il sistema è pronto per permettere una nuova interazione}
+%\label{uc:scenario-principale}
+%\end{usecase}
 
 \section{Tracciamento dei requisiti}
 
-Da un'attenta analisi dei requisiti e degli use case effettuata sul progetto è stata stilata la tabella che traccia i requisiti in rapporto agli \emph{use case}.\\
-Sono stati individuati diversi tipi di requisiti e si è quindi fatto utilizzo di un codice identificativo per distinguerli.\\
-Il codice dei requisiti è così strutturato R(F/Q/V)(N/D/O) dove:
-\begin{enumerate}
-	\item[R =] requisito
-    \item[F =] funzionale
-    \item[Q =] qualitativo
-    \item[V =] di vincolo
-    \item[N =] obbligatorio (necessario)
-    \item[D =] desiderabile
-    \item[Z =] opzionale
-\end{enumerate}
-Nelle tabelle \ref{tab:requisiti-funzionali}, \ref{tab:requisiti-qualitativi} e \ref{tab:requisiti-vincolo} sono riassunti i requisiti e il loro tracciamento con gli use case delineati in fase di analisi.
+A seguito di un'attenta attività di analisi del progetto e degli obiettivi tecnici e funzionali prefissati, sono state redatte le tabelle di tracciamento che riassumono in modo strutturato i requisiti individuati. \\
+Durante questa fase sono state identificate differenti tipologie di requisiti, distinte sia in base alla loro categoria (funzionale, non funzionale, qualitativo o di vincolo), sia in base alla loro priorità di implementazione (obbligatorio, desiderabile o opzionale).
+Per garantire una tracciabilità chiara e univoca, a ciascun requisito è stato assegnato un codice identificativo composto da lettere che ne descrivono la tipologia e l'importanza, secondo la seguente convenzione:
+\begin{description}
+	\item [R =] Requisito
+	\item [F =] Funzionale
+    \item [N =] Non funzionale
+    \item [Q =] Qualitativo
+    \item [V =] Vincolo
+    \item [O =] Obbligatorio
+    \item [D =] Desiderabile
+    \item [Z =] Opzionale
+\end{description}
 
 \newpage
 
-\begin{table}%
-\caption{Tabella del tracciamento dei requisti funzionali}
+Ogni requisito analizzato sarà identificato univocamente dalla seguente notazione:
+\begin{center}
+    \textbf{R[Priorità][Categoria]-[Numero]}
+\end{center}
+Dove:
+
+\begin{itemize}
+    \item \textbf{Priorità} indica la priorità di implementazione, che può essere O = Obbligatorio, D = Desiderabile, Z = Opzionale;
+    \item \textbf{Categoria} la categoria di appartenenza, che può essere F = Funzionale, N = Non funzionale, Q = Qualitativo, V = Vincolo;
+    \item \textbf{Numero} un numero progressivo che identifica in modo univoco il requisito all'interno della sua categoria.
+\end{itemize}
+Nelle tabelle \ref{tab:requisiti-funzionali}, \ref{tab:requisiti-non-funzionali}, \ref{tab:requisiti-qualitativi} e \ref{tab:requisiti-vincolo} sono riportati in modo sintetico tutti i requisiti emersi dall'analisi, classificati in base alla loro priorità e accompagnati da una breve descrizione della relativa funzionalità o vincolo tecnico. \\
+
+
+\newpage
+\section{Requisiti funzionali}
+Descrivono cosa deve fare il sistema.
+Sono le funzionalità concrete che la soluzione deve offrire per raggiungere gli obiettivi del progetto.
+
+\begin{table}[h]
+\caption{Tabella del tracciamento dei requisiti funzionali}
 \label{tab:requisiti-funzionali}
 \begin{tabularx}{\textwidth}{lXl}
 \hline\hline
-\textbf{Requisito} & \textbf{Descrizione} & \textbf{Use Case}\\
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione}\\
 \hline
-RFN-1     & L'interfaccia permette di configurare il tipo di sonde del test & UC1 \\
+RO1     & Individuazione delle componenti ed eventuali librerie da utilizzare & Obbligatorio \\
+\hline
+
+\hline
+RO2     & Installazione e configurazione delle componenti & UC2 \\
+\hline
+
+\hline
+RO3     & Verifica del corretto funzionamento dell'ambiente e test di connettività tra componenti & UC3 \\
+\hline
+
+\hline
+RO4     & Configurazione agent (Beats/APM) per la raccolta dati della navigazione & UC3 \\
+\hline
+
+\hline
+RO5     & Implementazione pipeline di log tramite Logstash per filtraggio e inoltro dati in Elasticsearch & UC3 \\
+\hline
+
+\hline
+RO6     & Verifica della corretta acquisizione dei dati e loro indicizzazione in Elasticsearch & UC3 \\
+\hline
+
+\hline
+RO7     & Sviluppo script Python/Java per il monitoraggio sintetico (Selenium) e generazione di traffico log & UC3 \\
+\hline
+
+\hline
+RO8     & Analisi e aggregazione dati in Elasticsearch, con query e visualizzazioni preliminari & UC3 \\
+\hline
+
+\hline
+RO8     & Analisi e aggregazione dati in Elasticsearch, con query e visualizzazioni preliminari & UC3 \\
+\hline
+
+\hline
+RO9     & Creazione dashboard avanzate su Kibana con metriche di performance, accesso e flussi utente & UC3 \\
+\hline
+
+\hline
+RO10     & Descrizione delle tecnologie e prodotti utilizzati & UC3 \\
+\hline
+
+\hline
+RO11     & Descrizione dei flussi logici del progetto e delle funzionalità dell'applicazione & UC3 \\
 \hline
 \end{tabularx}
 \end{table}%
 
-\begin{table}%
+\newpage
+\section{Requisiti non funzionali}
+Definiscono come il sistema deve comportarsi, cioè le sue proprietà di qualità interna.
+Non aggiungono nuove funzioni, ma impongono vincoli di prestazioni, sicurezza, disponibilità, scalabilità, affidabilità, manutenibilità.
+
+\begin{table}[h]
+\caption{Tabella del tracciamento dei requisiti non funzionali}
+\label{tab:requisiti-non-funzionali}
+\begin{tabularx}{\textwidth}{lXl}
+\hline\hline
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case}\\
+\hline
+RD1    & Pro/contro di ogni componente e criticità nell'applicazione & - \\
+\hline
+\end{tabularx}
+\end{table}%
+
+
+\newpage
+\section{Requisiti qualitativi}
+Specificano proprietà qualitative che influenzano l'esperienza d'uso, la manutenibilità o l'efficienza.
+Sono simili ai non funzionali, ma si concentrano su aspetti percepibili o progettuali, come semplicità, chiarezza, flessibilità o estendibilità.
+
+\begin{table}[h]
 \caption{Tabella del tracciamento dei requisiti qualitativi}
 \label{tab:requisiti-qualitativi}
 \begin{tabularx}{\textwidth}{lXl}
 \hline\hline
-\textbf{Requisito} & \textbf{Descrizione} & \textbf{Use Case}\\
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case}\\
 \hline
-RQD-1    & Le prestazioni del simulatore hardware deve garantire la giusta esecuzione dei test e non la generazione di falsi negativi & - \\
+RO1    & Configurazione regole di alerting e notifiche per anomalie rilevate in tempo reale & - \\
 \hline
 \end{tabularx}
 \end{table}%
 
-\begin{table}%
+\newpage
+\section{Requisiti di vincolo}
+Impongono limitazioni o condizioni esterne al progetto: ambienti, tecnologie, compatibilità, strumenti, standard aziendali o legali.
+
+\begin{table}[h]
 \caption{Tabella del tracciamento dei requisiti di vincolo}
 \label{tab:requisiti-vincolo}
 \begin{tabularx}{\textwidth}{lXl}
 \hline\hline
-\textbf{Requisito} & \textbf{Descrizione} & \textbf{Use Case}\\
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case}\\
 \hline
-RVO-1    & La libreria per l'esecuzione dei test automatici deve essere riutilizzabile & - \\
+RO1    & Configurazione regole di alerting e notifiche per anomalie rilevate in tempo reale & - \\
 \hline
 \end{tabularx}
-\end{table}%
+\end{table}
+
+\newpage
+\section{Riepilogo dei requisiti}
+
+\begin{center}
+\captionof{table}{Riepilogo dei requisiti}
+\label{tab:requisiti-riepilogo}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Tipologia} & \textbf{Quantità} \\
+\hline
+RF-O1 & Il sistema deve raccogliere metriche tramite agenti OpenTelemetry. \\
+\hline
+RF-O2 & Le metriche devono essere inviate a Elasticsearch per l’analisi. \\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+\section{Rappresentazione Architetturale}
+La rappresentazione architetturale funge da ponte tra cosa il sistema deve fare e come sarà progettato.
+
+
+\subsection{Scelta dell'approccio architetturale}
+
+
+
+\subsection{Diagrammi architetturali principali}
+
+
+
+\subsection{Mappatura dei requisiti}
+Collega i requisiti definiti nella sezione 2 con i moduli architetturali che li soddisfano.
+
+
+
+\section{Conclusioni}
