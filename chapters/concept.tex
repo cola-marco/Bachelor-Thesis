@@ -291,6 +291,26 @@ La rappresentazione architetturale descrive la struttura della soluzione propost
 Essa costituisce il collegamento tra la fase di analisi dei requisiti e la successiva implementazione pratica. I dettagli tecnici e i diagrammi della soluzione verranno approfonditi nel capitolo dedicato alla progettazione architetturale.
 
 
+\subsection{Struttura generale della soluzione di monitoraggio}
+La soluzione di \gls{apm} proposta si basa su un'architettura modulare che integra diversi componenti dell'\emph{Elastic Stack} e strumenti di osservabilità \emph{open source}.
+Gli agenti \textit{OpenTelemetry} installati sull'applicazione \textit{Spring PetClinic} raccolgono metriche e tracce relative all'esecuzione delle richieste, che vengono inviate all'\textit{APM Server}.
+Quest'ultimo elabora e normalizza i dati, inoltrandoli a \textit{Elasticsearch} per l'indicizzazione e la persistenza.
+I dati così organizzati vengono infine consultati e analizzati tramite \textit{Kibana}, che fornisce una visualizzazione interattiva delle metriche e la possibilità di configurare \emph{dashboard} e regole di \emph{alerting}.
+
+
+\subsection{Integrazione dei componenti principali}
+L'architettura della soluzione di monitoraggio si compone dei seguenti moduli principali:
+\begin{itemize}
+    \item \textbf{OpenTelemetry:} fornisce gli agenti per la raccolta di metriche, tracce e \emph{log} dall'applicazione \emph{Spring PetClinic}. Questi agenti sono integrati direttamente nel codice dell'applicazione e inviano i dati all'\emph{APM Server};
+    \item \textbf{Elastic APM Server:} riceve i dati dalle sonde \emph{OpenTelemetry} e li converte in un formato compatibile con \emph{Elasticsearch};
+    \item \textbf{Logstash:} funge da \emph{pipeline} di pre-elaborazione: filtra, arricchisce e reindirizza i dati, ad esempio separando \emph{log} applicativi, metriche di \emph{performance} e tracce di richiesta;
+    \item \textbf{Elasticsearch:} immagazzina i dati indicizzati e li rende interrogabili in tempo reale;
+    \item \textbf{Kibana:} consente la visualizzazione e l'analisi delle metriche, oltre alla configurazione di \emph{dashboard}, avvisi e \emph{query} analitiche.
+\end{itemize}
+
+(Immagine interazione APM)
+
+
 \subsection{Applicazione di riferimento: Spring PetClinic}
 Per la sperimentazione del sistema di \gls{apm} è stata utilizzata come applicazione di riferimento \emph{Spring PetClinic}, una \emph{web application} \emph{open source} sviluppata in \emph{Java} e basata sul \emph{framework} \emph{Spring Boot}.  
 La scelta di \emph{PetClinic} è motivata dalla sua architettura chiara e ben documentata, composta da un livello di presentazione (\emph{controller} e \emph{template}), un livello logico (servizi) e un livello di persistenza (\emph{repository} e \emph{database} \gls{mysqlg}\glsfirstoccur).  
@@ -304,6 +324,66 @@ Tale struttura consente di osservare comportamenti applicativi realistici, come 
 
 
 L'applicazione \emph{PetClinic} verrà quindi utilizzata come caso di studio per la validazione della soluzione di monitoraggio proposta, analizzando successivamente il modo in cui i diversi moduli architetturali interagiscono con essa.
+
+
+
+\subsection{Metriche osservate e casi d'uso}
+I casi d'uso descrivono le principali interazioni tra l'utente del sistema di \gls{apm} e la piattaforma di monitoraggio. \\
+Nel contesto del progetto, l'attore principale è l'\emph{Observability Engineer}, ossia la figura responsabile dell'analisi delle prestazioni applicative, della configurazione delle \emph{dashboard} e dell'interpretazione delle metriche raccolte tramite \emph{Elastic APM}, \emph{Logstash} ed \emph{Elasticsearch}.  
+Tale figura si occupa di garantire la corretta osservabilità dell'applicazione monitorata, identificando tempestivamente anomalie e ottimizzando il comportamento del sistema. \\
+La soluzione di \gls{apm} sviluppata è destinata a un'utenza tecnica interna, composta da personale specializzato nell'ambito dell'\emph{observability}. \\
+Le interazioni descritte di seguito rappresentano scenari tipici di utilizzo delle funzionalità fornite da \emph{Kibana} e dagli strumenti di monitoraggio associati, con particolare riferimento all'applicazione \emph{Spring PetClinic} utilizzata come caso di studio.
+
+\vspace{1em}
+
+\begin{figure}[!h] 
+    \centering 
+    \includegraphics[width=0.9\columnwidth]{usecase/scenario-principale} 
+    \caption{Use Case - UC0: Scenario principale}
+\end{figure}
+
+\begin{usecase}{0}{Analisi delle prestazioni applicative}
+\usecaseactors{Observability Engineer}
+\usecasepre{Il sistema \gls{apm} è correttamente configurato e sta ricevendo metriche dall'applicazione \emph{Spring PetClinic}}
+\usecasedesc{L'utente accede a \emph{Kibana} e consulta la dashboard dedicata alle metriche di \emph{performance} per analizzare i tempi medi di risposta degli \emph{endpoint}, individuando eventuali colli di bottiglia o aumenti anomali della latenza}
+\usecasepost{Le metriche sono interpretate e vengono individuate le aree critiche su cui intervenire}
+\label{uc:analisi-prestazioni}
+\end{usecase}
+
+\vspace{0.5em}
+
+\begin{usecase}{1}{Monitoraggio delle risorse del sistema}
+\usecaseactors{Observability Engineer}
+\usecasepre{Le sonde di \emph{OpenTelemetry} e gli agenti \emph{Elastic APM} sono attivi sull'ambiente di esecuzione}
+\usecasedesc{L'utente consulta la \emph{dashboard} di sistema per monitorare l'utilizzo di \gls{cpug}\glsfirstoccur, memoria e connessioni attive, verificando la corretta gestione delle risorse e la stabilità dell'ambiente}
+\usecasepost{L'utente ottiene una panoramica aggiornata dello stato del sistema, utile per valutare l'efficienza dell'infrastruttura}
+\label{uc:monitoraggio-risorse}
+\end{usecase}
+
+\vspace{0.5em}
+
+\begin{usecase}{2}{Rilevazione di errori applicativi}
+\usecaseactors{Observability Engineer}
+\usecasepre{Le metriche di log e tracing sono inviate correttamente a \emph{Elasticsearch} tramite \emph{Logstash}}
+\usecasedesc{L'utente analizza in \emph{Kibana} i log applicativi e le tracce distribuite per identificare errori o eccezioni ricorrenti, filtrandoli per servizio o \emph{endpoint}}
+\usecasepost{Gli errori vengono tracciati e catalogati, permettendo di individuare le cause e pianificare interventi correttivi}
+\label{uc:rilevazione-errori}
+\end{usecase}
+
+\vspace{0.5em}
+
+\begin{usecase}{3}{Gestione delle regole di alerting}
+\usecaseactors{Observability Engineer}
+\usecasepre{Le dashboard e le metriche principali sono già configurate in \emph{Kibana}}
+\usecasedesc{L'utente definisce soglie di allarme per tempi di risposta, errori \gls{httpg} o utilizzo eccessivo delle risorse. In caso di superamento dei valori critici, \emph{Kibana} genera notifiche o invia alert via e-mail}
+\usecasepost{Il sistema invia automaticamente notifiche di anomalia, consentendo un intervento tempestivo per ripristinare le condizioni ottimali}
+\label{uc:gestione-alerting}
+\end{usecase}
+
+\vspace{1em}
+
+Queste informazioni saranno rappresentate tramite \emph{dashboard} dedicate in Kibana, che consentono una visualizzazione interattiva e la definizione di soglie di \emph{alerting} personalizzate.
+
 
 %\section{Conclusioni}
 %Il presente capitolo ha illustrato l'analisi dei requisiti del sistema di \gls{apm}, la loro classificazione e la relativa mappatura sulle componenti principali dell'architettura prevista.  
