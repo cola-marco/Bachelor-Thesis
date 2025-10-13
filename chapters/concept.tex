@@ -342,28 +342,40 @@ L'applicazione \emph{PetClinic} verrà quindi utilizzata come caso di studio per
 Le seguenti \emph{user stories} descrivono brevemente i principali scenari di utilizzo del sistema di \gls{apm}, evidenziando gli obiettivi e le esigenze degli utenti tecnici aziendali che operano sulla piattaforma di monitoraggio.  
 L'unico attore considerato è l'\emph{Observability Engineer}, figura responsabile della configurazione, analisi e manutenzione del sistema all'interno dell'infrastruttura aziendale.
 
-
-\begin{center}
-\captionof{table}{User stories}
-\label{tab:user-stories}
-\begin{tabularx}{\textwidth}{|c|X|X|}
+\centering
+\begin{longtable}{|p{1cm}|p{8cm}|p{3cm}|}
+\caption{User Stories}
+\label{tab:user-stories} \\
 \hline
 \rowcolor[gray]{0.8}
 \textbf{ID} & \textbf{User Story} & \textbf{Obiettivo} \\
 \hline
+\endfirsthead
+
+\hline
 \textbf{US1} & Come \emph{Observability Engineer}, voglio analizzare i tempi medi di risposta degli \emph{endpoint} dell'applicazione per individuare colli di bottiglia o degradi di \emph{performance}. & Ottimizzare le prestazioni applicative. \\
 \hline
-\textbf{US2} & Come \emph{Observability Engineer}, voglio monitorare l'utilizzo di \gls{cpug}, memoria e connessioni per valutare la stabilità del sistema e prevenire sovraccarichi. & Garantire la corretta gestione delle risorse. \\
+\textbf{US2} & Come \emph{Observability Engineer}, voglio monitorare l'utilizzo di \gls{cpug}, memoria e connessioni per valutare la stabilità del sistema. & Garantire la corretta gestione delle risorse. \\
 \hline
-\textbf{US3} & Come \emph{Observability Engineer}, voglio rilevare e classificare errori e anomalie dai \emph{log} e dalle tracce distribuite per identificare rapidamente le cause dei malfunzionamenti. & Migliorare l'affidabilità del sistema. \\
+\textbf{US3} & Come \emph{Observability Engineer}, voglio rilevare e classificare errori e anomalie dai \emph{log} per identificare rapidamente le cause dei malfunzionamenti. & Migliorare l'affidabilità del sistema. \\
 \hline
-\textbf{US4} & Come \emph{Observability Engineer}, voglio configurare regole di \emph{alerting} in \emph{Kibana} per essere notificato in caso di anomalie o soglie critiche superate. & Ridurre i tempi di risposta agli incidenti. \\
+\textbf{US4} & Come \emph{Observability Engineer}, voglio configurare regole di \emph{alerting} in \emph{Kibana} per essere notificato in caso di anomalie. & Ridurre i tempi di risposta agli incidenti. \\
 \hline
 \textbf{US5} & Come \emph{Observability Engineer}, voglio visualizzare le metriche aggregate in \emph{dashboard} personalizzate in modo da avere una panoramica chiara dello stato del sistema. & Facilitare l'analisi e la comunicazione dei risultati. \\
 \hline
+\textbf{US6} & Come \emph{Observability Engineer}, voglio integrare l'\emph{APM Agent Java} e il \emph{RUM Agent JavaScript} per raccogliere rispettivamente metriche di \emph{backend} e \emph{frontend}. & Avere una visione completa del comportamento dell'applicazione. \\
+\hline
+\textbf{US7} & Come \emph{Observability Engineer}, voglio configurare e gestire gli agenti tramite \emph{Fleet} per garantire una distribuzione e un aggiornamento centralizzati. & Semplificare la manutenzione e ridurre gli errori di configurazione. \\
+\hline
+\textbf{US8} & Come \emph{Observability Engineer}, voglio eseguire \emph{test} sintetici periodici per monitorare la disponibilità e i tempi di risposta delle pagine principali. & Garantire la continuità operativa e le prestazioni del servizio. \\
+\hline
+\textbf{US9} & Come \emph{Observability Engineer}, voglio esportare le \emph{dashboard} in formato \gls{pdf} o \gls{csv} per la condivisione all'interno del team. & Documentare e condividere le analisi in modo efficace. \\
+\hline
+\textbf{US10} & Come \emph{Observability Engineer}, voglio ricevere notifiche automatiche via email quando vengono superate determinate soglie di prestazione. & Automatizzare la gestione degli incidenti e migliorare il tempo di reazione. \\
+\hline
+\end{longtable}
 
-\end{tabularx}
-\end{center}
+
 
 \vspace{1em}
 
