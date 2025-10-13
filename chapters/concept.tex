@@ -292,10 +292,11 @@ Essa costituisce il collegamento tra la fase di analisi dei requisiti e la succe
 
 
 \subsection{Struttura generale della soluzione di monitoraggio}
-La soluzione di \gls{apm} proposta si basa su un'architettura modulare che integra diversi componenti dell'\emph{Elastic Stack} e strumenti di osservabilità \emph{open source}.
-Gli agenti \textit{OpenTelemetry} installati sull'applicazione \textit{Spring PetClinic} raccolgono metriche e tracce relative all'esecuzione delle richieste, che vengono inviate all'\textit{APM Server}.
-Quest'ultimo elabora e normalizza i dati, inoltrandoli a \textit{Elasticsearch} per l'indicizzazione e la persistenza.
-I dati così organizzati vengono infine consultati e analizzati tramite \textit{Kibana}, che fornisce una visualizzazione interattiva delle metriche e la possibilità di configurare \emph{dashboard} e regole di \emph{alerting}.
+La soluzione di \gls{apm} proposta si fonda su un'architettura modulare che integra i principali componenti dell'\emph{Elastic Stack}, garantendo un sistema di osservabilità completo.  
+L'applicazione \emph{Spring PetClinic} viene monitorata attraverso due agenti: l'\emph{APM Agent Java}, che raccoglie metriche e tracce lato \emph{backend}, e il \emph{RUM Agent JavaScript}, che monitora le prestazioni e le interazioni utente sul \emph{frontend}.  
+I dati generati dagli agenti vengono inviati al \emph{Fleet Server}, che gestisce in modo centralizzato gli \emph{Elastic Agent} e i relativi moduli, tra cui l'\emph{APM Server}.  
+Quest'ultimo riceve, elabora e normalizza i dati di monitoraggio, inoltrandoli successivamente a \emph{Elasticsearch} per l'indicizzazione e la conservazione.  
+Le informazioni archiviate vengono poi esplorate e analizzate tramite \emph{Kibana}, che offre funzionalità avanzate di visualizzazione, creazione di \emph{dashboard} interattive e configurazione di regole di \emph{alerting} e \emph{Synthetic Monitoring}.  
 
 
 \subsection{Integrazione dei componenti principali}
@@ -305,13 +306,13 @@ L'architettura della soluzione di monitoraggio si compone dei seguenti moduli pr
     
     \item \textbf{Kibana:} interfaccia di visualizzazione e analisi integrata con \emph{Elasticsearch}, consente di visualizzare metriche e tracce applicative, creare \emph{dashboard} personalizzate e configurare regole di \emph{alerting} per il monitoraggio del sistema;
     
-    \item \textbf{Fleet:} componente centralizzato per la gestione e la configurazione degli agenti \emph{Elastic}. Attraverso il \emph{Fleet Server}, coordina la comunicazione con gli \emph{Elastic Agents} distribuiti, semplificando l'aggiornamento e la supervisione delle istanze di monitoraggio;
+    \item \textbf{Fleet:} componente centralizzato per la gestione e la configurazione degli agenti \emph{Elastic}. Attraverso il \emph{Fleet Server}, coordina la comunicazione con gli \emph{Elastic Agents};
     
     \item \textbf{Elastic APM Server:} incluso all'interno dell'\emph{Elastic Agent}, riceve i dati di telemetria provenienti dagli agenti applicativi (\gls{apmg} e \gls{rumg}\glsfirstoccur), li elabora e li inoltra a \emph{Elasticsearch} in formato ottimizzato per la successiva analisi e visualizzazione;
     
-    \item \textbf{APM Agent Java:} agente integrato nel \emph{backend} dell'applicazione \emph{Spring PetClinic}, responsabile del tracciamento automatico delle transazioni, delle chiamate ai servizi e delle operazioni sul database. Fornisce metriche dettagliate sulle prestazioni del server applicativo;
+    \item \textbf{APM Agent Java:} agente integrato nel \emph{backend} dell'applicazione \emph{Spring PetClinic}, responsabile del tracciamento automatico delle transazioni, delle chiamate ai servizi e delle operazioni sul database;
     
-    \item \textbf{RUM Agent JavaScript:} agente di monitoraggio \emph{Real User Monitoring} eseguito nel \emph{frontend} dell'applicazione, che raccoglie dati sulle interazioni utente, sui tempi di caricamento delle pagine e sulle prestazioni percepite nel browser;
+    \item \textbf{RUM Agent JavaScript:} agente di monitoraggio \gls{rumg} eseguito nel \emph{frontend} dell'applicazione, che raccoglie dati sulle interazioni utente, sui tempi di caricamento delle pagine e sulle prestazioni percepite nel browser;
     
 \end{itemize}
 
@@ -340,7 +341,7 @@ L'applicazione \emph{PetClinic} verrà quindi utilizzata come caso di studio per
 
 \subsection{User Stories e scenari di utilizzo}
 Le seguenti \emph{user stories} descrivono brevemente i principali scenari di utilizzo del sistema di \gls{apm}, evidenziando gli obiettivi e le esigenze degli utenti tecnici aziendali che operano sulla piattaforma di monitoraggio.  
-L'unico attore considerato è l'\emph{Observability Engineer}, figura responsabile della configurazione, analisi e manutenzione del sistema all'interno dell'infrastruttura aziendale.
+L'unico attore considerato è l'\emph{Observability Engineer}, figura responsabile della configurazione, analisi e manutenzione del sistema all'interno dell'azienda.
 
 \centering
 \begin{longtable}{|p{1cm}|p{8cm}|p{3cm}|}
@@ -355,24 +356,52 @@ L'unico attore considerato è l'\emph{Observability Engineer}, figura responsabi
 \hline
 \textbf{US1} & Come \emph{Observability Engineer}, voglio analizzare i tempi medi di risposta degli \emph{endpoint} dell'applicazione per individuare colli di bottiglia o degradi di \emph{performance}. & Ottimizzare le prestazioni applicative. \\
 \hline
+
 \textbf{US2} & Come \emph{Observability Engineer}, voglio monitorare l'utilizzo di \gls{cpug}, memoria e connessioni per valutare la stabilità del sistema. & Garantire la corretta gestione delle risorse. \\
 \hline
+
 \textbf{US3} & Come \emph{Observability Engineer}, voglio rilevare e classificare errori e anomalie dai \emph{log} per identificare rapidamente le cause dei malfunzionamenti. & Migliorare l'affidabilità del sistema. \\
 \hline
+
 \textbf{US4} & Come \emph{Observability Engineer}, voglio configurare regole di \emph{alerting} in \emph{Kibana} per essere notificato in caso di anomalie. & Ridurre i tempi di risposta agli incidenti. \\
 \hline
-\textbf{US5} & Come \emph{Observability Engineer}, voglio visualizzare le metriche aggregate in \emph{dashboard} personalizzate in modo da avere una panoramica chiara dello stato del sistema. & Facilitare l'analisi e la comunicazione dei risultati. \\
+
+\textbf{US5} & Come \emph{Observability Engineer}, voglio visualizzare le metriche aggregate in \emph{dashboard} personalizzate. & Facilitare l'analisi e la comunicazione dei risultati. \\
 \hline
-\textbf{US6} & Come \emph{Observability Engineer}, voglio integrare l'\emph{APM Agent Java} e il \emph{RUM Agent JavaScript} per raccogliere rispettivamente metriche di \emph{backend} e \emph{frontend}. & Avere una visione completa del comportamento dell'applicazione. \\
+
+\textbf{US6} & Come \emph{Observability Engineer}, voglio visualizzare in \emph{Kibana} le metriche di prestazione del \emph{backend} (tempi medi di risposta, \emph{throughput}, tasso di errore, durata media delle transazioni) per valutare lo stato di salute dell'applicazione. & Monitorare le prestazioni e la stabilità del servizio. \\
 \hline
-\textbf{US7} & Come \emph{Observability Engineer}, voglio configurare e gestire gli agenti tramite \emph{Fleet} per garantire una distribuzione e un aggiornamento centralizzati. & Semplificare la manutenzione e ridurre gli errori di configurazione. \\
+
+\textbf{US7} & Come \emph{Observability Engineer}, voglio visualizzare metriche di utilizzo delle risorse di sistema (\gls{cpug}, memoria, disco, rete) per individuare potenziali colli di bottiglia. & Ottimizzare l'efficienza del sistema. \\
 \hline
-\textbf{US8} & Come \emph{Observability Engineer}, voglio eseguire \emph{test} sintetici periodici per monitorare la disponibilità e i tempi di risposta delle pagine principali. & Garantire la continuità operativa e le prestazioni del servizio. \\
+
+\textbf{US8} & Come \emph{Observability Engineer}, voglio analizzare in \emph{Kibana} le metriche relative al comportamento degli utenti (\emph{page load time}, errori JavaScript, interazioni lente) raccolte dal \emph{RUM Agent}. & Migliorare l'esperienza utente. \\
 \hline
-\textbf{US9} & Come \emph{Observability Engineer}, voglio esportare le \emph{dashboard} in formato \gls{pdf} o \gls{csv} per la condivisione all'interno del team. & Documentare e condividere le analisi in modo efficace. \\
+
+\textbf{US9} & Come \emph{Observability Engineer}, voglio correlare in un'unica \emph{dashboard} le metriche di infrastruttura, \emph{application performance} e \emph{user experience}, per ottenere una visione completa del sistema. & Favorire un'analisi integrata e diretta delle anomalie. \\
 \hline
-\textbf{US10} & Come \emph{Observability Engineer}, voglio ricevere notifiche automatiche via email quando vengono superate determinate soglie di prestazione. & Automatizzare la gestione degli incidenti e migliorare il tempo di reazione. \\
+
+\textbf{US10} & Come \emph{Observability Engineer}, voglio integrare l'\emph{APM Agent Java} e il \emph{RUM Agent JavaScript} per raccogliere rispettivamente metriche di \emph{backend} e \emph{frontend}. & Avere una visione completa del comportamento dell'applicazione. \\
 \hline
+
+\textbf{US11} & Come \emph{Observability Engineer}, voglio configurare e gestire gli agenti tramite \emph{Fleet} per garantire una distribuzione e un aggiornamento centralizzati. & Semplificare la manutenzione e ridurre gli errori di configurazione. \\
+\hline
+
+\textbf{US12} & Come \emph{Observability Engineer}, voglio eseguire \emph{test} sintetici periodici per monitorare la disponibilità e i tempi di risposta delle pagine. & Garantire la continuità operativa. \\
+\hline
+
+\textbf{US13} & Come \emph{Observability Engineer}, voglio esportare le \emph{dashboard} in formato \gls{pdf} o \gls{csv} per la condivisione all'interno del team. & Documentare e condividere le analisi in modo efficace. \\
+\hline
+
+\textbf{US14} & Come \emph{Observability Engineer}, voglio ricevere notifiche automatiche via email quando vengono superate determinate soglie di prestazione. & Automatizzare la gestione degli incidenti e migliorare il tempo di reazione. \\
+\hline
+
+\textbf{US15} & Come \emph{Observability Engineer}, voglio configurare in \emph{Kibana} job di \emph{Machine Learning} per l’individuazione automatica di anomalie. & Rilevare comportamenti anomali senza intervento manuale. \\
+\hline
+
+\textbf{US16} & Come \emph{Observability Engineer}, voglio visualizzare in \emph{Kibana} i risultati dei job di \emph{Machine Learning} (anomalie, trend, previsioni) integrati nelle \emph{dashboard} operative. & Integrare l'analisi automatica con la visualizzazione interattiva dei dati. \\
+\hline
+
 \end{longtable}
 
 
