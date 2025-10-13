@@ -64,7 +64,8 @@ Sono le funzionalità concrete che la soluzione deve offrire per raggiungere gli
 \caption{Tabella del tracciamento dei requisiti funzionali}
 \label{tab:requisiti-funzionali}
 \begin{tabularx}{\textwidth}{lXl}
-\hline\hline
+\hline
+\rowcolor[gray]{0.8}
 \textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione}\\
 \hline
 ROF-1     & Il sistema deve permettere la raccolta automatica di metriche e \emph{log} relativi alla \emph{web application} tramite agenti \emph{OpenTelemetry} o \emph{Elastic APM}. & Obbligatorio \\
@@ -115,7 +116,7 @@ RZF-12     & Il sistema può prevedere un modulo aggiuntivo per la generazione a
 \hline
 
 \hline
-RZF-13     & Il sistema può consentire l'importazione automatica delle configurazioni APM da ambienti di \emph{test} o \emph{staging}. & Opzionale \\
+RZF-13     & Il sistema può consentire l'importazione automatica delle configurazioni \gls{apm} da ambienti di \emph{test} o \emph{staging}. & Opzionale \\
 \hline
 
 \end{tabularx}
@@ -130,7 +131,8 @@ Non aggiungono nuove funzioni, ma impongono vincoli di prestazioni, sicurezza, d
 \caption{Tabella del tracciamento dei requisiti non funzionali}
 \label{tab:requisiti-non-funzionali}
 \begin{tabularx}{\textwidth}{lXl}
-\hline\hline
+\hline
+\rowcolor[gray]{0.8}
 \textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione}\\
 \hline
 RON-1    & Il sistema deve essere scalabile e consentire l'aggiunta di nuove fonti di dati o agenti senza compromettere la stabilità. & - Obbligatorio \\
@@ -141,7 +143,7 @@ RON-2    & Il sistema deve garantire l'affidabilità nella trasmissione e nella 
 \hline
 
 \hline
-RON-3    & La piattaforma deve assicurare un tempo di latenza accettabile nella visualizzazione dei dati (< 5 secondi per l'aggiornamento delle dashboard). & - Obbligatorio \\
+RON-3    & La piattaforma deve assicurare un tempo di latenza accettabile nella visualizzazione dei dati (< 5 secondi per l'aggiornamento delle \emph{dashboard}). & - Obbligatorio \\
 \hline
 
 \hline
@@ -166,7 +168,8 @@ Si concentrano su aspetti percepibili, come semplicità, chiarezza, flessibilit�
 \caption{Tabella del tracciamento dei requisiti qualitativi}
 \label{tab:requisiti-qualitativi}
 \begin{tabularx}{\textwidth}{lXl}
-\hline\hline
+\hline
+\rowcolor[gray]{0.8}
 \textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case}\\
 \hline
 ROQ-1    & L'interfaccia di \emph{Kibana} deve offrire una rappresentazione chiara e intuitiva delle metriche principali. & - Obbligatorio \\
@@ -199,7 +202,8 @@ Impongono limitazioni o condizioni esterne al progetto: ambienti, tecnologie, co
 \caption{Tabella del tracciamento dei requisiti di vincolo}
 \label{tab:requisiti-vincolo}
 \begin{tabularx}{\textwidth}{lXl}
-\hline\hline
+\hline
+\rowcolor[gray]{0.8}
 \textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case}\\
 \hline
 ROV-1    & Il sistema deve utilizzare i prodotti della suite \emph{Elastic Stack} (\emph{Elasticsearch, Logstash, Kibana, Beats, APM Server/Agent}). & - Obbligatorio \\
@@ -256,6 +260,7 @@ RDV-8    & Il sistema dovrebbe consentire la distribuzione automatizzata tramite
 \label{tab:requisiti-riepilogo}
 \begin{tabular}{|l|c|c|c|c|}
 \hline
+\rowcolor[gray]{0.8}
 \textbf{Tipologia} & \textbf{Obbligatorio} & \textbf{Desiderabile} & \textbf{Opzionale} & \textbf{Totale} \\
 \hline
 \textbf{Funzionali} & 8 & 3 & 2 & 13 \\
