@@ -308,8 +308,12 @@ L'architettura della soluzione di monitoraggio si compone dei seguenti moduli pr
     
     \item \textbf{Fleet:} componente centralizzato per la gestione e la configurazione degli agenti \emph{Elastic}. Attraverso il \emph{Fleet Server}, coordina la comunicazione con gli \emph{Elastic Agents};
     
-    \item \textbf{Elastic APM Server:} incluso all'interno dell'\emph{Elastic Agent}, riceve i dati di telemetria provenienti dagli agenti applicativi (\gls{apmg} e \gls{rumg}\glsfirstoccur), li elabora e li inoltra a \emph{Elasticsearch} in formato ottimizzato per la successiva analisi e visualizzazione;
-    
+    \item \textbf{Logstash:} sistema di \emph{data processing} che consente di raccogliere, trasformare e inoltrare i dati di log e metriche da diverse fonti verso \emph{Elasticsearch};
+
+    \item \textbf{Elastic Agent:} agente unificato che integra funzionalità di raccolta dati, sicurezza e monitoraggio. Gestito tramite \emph{Fleet}, può essere configurato per includere moduli specifici come \emph{APM Server} e \emph{Beats} per la raccolta di metriche di sistema e log;
+
+    \item \textbf{APM Server:} incluso all'interno dell'\emph{Elastic Agent}, riceve i dati di telemetria provenienti dagli agenti applicativi (\gls{apmg} e \gls{rumg}\glsfirstoccur), li elabora e li inoltra a \emph{Elasticsearch} in formato ottimizzato per la successiva analisi e visualizzazione;
+
     \item \textbf{APM Agent Java:} agente integrato nel \emph{backend} dell'applicazione \emph{Spring PetClinic}, responsabile del tracciamento automatico delle transazioni, delle chiamate ai servizi e delle operazioni sul database;
     
     \item \textbf{RUM Agent JavaScript:} agente di monitoraggio \gls{rumg} eseguito nel \emph{frontend} dell'applicazione, che raccoglie dati sulle interazioni utente, sui tempi di caricamento delle pagine e sulle prestazioni percepite nel browser;
