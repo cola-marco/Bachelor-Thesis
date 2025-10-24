@@ -292,11 +292,11 @@ Essa costituisce il collegamento tra la fase di analisi dei requisiti e la succe
 
 
 \subsection{Struttura generale della soluzione di monitoraggio}
-La soluzione di \gls{apm} proposta si fonda su un'architettura modulare che integra i principali componenti dell'\emph{Elastic Stack}, garantendo un sistema di osservabilità completo.  
-L'applicazione \emph{PetClinic} viene monitorata attraverso due agenti: l'\emph{APM Agent Java}, che raccoglie metriche e tracce lato \emph{backend}, e il \emph{RUM Agent JavaScript}, che monitora le prestazioni e le interazioni utente sul \emph{frontend}.  
-I dati generati dagli agenti vengono inviati al \emph{Fleet Server}, che gestisce in modo centralizzato gli \emph{Elastic Agent} e i relativi moduli, tra cui l'\emph{APM Server}.  
-Quest'ultimo riceve, elabora e normalizza i dati di monitoraggio, inoltrandoli successivamente a \emph{Elasticsearch} per l'indicizzazione e la conservazione.  
-Le informazioni archiviate vengono poi esplorate e analizzate tramite \emph{Kibana}, che offre funzionalità avanzate di visualizzazione, creazione di \emph{dashboard} interattive e configurazione di regole di \emph{alerting} e \emph{Synthetic Monitoring}.  
+La soluzione di \gls{apm} proposta si fonda su un'architettura ibrida che combina le funzionalità di \emph{OpenTelemetry} con la potenza analitica dello \emph{Stack Elastic}, fornendo un sistema di osservabilità completo. \\
+L'applicazione di riferimento \emph{PetClinic}, viene monitorata tramite l'\emph{OpenTelemetry Java Agent}, avviato contestualmente all'applicazione mediante comandi \emph{-Dotel} nello script di avvio. Questo agente intercetta automaticamente le chiamate \gls{httpg}, le transazioni e le operazioni sul database, generando metriche e tracce relative al comportamento del \emph{backend}. \\
+I dati raccolti vengono inviati all'\emph{APM Server}, gestito da \emph{Fleet} all'interno dell'\emph{Elastic Agent}. L'\emph{APM Server} riceve, elabora e normalizza le informazioni provenienti dall'agente \emph{OpenTelemetry}, rendendole compatibili con \emph{Elasticsearch}. \\
+In contemporanea, il monitoraggio del \emph{frontend} è gestito dal \emph{RUM Agent JavaScript}, che traccia le interazioni dell'utente, i tempi di caricamento delle pagine e gli eventi di errore nel \emph{browser}. \\
+Tutti i dati vengono centralizzati in \emph{Elasticsearch}, dove sono indicizzati e resi disponibili per la consultazione tramite \emph{Kibana}.
 
 
 \subsection{Integrazione dei componenti principali}
@@ -308,26 +308,26 @@ L'architettura della soluzione di monitoraggio si compone dei seguenti moduli pr
     
     \item \textbf{Fleet:} componente centralizzato per la gestione e la configurazione degli agenti \emph{Elastic}. Attraverso il \emph{Fleet Server}, coordina la comunicazione con gli \emph{Elastic Agents};
     
-    \item \textbf{Logstash:} sistema di \emph{data processing} che consente di raccogliere, trasformare e inoltrare i dati di \emph{log} e metriche da diverse fonti verso \emph{Elasticsearch};
-
     \item \textbf{Elastic Agent:} agente unificato che integra funzionalità di raccolta dati, sicurezza e monitoraggio. Gestito tramite \emph{Fleet}, può essere configurato per includere moduli specifici come \emph{APM Server} e \emph{Beats} per la raccolta di metriche di sistema e \emph{log};
 
-    \item \textbf{APM Server:} incluso all'interno dell'\emph{Elastic Agent}, riceve i dati di telemetria provenienti dagli agenti applicativi (\gls{apmg} e \gls{rumg}\glsfirstoccur), li elabora e li inoltra a \emph{Elasticsearch} in formato ottimizzato per la successiva analisi e visualizzazione;
+    \item \textbf{APM Server:} incluso all'interno dell'\emph{Elastic Agent}, riceve i dati di telemetria provenienti dagli agenti applicativi. Supporta lo standard \emph{OpenTelemetry}, fungendo da \emph{endpoint} compatibile per la ricezione dei dati raccolti dal \emph{Java Agent};
 
-    \item \textbf{APM Agent Java:} agente integrato nel \emph{backend} dell'applicazione \emph{Spring PetClinic}, responsabile del tracciamento automatico delle transazioni, delle chiamate ai servizi e delle operazioni sul database;
+    \item \textbf{OpenTelemetry Java Agent:} agente di strumentazione automatica avviato con l'applicazione \emph{PetClinic}, utilizzato per raccogliere metriche e tracce delle transazioni lato \emph{backend} (chiamate \gls{httpg}, query al \emph{database}, eccezioni, tempi di risposta). I dati generati vengono inviati all'\emph{APM Server} attraverso il protocollo \gls{otlp}\glsfirstoccur;
     
-    \item \textbf{RUM Agent JavaScript:} agente di monitoraggio \gls{rumg} eseguito nel \emph{frontend} dell'applicazione, che raccoglie dati sulle interazioni utente, sui tempi di caricamento delle pagine e sulle prestazioni percepite nel browser;
+    \item \textbf{RUM Agent JavaScript:} agente di monitoraggio \gls{rumg} eseguito nel \emph{frontend} dell'applicazione, che raccoglie dati sulle interazioni utente, sui tempi di caricamento delle pagine e sulle prestazioni percepite nel \emph{browser};
     
 \end{itemize}
 
 
+\vspace{1cm}
 \begin{figure}[!h] 
     \centering 
-    \includegraphics[width=\columnwidth]{Integrazione_APM.png} 
+    \includegraphics[width=\textwidth]{Integrazione_APM-Open.png} 
     \caption{Figura 3.1 - Integrazione tra componenti del sistema di monitoraggio}
 \end{figure}
 
 
+\newpage
 \subsection{Applicazione di riferimento: Spring PetClinic}
 Per la sperimentazione del sistema di \gls{apm} è stata utilizzata come applicazione di riferimento \emph{Spring PetClinic}, una \emph{web application} \emph{open source} sviluppata in \emph{Java} e basata sul \emph{framework} \emph{Spring Boot}.  
 La scelta di \emph{PetClinic} è motivata dalla sua architettura chiara e ben documentata, composta da un livello di presentazione (\emph{controller} e \emph{template}), un livello logico (servizi) e un livello di persistenza (\emph{repository} e \emph{database} \gls{mysqlg}\glsfirstoccur).  
@@ -385,7 +385,7 @@ L'unico attore considerato è l'\emph{Observability Engineer}, figura responsabi
 \textbf{US9} & Come \emph{Observability Engineer}, voglio correlare in un'unica \emph{dashboard} le metriche di infrastruttura, \emph{application performance} e \emph{user experience}, per ottenere una visione completa del sistema. & Favorire un'analisi integrata e diretta delle anomalie. \\
 \hline
 
-\textbf{US10} & Come \emph{Observability Engineer}, voglio integrare l'\emph{APM Agent Java} e il \emph{RUM Agent JavaScript} per raccogliere rispettivamente metriche di \emph{backend} e \emph{frontend}. & Avere una visione completa del comportamento dell'applicazione. \\
+\textbf{US10} & Come \emph{Observability Engineer}, voglio integrare l'\emph{OpenTelemetry Java Agent} e il \emph{RUM Agent JavaScript} per raccogliere rispettivamente metriche di \emph{backend} e \emph{frontend}. & Avere una visione completa del comportamento dell'applicazione. \\
 \hline
 
 \textbf{US11} & Come \emph{Observability Engineer}, voglio configurare e gestire gli agenti tramite \emph{Fleet} per garantire una distribuzione e un aggiornamento centralizzati. & Semplificare la manutenzione e ridurre gli errori di configurazione. \\
