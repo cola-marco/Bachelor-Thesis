@@ -19,25 +19,124 @@ Definizione, Obiettivi e componenti tipici di un sistema APM.
 
 \section{Tecnologie e strumenti}
 \label{sec:tecnologie-strumenti}
-Di seguito viene data una panoramica delle tecnologie e strumenti utilizzati.
+Di seguito viene data una panoramica delle tecnologie e degli strumenti utilizzati.
+
+\subsection{Elastic Stack}
 
 \subsection*{Elasticsearch}
+Elasticsearch è un motore di ricerca e analisi distribuito basato su \emph{Apache Lucene}, progettato per gestire grandi volumi di dati in tempo reale. Fornisce funzionalità avanzate di ricerca \emph{full-text}, analisi dei dati e aggregazioni, rendendolo ideale per applicazioni di monitoraggio, analisi dei \emph{log} e \emph{business intelligence}. Elasticsearch supporta un'architettura scalabile e flessibile, consentendo di distribuire i dati su più nodi e cluster per garantire alta disponibilità e prestazioni elevate.
 
-\subsection*{Logstash}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/elasticsearch.png} 
+    \caption{Figura 4.1 - Elasticsearch}
+\end{figure}
+
 
 \subsection*{Kibana}
+Kibana è uno strumento di visualizzazione e analisi dei dati open source, progettato per lavorare in stretta integrazione con Elasticsearch. Fornisce un'interfaccia utente intuitiva che consente agli utenti di creare \emph{dashboard} interattive, visualizzare grafici, mappe e tabelle, e analizzare i dati in tempo reale. Kibana supporta una vasta gamma di visualizzazioni personalizzabili e offre funzionalità avanzate come il filtraggio dei dati, la ricerca \emph{full-text} e l'esplorazione delle relazioni tra i dati, rendendolo uno strumento potente per l'analisi dei \emph{log}, il monitoraggio delle prestazioni e la \emph{business intelligence}.
+
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/kibana.png} 
+    \caption{Figura 4.2 - Kibana}
+\end{figure}
+
 
 \subsection*{Beats}
+Beats è una piattaforma leggera di raccolta dati open source sviluppata da Elastic, progettata per inviare dati da diverse fonti a Elasticsearch o Logstash. I \emph{Beats} sono agenti specializzati che raccolgono specifici tipi di dati, come \emph{log} di sistema, metriche di rete, dati di sicurezza e altro ancora. Grazie alla loro architettura modulare e alla facilità di configurazione, i \emph{Beats} consentono agli utenti di monitorare e analizzare rapidamente i dati provenienti da ambienti distribuiti e complessi.
+
 
 \subsection*{Elastic Agent e Fleet}
+Elastic Agent è un agente unificato sviluppato da Elastic che consente di raccogliere, monitorare e proteggere i dati da diverse fonti in modo semplice ed efficiente. Integrando funzionalità di raccolta dati, sicurezza e monitoraggio, Elastic Agent semplifica la gestione degli agenti e riduce la complessità operativa. Fleet è una funzionalità di gestione centralizzata all'interno di Kibana che consente di distribuire, configurare e monitorare gli Elastic Agent in modo scalabile e automatizzato. Attraverso Fleet, gli utenti possono gestire facilmente le policy di raccolta dati, aggiornare gli agenti e monitorare lo stato della loro infrastruttura da un'unica interfaccia.
+
 
 \subsection*{OpenTelemetry}
 
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/OpenTelemetry.png} 
+    \caption{Figura 4.3 - OpenTelemetry}
+\end{figure}
+
 \subsection*{Elastic APM e APM Server}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/ElasticAPM.png} 
+    \caption{Figura 4.4 - Elastic APM}
+\end{figure}
 
 \subsection*{RUM Agent e Synthetic Monitoring}
 
 \subsection*{MCP}
+
+
+\subsection{Linguaggi di programmazione}
+\subsection*{Python}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/Python_logonormal.png} 
+    \caption{Figura 4.5 - Python}
+\end{figure}
+
+
+\subsection*{JavaScript}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/javascript.png} 
+    \caption{Figura 4.6 - JavaScript}
+\end{figure}
+
+
+\subsection*{Java}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/java.png} 
+    \caption{Figura 4.7 - Java}
+\end{figure}
+
+
+\subsection{Framework e librerie}
+\subsection*{Node.js}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/nodeJS.png} 
+    \caption{Figura 4.8 - Node.js}
+\end{figure}
+
+
+\subsection*{Spring Boot}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/spring.png} 
+    \caption{Figura 4.9 - Spring}
+\end{figure}
+
+
+\subsection*{Selenium}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/selenium.png} 
+    \caption{Figura 4.10 - Selenium}
+\end{figure}
+
+
+\subsection{Strumenti di sviluppo}
+\subsection*{VSCode}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/vscode.png} 
+    \caption{Figura 4.11 - VSCode}
+\end{figure}
+
+
+\subsection{Database}
+\subsection*{MySQL}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/Mysql_barattolo.png} 
+    \caption{Figura 4.12 - MySQL}
+\end{figure}
 
 
 \section{Criteri di scelta della soluzione}
