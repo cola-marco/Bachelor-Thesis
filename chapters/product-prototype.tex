@@ -62,7 +62,7 @@ Di seguito viene data una panoramica delle tecnologie e degli strumenti utilizza
 \subsection{Elastic Stack}
 
 \subsection*{Elasticsearch}
-Elasticsearch è un motore di ricerca e analisi distribuito basato su \emph{Apache Lucene}, progettato per gestire grandi volumi di dati in tempo reale. Fornisce funzionalità avanzate di ricerca \emph{full-text}, analisi dei dati e aggregazioni, rendendolo ideale per applicazioni di monitoraggio, analisi dei \emph{log} e \emph{business intelligence}. Elasticsearch supporta un'architettura scalabile e flessibile, consentendo di distribuire i dati su più nodi e \emph{cluster} per garantire alta disponibilità e prestazioni elevate.
+Elasticsearch\footcite{site:elasticsearch} è un motore di ricerca e analisi distribuito basato su \emph{Apache Lucene}, progettato per gestire grandi volumi di dati in tempo reale. Fornisce funzionalità avanzate di ricerca \emph{full-text}, analisi dei dati e aggregazioni, rendendolo ideale per applicazioni di monitoraggio, analisi dei \emph{log} e \emph{business intelligence}. Elasticsearch supporta un'architettura scalabile e flessibile, consentendo di distribuire i dati su più nodi e \emph{cluster} per garantire alta disponibilità e prestazioni elevate.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/elasticsearch.png} 
@@ -72,7 +72,7 @@ Elasticsearch è un motore di ricerca e analisi distribuito basato su \emph{Apac
 \vspace{1em}
 
 \subsection*{Kibana}
-Kibana è uno strumento di visualizzazione e analisi dei dati \emph{open source}, progettato per lavorare in stretta integrazione con Elasticsearch. Fornisce un'interfaccia utente intuitiva che consente agli utenti di creare \emph{dashboard} interattive, visualizzare grafici, mappe e tabelle, e analizzare i dati in tempo reale. Kibana supporta una vasta gamma di visualizzazioni personalizzabili e offre funzionalità avanzate come il filtraggio dei dati, la ricerca \emph{full-text} e l'esplorazione delle relazioni tra i dati, rendendolo uno strumento potente per l'analisi dei \emph{log}, il monitoraggio delle prestazioni e la \emph{business intelligence}.
+Kibana\footcite{site:kibana} è uno strumento di visualizzazione e analisi dei dati \emph{open source}, progettato per lavorare in stretta integrazione con Elasticsearch. Fornisce un'interfaccia utente intuitiva che consente agli utenti di creare \emph{dashboard} interattive, visualizzare grafici, mappe e tabelle, e analizzare i dati in tempo reale. Kibana supporta una vasta gamma di visualizzazioni personalizzabili e offre funzionalità avanzate come il filtraggio dei dati, la ricerca \emph{full-text} e l'esplorazione delle relazioni tra i dati, rendendolo uno strumento potente per l'analisi dei \emph{log}, il monitoraggio delle prestazioni e la \emph{business intelligence}.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/kibana.png} 
@@ -82,7 +82,7 @@ Kibana è uno strumento di visualizzazione e analisi dei dati \emph{open source}
 \vspace{1em}
 
 \subsection*{Elastic Agent e Fleet}
-Elastic Agent è un agente unificato sviluppato da Elastic che consente di raccogliere, monitorare e proteggere i dati da diverse fonti in modo semplice ed efficace. Integrando funzionalità di raccolta dati, sicurezza e monitoraggio, Elastic Agent semplifica la gestione degli agenti e riduce la complessità operativa. \\
+Elastic Agent\footcite{site:elastic-agent} è un agente unificato sviluppato da Elastic che consente di raccogliere, monitorare e proteggere i dati da diverse fonti in modo semplice ed efficace. Integrando funzionalità di raccolta dati, sicurezza e monitoraggio, Elastic Agent semplifica la gestione degli agenti e riduce la complessità operativa. \\
 Fleet è una funzionalità di gestione centralizzata all'interno di Kibana che consente di distribuire, configurare e monitorare gli Elastic Agent in modo scalabile e automatizzato. Attraverso Fleet, gli utenti possono gestire facilmente le policy di raccolta dati, aggiornare gli agenti e monitorare lo stato della loro infrastruttura da un'unica interfaccia.
 \begin{figure}[H] 
     \centering 
@@ -93,7 +93,7 @@ La figura 4.3 mostra l'architettura generale di gestione degli agenti tramite \e
 \vspace{1em}
 
 \subsection*{OpenTelemetry}
-OpenTelemetry è un progetto \emph{open source} che fornisce un insieme di \gls{apig}, librerie e strumenti per la raccolta di dati di telemetria da applicazioni e servizi. L'obiettivo di OpenTelemetry è standardizzare la raccolta e l'esportazione di dati di telemetria mediante l'\gls{otlp}, facilitando l'integrazione con diversi sistemi di monitoraggio e analisi, tra cui l'Elastic Stack. OpenTelemetry supporta vari linguaggi di programmazione e offre un'architettura che consente agli sviluppatori di personalizzare la raccolta dei dati in base alle esigenze specifiche delle loro applicazioni.
+OpenTelemetry\footcite{site:opentelemetry} è un progetto \emph{open source} che fornisce un insieme di \gls{apig}, librerie e strumenti per la raccolta di dati di telemetria da applicazioni e servizi. L'obiettivo di OpenTelemetry è standardizzare la raccolta e l'esportazione di dati di telemetria mediante l'\gls{otlp}, facilitando l'integrazione con diversi sistemi di monitoraggio e analisi, tra cui l'Elastic Stack. OpenTelemetry supporta vari linguaggi di programmazione e offre un'architettura che consente agli sviluppatori di personalizzare la raccolta dei dati in base alle esigenze specifiche delle loro applicazioni.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/OpenTelemetry.png} 
@@ -103,7 +103,7 @@ OpenTelemetry è un progetto \emph{open source} che fornisce un insieme di \gls{
 \vspace{1em}
 
 \subsection*{Elastic APM e APM Server}
-Elastic APM è una soluzione di monitoraggio delle prestazioni applicative sviluppata da \emph{Elastic}, progettata per tracciare e analizzare le prestazioni delle applicazioni in tempo reale. Elastic APM consente di identificare colli di bottiglia, errori e problemi di latenza, fornendo una visione dettagliata del comportamento dell'applicazione attraverso tracce distribuite, metriche e log. \\
+Elastic APM\footcite{site:apm} è una soluzione di monitoraggio delle prestazioni applicative sviluppata da \emph{Elastic}, progettata per tracciare e analizzare le prestazioni delle applicazioni in tempo reale. Elastic APM consente di identificare colli di bottiglia, errori e problemi di latenza, fornendo una visione dettagliata del comportamento dell'applicazione attraverso tracce distribuite, metriche e log. \\
 L'APM Server è un componente di Elastic APM che funge da punto di raccolta per i dati di telemetria inviati dagli agenti APM integrati nelle applicazioni. L'APM Server elabora questi dati e li invia a \emph{Elasticsearch} per l'indicizzazione, consentendo agli utenti di visualizzare le informazioni tramite \emph{Kibana}.
 \begin{figure}[H] 
     \centering 
@@ -114,14 +114,14 @@ L'APM Server è un componente di Elastic APM che funge da punto di raccolta per 
 \vspace{1em}
 
 \subsection*{RUM Agent e Synthetic Monitoring}
-Il RUM Agent (Real User Monitoring Agent) di Elastic APM, nel contesto del progetto di monitoraggio di \emph{PetClinic} è una libreria \emph{JavaScript} che consente di monitorare le prestazioni dell'applicazione \emph{web} dal punto di vista dell'utente finale. Integrando il RUM Agent nelle pagine web, è possibile raccogliere dati sulle interazioni degli utenti, i tempi di caricamento delle pagine e altri eventi significativi. Questi dati vengono inviati all'APM Server per l'analisi e la visualizzazione tramite Kibana. \\
-Il Synthetic Monitoring, invece, utilizza \emph{script} automatizzati per simulare le interazioni degli utenti con l'applicazione web, consentendo di testare la disponibilità e le prestazioni da diverse località geografiche. Questa tecnica aiuta a identificare problemi prima che impattino sugli utenti reali, offrendo uno sguardo sulle prestazioni dell'applicazione.
+Il RUM Agent (Real User Monitoring Agent)\footcite{site:rum-js} di Elastic APM, nel contesto del progetto di monitoraggio di \emph{PetClinic} è una libreria \emph{JavaScript} che consente di monitorare le prestazioni dell'applicazione \emph{web} dal punto di vista dell'utente finale. Integrando il RUM Agent nelle pagine web, è possibile raccogliere dati sulle interazioni degli utenti, i tempi di caricamento delle pagine e altri eventi significativi. Questi dati vengono inviati all'APM Server per l'analisi e la visualizzazione tramite Kibana. \\
+Il Synthetic Monitoring\footcite{site:synthetic}, invece, utilizza \emph{script} automatizzati per simulare le interazioni degli utenti con l'applicazione web, consentendo di testare la disponibilità e le prestazioni da diverse località geografiche. Questa tecnica aiuta a identificare problemi prima che impattino sugli utenti reali, offrendo uno sguardo sulle prestazioni dell'applicazione.
 
 
 \newpage
 \subsection{Linguaggi di programmazione}
 \subsection*{Python}
-Python è un linguaggio di programmazione ad alto livello, ampiamente utilizzato in vari ambiti, tra cui lo sviluppo web, l'analisi dei dati, l'intelligenza artificiale e l'automazione. Python è dotato di una vasta libreria standard e di un ecosistema ricco di pacchetti e framework che ne estendono le funzionalità e lo rendono un linguaggio versatile e potente. In questo progetto Python è stato utilizzato principalmente per la creazione di script di automazione tramite Selenium, al fine di eseguire test automatizzati sull'applicazione \emph{web PetClinic}.
+Python\footcite{site:python} è un linguaggio di programmazione ad alto livello, ampiamente utilizzato in vari ambiti, tra cui lo sviluppo web, l'analisi dei dati, l'intelligenza artificiale e l'automazione. Python è dotato di una vasta libreria standard e di un ecosistema ricco di pacchetti e framework che ne estendono le funzionalità e lo rendono un linguaggio versatile e potente. In questo progetto Python è stato utilizzato principalmente per la creazione di script di automazione tramite Selenium, al fine di eseguire test automatizzati sull'applicazione \emph{web PetClinic}.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/Python_logonormal.png} 
@@ -131,7 +131,7 @@ Python è un linguaggio di programmazione ad alto livello, ampiamente utilizzato
 \vspace{1em}
 
 \subsection*{JavaScript}
-JavaScript è un linguaggio di programmazione interpretato, utilizzato per lo sviluppo di applicazioni \emph{web} lato \emph{client} che consente di creare interfacce utente interattive e dinamiche. Nel contesto del progetto di monitoraggio di \emph{PetClinic}, JavaScript è stato utilizzato per integrare il RUM Agent di Elastic APM, permettendo la raccolta di dati sulle prestazioni dell'applicazione dal punto di vista dell'utente finale.
+JavaScript\footcite{site:javascript} è un linguaggio di programmazione interpretato, utilizzato per lo sviluppo di applicazioni \emph{web} lato \emph{client} che consente di creare interfacce utente interattive e dinamiche. Nel contesto del progetto di monitoraggio di \emph{PetClinic}, JavaScript è stato utilizzato per integrare il RUM Agent di Elastic APM, permettendo la raccolta di dati sulle prestazioni dell'applicazione dal punto di vista dell'utente finale.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/javascript.png} 
@@ -141,7 +141,7 @@ JavaScript è un linguaggio di programmazione interpretato, utilizzato per lo sv
 \vspace{1em}
 
 \subsection*{Java}
-Java è un linguaggio di programmazione ad alto livello, orientato agli oggetti, ampiamente utilizzato nel mondo dello sviluppo software. OpenTelemetry fornisce un agente APM specifico per Java, che consente di monitorare le prestazioni di \emph{backend} dell'applicazione \emph{PetClinic} in modo dettagliato integrando l'agente Java nel codice dell'applicazione.
+Java\footcite{site:java} è un linguaggio di programmazione ad alto livello, orientato agli oggetti, ampiamente utilizzato nel mondo dello sviluppo software. OpenTelemetry fornisce un agente APM specifico per Java, che consente di monitorare le prestazioni di \emph{backend} dell'applicazione \emph{PetClinic} in modo dettagliato integrando l'agente Java nel codice dell'applicazione.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/java.png} 
@@ -152,7 +152,7 @@ Java è un linguaggio di programmazione ad alto livello, orientato agli oggetti,
 \newpage
 \subsection{Framework e librerie}
 \subsection*{Node.js}
-Node.js è utilizzato in PetClinic lato server per eseguire codice JavaScript. Funge da intermediario per le richieste tra il client e il server, gestendo operazioni asincrone e migliorando le prestazioni complessive dell'applicazione web.
+Node.js\footcite{site:nodejs} è utilizzato in PetClinic lato server per eseguire codice JavaScript. Funge da intermediario per le richieste tra il client e il server, gestendo operazioni asincrone e migliorando le prestazioni complessive dell'applicazione web.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/nodeJS.png} 
@@ -162,7 +162,7 @@ Node.js è utilizzato in PetClinic lato server per eseguire codice JavaScript. F
 \vspace{1em}
 
 \subsection*{Spring Boot}
-Spring Boot è il framework principale utilizzato per sviluppare l'applicazione \emph{PetClinic}. Fornisce un ambiente di sviluppo semplificato per la creazione di applicazioni \emph{Java} basate su \emph{Spring}, offrendo funzionalità integrate per la gestione delle dipendenze, la configurazione automatica e il supporto per vari moduli come \emph{Spring MVC}, \emph{Spring Data} e \emph{Spring Security}.
+Spring Boot\footcite{site:spring} è il framework principale utilizzato per sviluppare l'applicazione \emph{PetClinic}. Fornisce un ambiente di sviluppo semplificato per la creazione di applicazioni \emph{Java} basate su \emph{Spring}, offrendo funzionalità integrate per la gestione delle dipendenze, la configurazione automatica e il supporto per vari moduli come \emph{Spring MVC}, \emph{Spring Data} e \emph{Spring Security}.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/spring.png} 
@@ -172,7 +172,7 @@ Spring Boot è il framework principale utilizzato per sviluppare l'applicazione 
 \vspace{1em}
 
 \subsection*{Selenium}
-Selenium è un \emph{framework open source} utilizzato per l'automazione dei test delle applicazioni \emph{web}. Consente di simulare le interazioni degli utenti con il \emph{browser}, eseguendo test funzionali e di regressione in modo automatizzato. Selenium supporta diversi linguaggi di programmazione, tra cui \emph{Java}, \emph{Python} e \emph{JavaScript} e può essere integrato con vari strumenti di \emph{testing} e \emph{framework} di sviluppo. Durante il progetto è stata utilizzata la libreria Selenium per \emph{Python} per creare \emph{script} di test automatizzati che simulano le azioni degli utenti sull'applicazione \emph{PetClinic}.
+Selenium\footcite{site:selenium} è un \emph{framework open source} utilizzato per l'automazione dei test delle applicazioni \emph{web}. Consente di simulare le interazioni degli utenti con il \emph{browser}, eseguendo test funzionali e di regressione in modo automatizzato. Selenium supporta diversi linguaggi di programmazione, tra cui \emph{Java}, \emph{Python} e \emph{JavaScript} e può essere integrato con vari strumenti di \emph{testing} e \emph{framework} di sviluppo. Durante il progetto è stata utilizzata la libreria Selenium per \emph{Python} per creare \emph{script} di test automatizzati che simulano le azioni degli utenti sull'applicazione \emph{PetClinic}.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/selenium.png} 
@@ -183,7 +183,7 @@ Selenium è un \emph{framework open source} utilizzato per l'automazione dei tes
 \newpage
 \subsection{Strumenti di sviluppo}
 \subsection*{VSCode}
-Visual Studio Code (VSCode) è un editor di codice sorgente sviluppato da Microsoft. Supporta una vasta gamma di linguaggi di programmazione e offre diverse funzionalità avanzate come il debugging integrato, il controllo della versione tramite \emph{Git} e un \emph{marketplace} ricco di estensioni.
+Visual Studio Code (VSCode)\footcite{site:vscode} è un editor di codice sorgente sviluppato da Microsoft. Supporta una vasta gamma di linguaggi di programmazione e offre diverse funzionalità avanzate come il debugging integrato, il controllo della versione tramite \emph{Git} e un \emph{marketplace} ricco di estensioni.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/vscode.png} 
@@ -194,7 +194,7 @@ Visual Studio Code (VSCode) è un editor di codice sorgente sviluppato da Micros
 \newpage
 \subsection{Database}
 \subsection*{MySQL}
-MySQL è un sistema di gestione di \emph{database} relazionali \emph{open source}, ampiamente utilizzato per la memorizzazione e la gestione dei dati in applicazioni \emph{web} e aziendali. MySQL supporta il linguaggio \gls{sqlg}\glsfirstoccur per l'interrogazione e la manipolazione dei dati, offrendo funzionalità avanzate come transazioni, indicizzazione e replicazione. Nel contesto dell'applicazione \emph{PetClinic}, MySQL viene utilizzato come \emph{database} principale per archiviare le informazioni relative agli utenti, agli animali domestici, alle visite veterinarie e ad altri dati pertinenti all'applicazione.
+MySQL\footcite{site:mysql} è un sistema di gestione di \emph{database} relazionali \emph{open source}, ampiamente utilizzato per la memorizzazione e la gestione dei dati in applicazioni \emph{web} e aziendali. MySQL supporta il linguaggio \gls{sqlg}\glsfirstoccur per l'interrogazione e la manipolazione dei dati, offrendo funzionalità avanzate come transazioni, indicizzazione e replicazione. Nel contesto dell'applicazione \emph{PetClinic}, MySQL viene utilizzato come \emph{database} principale per archiviare le informazioni relative agli utenti, agli animali domestici, alle visite veterinarie e ad altri dati pertinenti all'applicazione.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/Mysql_barattolo.png} 
