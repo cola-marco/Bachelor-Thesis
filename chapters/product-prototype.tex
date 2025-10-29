@@ -25,15 +25,15 @@ Il monitoraggio delle prestazioni può essere realizzato mediante diverse strate
 Gli approcci al monitoraggio delle applicazioni possono essere classificati in base alla modalità di raccolta dei dati e al livello di osservabilità fornito. \\
 Tra i principali si distinguono:
 \begin{itemize}
-\item \textbf{Monitoraggio basato sugli agenti (Agent-based monitoring):} prevede l'integrazione di componenti \emph{software}, detti \emph{agent}, all'interno dell'applicazione o dell'infrastruttura. Questi raccolgono metriche, log e tracce in tempo reale, offrendo una visione complessiva del sistema. È il modello adottato da strumenti come \emph{Elastic APM}, \emph{Datadog} e \emph{New Relic};
+\item \textbf{Monitoraggio basato sugli agenti (Agent-based monitoring)\footcite{article:agent-based-monitoring}:} prevede l'integrazione di componenti \emph{software}, detti \emph{agent}, all'interno dell'applicazione o dell'infrastruttura. Questi raccolgono metriche, log e tracce in tempo reale, offrendo una visione complessiva del sistema. È il modello adottato da strumenti come \emph{Elastic APM}, \emph{Datadog} e \emph{New Relic};
 
-\item \textbf{Monitoraggio senza agenti (Agentless monitoring):} in questo caso la raccolta dei dati avviene tramite l'analisi di log o metriche esposte da servizi esterni, senza modificare il codice dell'applicazione. Sebbene riduca l'invasività, questo approccio offre un livello di dettaglio inferiore rispetto ai sistemi \emph{agent-based};
+\item \textbf{Monitoraggio senza agenti (Agentless monitoring)\footcite{article:agentless-monitoring}:} in questo caso la raccolta dei dati avviene tramite l'analisi di log o metriche esposte da servizi esterni, senza modificare il codice dell'applicazione. Sebbene riduca l'invasività, questo approccio offre un livello di dettaglio inferiore rispetto ai sistemi \emph{agent-based};
 
-\item \textbf{Distributed tracing:} metodo che consente di tracciare l'intero ciclo di vita di una richiesta distribuita tra più servizi o microservizi, associando a ciascun evento un identificativo univoco;
+\item \textbf{Distributed tracing\footcite{article:distributed-tracing}:} metodo che consente di tracciare l'intero ciclo di vita di una richiesta distribuita tra più servizi o microservizi, associando a ciascun evento un identificativo univoco;
 
-\item \textbf{Synthetic monitoring:} utilizza richieste simulate e test automatizzati per verificare la disponibilità e le prestazioni delle applicazioni da diverse località geografiche. È utile per individuare problemi prima che impattino sugli utenti reali dell'applicazione;
+\item \textbf{Synthetic monitoring\footcite{article:synthetic-monitoring}:} utilizza richieste simulate e test automatizzati per verificare la disponibilità e le prestazioni delle applicazioni da diverse località geografiche. È utile per individuare problemi prima che impattino sugli utenti reali dell'applicazione;
 
-\item \textbf{Real User Monitoring (RUM):} misura le prestazioni dal punto di vista dell'utente reale, analizzando tempi di caricamento, interazioni e metriche di esperienza. Combinato con il monitoraggio sintetico, fornisce una visione completa della \emph{user experience} indicata con il termine \gls{eum}\glsfirstoccur.
+\item \textbf{Real User Monitoring (RUM)\footcite{article:real-user-monitoring}:} misura le prestazioni dal punto di vista dell'utente reale, analizzando tempi di caricamento, interazioni e metriche di esperienza. Combinato con il monitoraggio sintetico, fornisce una visione completa della \emph{user experience} indicata con il termine \gls{eum}\glsfirstoccur.
 \end{itemize}
 Nel corso del monitoraggio di \emph{PetClinic}, l'approccio adottato integra principalmente il monitoraggio basato sugli agenti, il \emph{distributed tracing} e il \emph{Real User Monitoring}, al fine di ottenere una visione dettagliata e completa delle prestazioni dell'applicazione.
 
