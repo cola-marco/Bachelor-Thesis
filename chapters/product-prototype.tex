@@ -11,7 +11,7 @@ L'osservabilità di un sistema si basa sull'analisi congiunta di tre pilastri fo
     \item \textbf{Metriche}: una metrica è una misurazione numerica di un aspetto specifico delle prestazioni del sistema, come l'utilizzo della \gls{cpug}, la latenza delle richieste o il numero di utenti attivi;
     \item \textbf{Tracce}: una traccia rappresenta il percorso di una singola richiesta attraverso i vari componenti di un sistema distribuito, consentendo di visualizzare il flusso delle operazioni e identificare i colli di bottiglia.
 \end{itemize}
-Un sistema \gls{apmg} moderno integra questi aspetti per fornire una visione completa dello stato e del comportamento applicativo. Nel contesto del monitoraggio di applicazioni \emph{web} come \emph{PetClinic}, l'osservabilità consente di analizzare i dati di performance raccolti dal sistema di \gls{apmg} per identificare e risolvere problemi, ottimizzare le prestazioni e migliorare l'esperienza utente complessiva.
+Un sistema \gls{apmg} moderno integra questi aspetti per fornire una visione completa dello stato e del comportamento di un applicazione. Nel contesto del monitoraggio di applicazioni \emph{web} come \emph{PetClinic}, l'osservabilità consente di analizzare i dati di performance raccolti dal sistema di \gls{apmg} per identificare e risolvere problemi, ottimizzare le prestazioni e migliorare l'esperienza utente complessiva.
 
 
 \newpage
@@ -25,7 +25,7 @@ Il monitoraggio delle prestazioni può essere realizzato mediante diverse strate
 Gli approcci al monitoraggio delle applicazioni possono essere classificati in base alla modalità di raccolta dei dati e al livello di osservabilità fornito. \\
 Tra i principali si distinguono:
 \begin{itemize}
-\item \textbf{Monitoraggio basato sugli agenti (Agent-based monitoring)\footcite{article:agent-based-monitoring}:} prevede l'integrazione di componenti \emph{software}, detti \emph{agent}, all'interno dell'applicazione o dell'infrastruttura. Questi raccolgono metriche, log e tracce in tempo reale, offrendo una visione complessiva del sistema. È il modello adottato da strumenti come \emph{Elastic APM}, \emph{Datadog} e \emph{New Relic};
+\item \textbf{Monitoraggio basato sugli agenti (Agent-based monitoring)\footcite{article:agent-based-monitoring}:} prevede l'integrazione di componenti \emph{software}, detti \emph{agent}, all'interno dell'applicazione o dell'infrastruttura. Questi raccolgono metriche, log e tracce in tempo reale, offrendo una visione complessiva del sistema. È il modello adottato da strumenti come \emph{Elastic APM};
 
 \item \textbf{Monitoraggio senza agenti (Agentless monitoring)\footcite{article:agentless-monitoring}:} in questo caso la raccolta dei dati avviene tramite l'analisi di log o metriche esposte da servizi esterni, senza modificare il codice dell'applicazione. Sebbene riduca l'invasività, questo approccio offre un livello di dettaglio inferiore rispetto ai sistemi \emph{agent-based};
 
@@ -35,14 +35,14 @@ Tra i principali si distinguono:
 
 \item \textbf{Real User Monitoring (RUM)\footcite{article:real-user-monitoring}:} misura le prestazioni dal punto di vista dell'utente reale, analizzando tempi di caricamento, interazioni e metriche di esperienza. Combinato con il monitoraggio sintetico, fornisce una visione completa della \emph{user experience} indicata con il termine \gls{eum}\glsfirstoccur.
 \end{itemize}
-Nel corso del monitoraggio di \emph{PetClinic}, l'approccio adottato integra principalmente il monitoraggio basato sugli agenti, il \emph{distributed tracing} e il \emph{Real User Monitoring}, al fine di ottenere una visione dettagliata e completa delle prestazioni dell'applicazione.
+Nel corso del monitoraggio di \emph{PetClinic}, l'approccio adottato integra principalmente il monitoraggio basato sugli agenti, il \emph{distributed tracing} e il \emph{Real User Monitoring}, al fine di ottenere una visione dettagliata delle prestazioni dell'applicazione.
 
 
 \subsection{Tecnologie e piattaforme note}
 Negli ultimi anni si sono affermate diverse piattaforme e \emph{framework} dedicati al monitoraggio e all'osservabilità, che adottano architetture e modelli di raccolta dati differenti. \\
 Tra le più rilevanti si trovano:
 \begin{itemize}
-\item \textbf{Elastic Stack (ELK):} una delle soluzioni \emph{open source} più diffuse, integra \emph{Elasticsearch}, \emph{Logstash} e \emph{Kibana}, estesa con \emph{Elastic APM} per il tracciamento delle prestazioni. Offre un ecosistema unificato per metriche, log e tracce;
+\item \textbf{Elastic Stack:} una delle soluzioni \emph{open source} più diffuse, integra \emph{Elasticsearch}, \emph{Logstash} e \emph{Kibana}, estesa con \emph{Elastic APM} per il tracciamento delle prestazioni. Offre un ecosistema unificato per metriche, log e tracce;
 
 \item \textbf{OpenTelemetry:} standard \emph{open source} promosso dalla \emph{Cloud Native Computing Foundation (CNCF)} per la raccolta e l'esportazione di dati di telemetria. Fornisce \gls{sdk}\glsfirstoccur e agenti per numerosi linguaggi di programmazione, garantendo interoperabilità tra sistemi di osservabilità differenti;
 
@@ -201,6 +201,16 @@ MySQL\footcite{site:mysql} è un sistema di gestione di \emph{database} relazion
     \caption{Figura 4.13 - MySQL}
 \end{figure}
 
+\newpage
+\subsection{Containerizzazione}
+\subsection*{Docker}
+Docker\footcite{site:docker} è una piattaforma di containerizzazione che consente di automatizzare il deployment di applicazioni all'interno di container leggeri e portabili. I container isolano le applicazioni e le loro dipendenze, garantendo coerenza tra gli ambienti di sviluppo, test e produzione. Nel contesto dell'applicazione \emph{PetClinic}, Docker è stato utilizzato per creare un ambiente di sviluppo replicabile e per semplificare il deployment dell'applicazione e dei suoi componenti.
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/docker.png} 
+    \caption{Figura 4.14 - Docker}
+\end{figure}
+
 
 \newpage
 \section{Criteri di scelta della soluzione}
@@ -218,8 +228,8 @@ Le principali motivazioni che hanno guidato la scelta della soluzione di monitor
 \section{Integrazione con l'ambiente esistente}
 \label{sec:integrazione-ambiente-esistente}
 L'integrazione della soluzione di monitoraggio è stata progettata tenendo conto delle specifiche dell'ambiente tecnico aziendale, basato su infrastrutture \emph{Linux} e containerizzazione tramite \emph{Docker}. \\
-Tutti i componenti dell'\emph{Elastic Stack} sono stati distribuiti in un ambiente isolato, mantenendo la compatibilità con le versioni approvate dall'azienda. \\
-La comunicazione tra l'applicazione \emph{web PetClinic} e il sistema di osservabilità avviene tramite l'agente \emph{OpenTelemetry Java}, che esporta i dati di telemetria verso l'\emph{Elastic APM Server} gestito da \emph{Fleet}. 
+Tutti i componenti dell'\emph{Elastic Stack} sono stati distribuiti in un ambiente isolato, gestito tramite Docker, mantenendo la compatibilità con le versioni approvate dall'azienda. \\
+La comunicazione tra l'applicazione \emph{web PetClinic} e il sistema di osservabilità avviene tramite l'agente \emph{OpenTelemetry Java}, che esporta i dati di telemetria verso l'\emph{Elastic APM Server} gestito da \emph{Fleet} dopo essere passati per un Collector OpenTelemetry. 
 L'approccio adottato permette un'integrazione trasparente con l'ambiente esistente, garantendo la scalabilità del sistema e la possibilità di estendere la soluzione ad altri servizi o applicazioni monitorate nel futuro.
 
 %\section{Ciclo di vita del software}
