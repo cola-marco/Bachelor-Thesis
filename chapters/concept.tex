@@ -1,7 +1,7 @@
 \chapter{Analisi dei requisiti}
 \label{cap:analisi-requisiti}
 
-\intro{Il capitolo è dedicato all'analisi dei requisiti della piattaforma, con l'obiettivo di fornire una visione completa e dettagliata delle funzionalità e delle caratteristiche attese dal sistema. Verranno illustrate le esigenze degli utenti e del contesto operativo, evidenziando le specifiche tecniche e le funzionalità che hanno guidato le scelte progettuali.}\\
+\intro{Il capitolo è dedicato all'analisi dei requisiti della piattaforma, con l'obiettivo di fornire una visione completa e dettagliata delle funzionalità e delle caratteristiche attese dal sistema. Verranno illustrate le esigenze degli utenti e del contesto operativo, evidenziando le specifiche tecniche e le funzionalità che hanno guidato le scelte progettuali.}
 
 %\section{Casi d'uso}
 
@@ -60,7 +60,7 @@ Nelle tabelle \ref{tab:requisiti-funzionali}, \ref{tab:requisiti-non-funzionali}
 I requisiti funzionali descrivono cosa deve fare il sistema.
 Sono le funzionalità concrete che la soluzione deve offrire per raggiungere gli obiettivi del progetto.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \caption{Tabella del tracciamento dei requisiti funzionali}
 \label{tab:requisiti-funzionali}
 \begin{tabularx}{\textwidth}{lXl}
@@ -127,7 +127,7 @@ RZF-13     & Il sistema può consentire l'importazione automatica delle configur
 I requisiti non funzionali definiscono come il sistema deve comportarsi, cioè le sue proprietà di qualità interna.
 Non aggiungono nuove funzioni, ma impongono vincoli di prestazioni, sicurezza, disponibilità, scalabilità, affidabilità e manutenibilità.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \caption{Tabella del tracciamento dei requisiti non funzionali}
 \label{tab:requisiti-non-funzionali}
 \begin{tabularx}{\textwidth}{lXl}
@@ -164,7 +164,7 @@ RDN-5    & Il sistema dovrebbe supportare l'autenticazione per la gestione degli
 I requisiti qualitativi specificano le proprietà qualitative che influenzano l'esperienza d'uso e la manutenibilità.
 Si concentrano su aspetti percepibili, come semplicità, chiarezza, flessibilità o estendibilità.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \caption{Tabella del tracciamento dei requisiti qualitativi}
 \label{tab:requisiti-qualitativi}
 \begin{tabularx}{\textwidth}{lXl}
@@ -196,61 +196,71 @@ RZQ-5    & Il sistema può includere un \emph{layout dark/light mode} o temi gra
 
 \newpage
 \subsection{Requisiti di vincolo}
-Impongono limitazioni o condizioni esterne al progetto: ambienti, tecnologie, compatibilità, strumenti, standard aziendali o legali.
 
-\begin{table}[H]
+Impongono limitazioni o condizioni esterne al progetto: ambienti, tecnologie,
+compatibilità, strumenti, standard aziendali o legali.
+
+\begin{longtable}{|p{1.5cm}|p{9cm}|p{2.5cm}|}
 \caption{Tabella del tracciamento dei requisiti di vincolo}
 \label{tab:requisiti-vincolo}
-\begin{tabularx}{\textwidth}{lXl}
+\\
 \hline
 \rowcolor[gray]{0.8}
-\textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case}\\
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case} \\
 \hline
-ROV-1    & Il sistema deve utilizzare i prodotti della suite \emph{Elastic Stack} (\emph{Elasticsearch, Logstash, Kibana, Beats, APM Server/Agent}). & - Obbligatorio \\
+\endfirsthead
+
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case} \\
 \hline
+\endhead
 
 \hline
-ROV-2    & L'ambiente operativo deve essere \emph{Linux} (\emph{Red Hat} o distribuzioni equivalenti). & - Obbligatorio \\
-\hline
+\endfoot
 
 \hline
-ROV-3    & Tutti i componenti \emph{software} devono essere compatibili con la versione di \emph{Linux} installata sull'ambiente aziendale (es. \emph{Ubuntu 22.04 LTS} o \emph{Red Hat 9}). & - Obbligatorio \\
+\endlastfoot
+
+ROV-1 & Il sistema deve utilizzare i prodotti della suite \emph{Elastic Stack}
+(\emph{Elasticsearch, Logstash, Kibana, Beats, APM Server/Agent}). & Obbligatorio \\
 \hline
 
+ROV-2 & L'ambiente operativo deve essere \emph{Linux} (\emph{Red Hat} o distribuzioni equivalenti). & Obbligatorio \\
 \hline
-ROV-4    & Le componenti devono rispettare le seguenti versioni minime:
 
+ROV-3 & Tutti i componenti software devono essere compatibili con la versione di Linux installata
+(es. Ubuntu 22.04 LTS o Red Hat 9). & Obbligatorio \\
+\hline
+
+ROV-4 & Le componenti devono rispettare le seguenti versioni minime:
 \begin{itemize}
-    \item \emph{Python} >= 3.10
-    \item \emph{Java} >= 16
-    \item \emph{Node.js} >= 17
-    \item \emph{Logstash} >= 8.10
-    \item \emph{Kibana} >= 8.10
-    \item \emph{Beats} >= 8.10
-    \item \emph{APM Server} >= 8.10
-    \item \emph{Elasticsearch} >= 8.10
-    \item \emph{OpenTelemetry} >= 1.0
-\end{itemize}& - Obbligatorio \\
+    \item Python >= 3.10
+    \item Java >= 16
+    \item Node.js >= 17
+    \item Logstash >= 8.10
+    \item Kibana >= 8.10
+    \item Beats >= 8.10
+    \item APM Server >= 8.10
+    \item Elasticsearch >= 8.10
+    \item OpenTelemetry >= 1.0
+\end{itemize} & Obbligatorio \\
 \hline
 
-\hline
-ROV-5    & La \emph{web application} deve essere compatibile con i principali \emph{browser} (\emph{Chrome} >= 120, \emph{Firefox} >= 115, \emph{Edge} >= 120, \emph{Apple Safari} >= 15). & - Obbligatorio \\
-\hline
-
-\hline
-ROV-6    & Tutte le configurazioni devono essere eseguite in un ambiente \emph{Docker} o su infrastruttura fornita da Kirey Group. & - Obbligatorio \\
+ROV-5 & La web application deve essere compatibile con i principali browser
+(Chrome >= 120, Firefox >= 115, Edge >= 120, Safari >= 15). & Obbligatorio \\
 \hline
 
-\hline
-RDV-7    & La documentazione tecnica deve essere redatta in formato \emph{Markdown}, \emph{LaTeX} o \gls{pdf}, seguendo gli standard aziendali. & - Desiderabile \\
-\hline
-
-\hline
-RDV-8    & Il sistema dovrebbe consentire la distribuzione automatizzata tramite \emph{Docker Compose}. & - Desiderabile \\
+ROV-6 & Le configurazioni devono essere eseguite in ambiente Docker o su infrastruttura aziendale. & Obbligatorio \\
 \hline
 
-\end{tabularx}
-\end{table}
+RDV-7 & La documentazione tecnica deve essere redatta in Markdown, LaTeX o PDF. & Desiderabile \\
+\hline
+
+RDV-8 & Il sistema dovrebbe supportare la distribuzione tramite Docker Compose. & Desiderabile \\
+\hline
+
+\end{longtable}
+
 
 \newpage
 \section{Riepilogo dei requisiti}
