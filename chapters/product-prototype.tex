@@ -115,7 +115,13 @@ L'APM Server è un componente di Elastic APM che funge da punto di raccolta per 
 
 \subsection*{RUM Agent e Synthetic Monitoring}
 Il RUM Agent (Real User Monitoring Agent)\footcite{site:rum-js} di Elastic APM, nel contesto del progetto di monitoraggio di \emph{PetClinic} è una libreria \emph{JavaScript} che consente di monitorare le prestazioni dell'applicazione \emph{web} dal punto di vista dell'utente finale. Integrando il RUM Agent nelle pagine web, è possibile raccogliere dati sulle interazioni degli utenti, i tempi di caricamento delle pagine e altri eventi significativi. Questi dati vengono inviati all'APM Server per l'analisi e la visualizzazione tramite Kibana. \\
-Il Synthetic Monitoring\footcite{site:synthetic}, invece, utilizza \emph{script} automatizzati per simulare le interazioni degli utenti con l'applicazione web, consentendo di testare la disponibilità e le prestazioni da diverse località geografiche. Questa tecnica aiuta a identificare problemi prima che impattino sugli utenti reali, offrendo uno sguardo sulle prestazioni dell'applicazione.
+Il Synthetic Monitoring\footcite{site:synthetic}, invece, utilizza \emph{script} automatizzati per simulare le interazioni degli utenti con l'applicazione web, consentendo di testare la disponibilità e le prestazioni da diverse località geografiche. \\
+Nel progetto, tale monitoraggio è stato implementato tramite \emph{Kibana Synthetics}, che utilizza \emph{Playwright} come motore di esecuzione di script basati su browser. Sono stati quindi sviluppati \emph{script Playwright} dedicati, eseguiti da Kibana per riprodurre scenari di utilizzo reali e verificare la corretta operatività dell'applicazione.
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=7cm]{/logos/playwright.png} 
+    \caption{Figura 4.6 - Playwright}
+\end{figure}
 
 
 \newpage
@@ -125,7 +131,7 @@ Python\footcite{site:python} è un linguaggio di programmazione ad alto livello,
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/Python_logonormal.png} 
-    \caption{Figura 4.6 - Python}
+    \caption{Figura 4.7 - Python}
 \end{figure}
 
 \vspace{1em}
@@ -135,7 +141,7 @@ JavaScript\footcite{site:javascript} è un linguaggio di programmazione interpre
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/javascript.png} 
-    \caption{Figura 4.7 - JavaScript}
+    \caption{Figura 4.8 - JavaScript}
 \end{figure}
 
 \vspace{1em}
@@ -145,7 +151,7 @@ Java\footcite{site:java} è un linguaggio di programmazione ad alto livello, ori
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/java.png} 
-    \caption{Figura 4.8 - Java}
+    \caption{Figura 4.9 - Java}
 \end{figure}
 
 
@@ -156,7 +162,7 @@ Node.js\footcite{site:nodejs} è utilizzato in PetClinic lato server per eseguir
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/nodeJS.png} 
-    \caption{Figura 4.9 - Node.js}
+    \caption{Figura 4.10 - Node.js}
 \end{figure}
 
 \vspace{1em}
@@ -166,7 +172,7 @@ Spring Boot\footcite{site:spring} è il framework principale utilizzato per svil
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/spring.png} 
-    \caption{Figura 4.10 - Spring}
+    \caption{Figura 4.11 - Spring}
 \end{figure}
 
 \vspace{1em}
@@ -176,7 +182,7 @@ Selenium\footcite{site:selenium} è un \emph{framework open source} utilizzato p
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/selenium.png} 
-    \caption{Figura 4.11 - Selenium}
+    \caption{Figura 4.12 - Selenium}
 \end{figure}
 
 
@@ -187,7 +193,7 @@ Visual Studio Code (VSCode)\footcite{site:vscode} è un editor di codice sorgent
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/vscode.png} 
-    \caption{Figura 4.12 - VSCode}
+    \caption{Figura 4.13 - VSCode}
 \end{figure}
 
 
@@ -198,7 +204,7 @@ MySQL\footcite{site:mysql} è un sistema di gestione di \emph{database} relazion
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/Mysql_barattolo.png} 
-    \caption{Figura 4.13 - MySQL}
+    \caption{Figura 4.14 - MySQL}
 \end{figure}
 
 \newpage
@@ -208,7 +214,7 @@ Docker\footcite{site:docker} è una piattaforma di containerizzazione che consen
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/docker.png} 
-    \caption{Figura 4.14 - Docker}
+    \caption{Figura 4.15 - Docker}
 \end{figure}
 
 
