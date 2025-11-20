@@ -1,2 +1,92 @@
 \chapter{Sviluppo del prodotto}
 \label{cap:product-development}
+
+\section{Architettura complessiva del sistema}
+L'architettura realizzata durante il tirocinio ha l'obiettivo di fornire un sistema completo di osservabilità per la \emph{web app PetClinic}, integrando in un ambiente unico la raccolta dei log, metriche, tracce e monitoraggio sintetico. \\
+Per raggiungere questo obiettivo è stato utilizzato l'ecosistema \emph{Elastic Stack}, \emph{Docker} e \emph{OpenTelemetry}. \\
+L'applicazione PetClinic è strumentata tramite l'\emph{OpenTelemetry Java Agent}, che esporta metriche e tracce verso un \emph{OpenTelemetry Collector}. Quest'ultimo funge da punto di aggregazione e inoltra i dati al sistema \gls{apm} gestito da \emph{Elastic Agent} tramite \emph{Fleet}. \\
+In parallelo, i log dell'applicazione vengono scritti su un file locale dal \emph{container} \emph{PetClinic} e successivamente raccolti da \emph{Logstash}, che li elabora e li inoltra verso Elasticsearch seguendo una \emph{pipeline} personalizzata. \\
+Per quanto riguarda la visualizzazione dei dati, è stato utilizzato \emph{Kibana}, tramite cui è possibile monitorare l'andamento dell'applicazione, creare dashboard, analizzare metriche di performance, effettuare ricerche sui log ed eseguire attività di anomaly detection. \\
+Accanto ai dati reali provenienti dall'applicazione, è stato integrato un sistema di \emph{Synthetic Monitoring} basato su \emph{Kibana Synthetics}, che utilizza script \emph{Playwright} per simulare il comportamento degli utenti e verificare la disponibilità e il corretto funzionamento dei principali flussi di navigazione. Trattandosi di un applicazione di prova infatti l'utilizzo di monitoraggio sintetico permette di lavorare con una quantità più significativa di dati. \\
+Nel complesso, l'architettura si presenta come una \emph{pipeline} altamente modulare, in cui ogni componente è orchestrato tramite \emph{Docker Compose}. Questa struttura rende l'ambiente facilmente replicabile, facilitando sia le attività di sviluppo che quelle di \emph{troubleshooting}.
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=\columnwidth]{Architettura_complessiva.png}
+    \caption{Figura 5.1 - Architettura complessiva}
+\end{figure}
+
+
+
+\section{Struttura del progetto e organizzazione del repository}
+La realizzazione del sistema di osservabilità è stata accompagnata dalla definizione di una struttura del progetto che ne facilitasse sia lo sviluppo che le attività di manutenzione. \\
+Il repository principale, chiamato \emph{elastic-project}, contiene tutte le componenti necessarie all'avvio dell'infrastruttura tramite \emph{Docker Compose} e alla configurazione delle \emph{pipelines} di log, metriche e tracce, alla configurazione delle \emph{pipeline} di log, metriche e tracce, nonché all'avvio delle istanze del \emph{Fleet Server} e delle \emph{policy} per il \emph{Synthetic monitoring}. \\
+La struttura complessiva è riportata di seguito:
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+- elastic-project/ 
+-- docker-compose.yml
+-- .env
+-- logstash.conf
+-- logs/
+-- collector/
+    -> config.yaml
+-- mcp-server-elasticsearch/
+-- spring-petclinic/
+    -> Dockerfile
+\end{lstlisting}
+
+Questa organizzazione è stata costruita con l'obiettivo di isolare le responsabilità dei vari componenti:
+\begin{itemize}
+    \item \textbf{docker-compose.yml} rappresenta il file principale per l'orchestrazione dei \emph{container}, in cui vengono definiti i servizi fondamentali. La scelta di accorpare tutti i servizi in un unico file semplifica la fase di avvio e garantisce un ambiente riproducibile;
+    \item \textbf{spring-petclinic/} contiene il codice dell'applicazione \emph{PetClinic} e il relativo \emph{Dockerfile} per la creazione dell'immagine personalizzata con l'\emph{OpenTelemetry Java Agent} integrato;
+    \item \textbf{collector/} include la configurazione dell'\emph{OpenTelemetry Collector} nel file \emph{config.yaml}, responsabile della ricezione dei dati \gls{otlp} provenienti da \emph{PetClinic} e del loro inoltro al sistema \gls{apm} gestito da \emph{Fleet};
+    \item \textbf{logstash.conf} definisce la \emph{pipeline} di \emph{Logstash} che legge e filtra i log dell'applicazione, applicando un primo livello di arricchimento e inviando i dati a \emph{Elasticsearch};
+    \item \textbf{logs/} funge da volume locale in cui l'applicazione \emph{PetClinic} rende disponibili i file di log;
+    \item \textbf{mcp-server-elasticsearch/} contiene i file necessari per l'esecuzione del \emph{server} \gls{mcpg}\glsfirstoccur dedicato a \emph{Elasticsearch}, che abilita l'interazione con strumenti di \gls{ai} generativa come \emph{Claude Code};
+    \item \textbf{.env} contiene le variabili d'ambiente necessarie per la configurazione dei servizi.
+\end{itemize}
+Questa struttura ha permesso di lavorare in modo indipendente sulle singole componenti del sistema senza introdurre interferenze tra servizi, e ha contribuito a semplificare la fase di diagnosi dei problemi.
+
+\newpage
+
+
+\section{Implementazione del logging}
+
+
+
+\section{Implementazione di traces e metrics con OpenTelemetry}
+
+
+
+\section{Containerizzazione e orchestrazione con Docker Compose}
+
+
+
+\section{Visualizzazione dei dati in Kibana}
+
+
+
+\section{Creazione delle dashboard}
+
+
+
+\subsection{Dashboard Frontend - User Journey}
+
+
+
+\subsection{Dashboard Backend - Health \& Stability}
+
+
+
+\section{Machine Learning e Anomaly Detection}
+
+
+
+\section{Synthetic Monitoring mediante Playwright e Kibana Synthetics}
+
+
+
+\section{Integrazione con MCP Server e strumenti AI}
+
+
+
+\section{Sintesi dei flussi end-to-end implementati}
