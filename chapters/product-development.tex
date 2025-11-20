@@ -1,6 +1,8 @@
 \chapter{Sviluppo del prodotto}
 \label{cap:product-development}
 
+\intro{In questo capitolo vengono approfondite le fasi di sviluppo del sistema, descrivendo l'architettura complessiva, le fasi di implementazione e i risultati ottenuti}
+
 \section{Architettura complessiva del sistema}
 L'architettura realizzata durante il tirocinio ha l'obiettivo di fornire un sistema completo di osservabilità per la \emph{web app PetClinic}, integrando in un ambiente unico la raccolta dei log, metriche, tracce e monitoraggio sintetico. \\
 Per raggiungere questo obiettivo è stato utilizzato l'ecosistema \emph{Elastic Stack}, \emph{Docker} e \emph{OpenTelemetry}. \\
@@ -50,7 +52,208 @@ Questa struttura ha permesso di lavorare in modo indipendente sulle singole comp
 
 
 \section{Implementazione del logging}
+L'implementazione della pipeline di raccolta e indicizzazione dei log applicativi rappresenta uno dei passaggi fondamentali del sistema di osservabilità sviluppato. \\
+L'obiettivo principale era quello di acquisire i log generati da \emph{Spring PetClinic}, arricchirli con metadati utili, e renderli disponibili per la consultazione e l'analisi tramite Kibana. \\
+Per ottenere questo risultato è stata realizzata una pipeline composta da tre elementi principali:
+\begin{enumerate}
+    \item scrittura dei log nel container PetClinic, in un percorso montato come volume esterno;
+    \item raccolta ed elaborazione dei log tramite Logstash, configurato con un file di pipeline dedicato;
+    \item indicizzazione dei log in Elasticsearch tramite una struttura di indici gestita con ILM e un template personalizzato.
+\end{enumerate}
 
+\subsection{Scrittura dei log applicativi}
+Il primo passo ha riguardato la configurazione di \emph{PetClinic} affinché producesse log su file, in modo da poterli acquisire tramite Logstash. 
+Il \emph{Dockerfile} dell'applicazione è stato modificato aggiungendo il parametro \emph{-Dlogging.file.name=/var/log/petclinic/app.log} alla riga di comando di avvio. \\
+Questo approccio ha permesso di centralizzare i log in un unico file, esporlo come volume condiviso e separare la fase di generazione dei log dalla loro elaborazione. 
+
+\subsection{Pipeline Logstash}
+La raccolta e trasformazione dei log è stata implementata tramite Logstash, attraverso un file di configurazione dedicato \texttt{logstash.conf}:
+\begin{lstlisting}
+input {
+  file {
+    path => "/var/log/petclinic/app.log"
+    start_position => "beginning"
+    sincedb_path   => "/usr/share/logstash/data/sincedb-petclinic"
+  }
+}
+
+filter {
+  mutate {
+    add_field => {
+      "service.name"      => "petclinic"
+      "event.dataset"     => "petclinic.app"
+      "data_stream.type"  => "logs"
+      "data_stream.dataset" => "petclinic"
+      "data_stream.namespace" => "default"
+    }
+  }
+}
+
+output {
+  stdout { codec => rubydebug }
+
+  elasticsearch {
+    hosts    => [ "${ELASTIC_HOSTS}" ]
+    user     => "${ELASTIC_USER}"
+    password => "${ELASTIC_PASSWORD}"
+    ssl      => true
+    cacert   => "/usr/share/logstash/certs/ca/ca.crt"
+    index    => "petclinic-logs"
+  }
+}
+\end{lstlisting}
+La pipeline si articola in tre fasi: input, filtro e output.
+
+\paragraph{Input:}
+Viene utilizzato il plugin \texttt{file} per monitorare il file \texttt{app.log} generato dall'applicazione.  
+Il file viene letto dall'inizio e l'avanzamento è tracciato tramite un file \texttt{sincedb}, così da evitare duplicazioni in caso di riavvio.
+
+\paragraph{Filter:}
+I log vengono arricchiti con metadati aggiuntivi, tra cui:
+\begin{itemize}
+    \item \texttt{service.name},
+    \item \texttt{event.dataset},
+    \item campi relativi ai data stream di Elasticsearch.
+\end{itemize}
+Queste informazioni migliorano la struttura dei documenti, permettendo un'analisi più efficace e una migliore organizzazione dei dati nei \emph{data view}.
+
+\paragraph{Output:}
+L'output della pipeline invia i documenti verso Elasticsearch tramite l'endpoint HTTPS, utilizzando credenziali e certificati definiti nel file \texttt{.env}.  
+I log vengono scritti sull'alias \texttt{petclinic-logs}, gestito successivamente tramite ILM.
+
+\subsection{Struttura degli indici in Elasticsearch}
+Prima dell'invio dei log è stata predisposta l'infrastruttura necessaria in Elasticsearch.
+
+\paragraph{Policy ILM:}
+È stata definita una policy di gestione del ciclo di vita dell'indice (\emph{Index Lifecycle Management}) in grado di:
+\begin{itemize}
+    \item effettuare rollover ogni 1\,GB o ogni 24 ore;
+    \item eliminare automaticamente i dati più vecchi dopo 7 giorni.
+\end{itemize}
+strutturata come segue:
+\begin{lstlisting}
+PUT _ilm/policy/petclinic-logs-ilm
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "actions": {
+          "rollover": {
+            "max_size": "1gb",
+            "max_age": "1d"
+          }
+        }
+      },
+      "delete": {
+        "min_age": "7d",
+        "actions": {
+          "delete": {}
+        }
+      }
+    }
+  }
+}
+\end{lstlisting}
+
+\paragraph{Index Template:}
+È stato creato un template (denominato \texttt{petclinic-logs-template}) per definire:
+\begin{itemize}
+    \item il numero di shard e repliche,
+    \item il limite massimo dei campi mappati,
+    \item il mapping dei principali campi del log,
+    \item regole dinamiche per trattare le stringhe come keyword.
+\end{itemize}
+\begin{lstlisting}
+PUT _index_template/petclinic-logs-template
+{
+  "index_patterns": ["petclinic-logs-*"],
+  "template": {
+    "settings": {
+      "index.lifecycle.name": "petclinic-logs-ilm",
+      "index.lifecycle.rollover_alias": "petclinic-logs",
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "index.mapping.total_fields.limit": 2000,
+    },
+    "mappings": {
+      "dynamic": true,
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+
+        "message": {
+          "type": "text",
+          "fields": {
+            "keyword": { "type": "keyword", "ignore_above": 256 }
+          }
+        },
+
+        "log.level":       { "type": "keyword" },
+        "log.logger":      { "type": "keyword" },
+        "log.thread":      { "type": "keyword" },
+        "log.original":    { "type": "text" },
+
+        "service.name":    { "type": "keyword" },
+        "event.dataset":   { "type": "keyword" },
+
+        "trace.id": { 
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "span.id": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+
+        "error": {
+          "properties": {
+            "type":     { "type": "keyword" },
+            "message":  { "type": "text" },
+            "stack":    { "type": "text" }
+          }
+        }
+      },
+
+      "dynamic_templates": [
+        {
+          "strings_as_keywords": {
+            "match_mapping_type": "string",
+            "mapping": { "type": "keyword", "ignore_above": 256 }
+          }
+        }
+      ]
+    }
+  },
+  "_meta": {
+    "description": "Template index per petclinic"
+  }
+}
+\end{lstlisting}
+
+\paragraph{Alias e primo indice:}
+È stato infine creato il primo indice gestito dalla policy ILM:
+\begin{lstlisting}
+PUT petclinic-logs-000001
+{
+  "aliases": {
+    "petclinic-logs": {
+      "is_write_index": true
+    }
+  }
+}
+\end{lstlisting}
+associato all'alias petclinic-logs con \texttt{is\_write\_index = true}, in questo modo Logstash scrive sempre nell'alias, mentre Elasticsearch gestisce la creazione dei nuovi indici tramite ILM.
+
+\subsection{Risultato della pipeline}
+La pipeline finale può essere sintetizzata nel seguente flusso:
+
+\begin{center}
+    \texttt{PetClinic (scrive /var/log/petclinic/app.log) -> Logstash -> Elasticsearch (ILM + index template petclinic-logs-*) -> Kibana (Data View “petclinic-logs”)}
+\end{center}
+Grazie a questa configurazione viene garantita un'acquisizione affidabile dei log, un arricchimento consistente delle informazioni e una consultazione efficace tramite Kibana.
+
+\newpage
 
 
 \section{Implementazione di traces e metrics con OpenTelemetry}
