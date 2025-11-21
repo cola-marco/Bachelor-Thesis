@@ -17,9 +17,10 @@ Nel complesso, l'architettura si presenta come una \emph{pipeline} altamente mod
     \caption{Figura 5.1 - Architettura complessiva}
 \end{figure}
 
+\newpage
 
 
-\section{Struttura del progetto e organizzazione del repository}
+\section{Struttura del progetto}
 La realizzazione del sistema di osservabilità è stata accompagnata dalla definizione di una struttura del progetto che ne facilitasse lo sviluppo e le attività di manutenzione. \\
 Il repository principale, chiamato \emph{elastic-project}, contiene tutte le componenti necessarie all'avvio tramite \emph{Docker Compose} e alla configurazione delle \emph{pipelines} di log, metriche e tracce, nonché all'avvio delle istanze del \emph{Fleet Server} e delle \emph{policy} per il \emph{Synthetic monitoring}. \\
 La struttura complessiva è riportata di seguito:
@@ -258,11 +259,148 @@ Grazie a questa configurazione viene garantita un'acquisizione affidabile dei lo
 \newpage
 
 
-\section{Implementazione di traces e metrics con OpenTelemetry}
+\section{Implementazione di traces e metrics}
+Parallelamente alla \emph{pipeline} dei log, è stata realizzata una \emph{pipeline} dedicata alla raccolta di metriche e tracce distribuite generate dalla \emph{web app PetClinic}. \\
+L'obiettivo è stato quello di ottenere una visione approfondita sui tempi di risposta, sui flussi di esecuzione delle richieste e sulle interazioni tra i componenti del sistema. 
+Per raggiungere questo risultato è stato adottato \emph{OpenTelemetry}, integrato con l'\emph{Elastic APM} tramite \emph{Fleet}. \\
+La \emph{pipeline} completa è composta dai seguenti elementi:
+\begin{enumerate}
+    \item strumentazione automatica dell'applicazione tramite \emph{OpenTelemetry Java Agent};
+    \item raccolta dei dati \gls{otlpg} (\emph{OpenTelemetry Protocol}) da parte dell'\emph{OpenTelemetry Collector};
+    \item inoltro dei dati verso l'\emph{APM Server} gestito dall'\emph{Elastic Agent};
+    \item indicizzazione delle metriche e delle tracce in \emph{Elasticsearch} e visualizzazione in \emph{Kibana}.
+\end{enumerate}
 
 
+\subsection{Strumentazione dell'applicazione con OpenTelemetry Java Agent}
+L'applicazione \emph{PetClinic} è stata strumentata utilizzando l'\emph{OpenTelemetry Java Agent}, un agente Java esterno che permette di raccogliere automaticamente metriche e tracce senza modifiche al codice sorgente. \\
+Nel \texttt{Dockerfile} dell'applicazione sono stati aggiunti:
+\begin{itemize}
+    \item il file \texttt{opentelemetry-javaagent.jar};
+    \item i parametri di avvio per abilitarne il caricamento e configurarne l'esportazione.
+\end{itemize}
+Il comando di avvio che viene eseguito dal \texttt{Dockerfile} è il seguente:
+\begin{verbatim}
+CMD ["java", \
+    "-javaagent:/app/opentelemetry-javaagent.jar", \
+    "-Dotel.service.name=petclinic", \
+    "-Dotel.exporter.otlp.endpoint=http://collector:4318", \
+    "-Dotel.exporter.otlp.protocol=http/protobuf", \
+    "-Dotel.exporter.otlp.insecure=true", \
+    "-Dlogging.file.name=/var/log/petclinic/app.log", \
+    "-jar", "/app/app.jar"]
+\end{verbatim}
+Grazie a questa configurazione, l'applicazione esporta automaticamente:
+\begin{itemize}
+    \item metriche sulle performance (\gls{cpug}, \emph{heap}, ecc);
+    \item tracce delle richieste \gls{httpg} in ingresso;
+    \item eventi relativi agli errori e alle eccezioni.
+\end{itemize}
 
-\section{Containerizzazione e orchestrazione con Docker Compose}
+
+\subsection{RUM Agent per la raccolta di metriche e tracce lato frontend}
+Oltre ai dati provenienti dal backend tramite l'\emph{OpenTelemetry Java Agent}, la \emph{pipeline} raccoglie anche metriche, errori e tracce generate dal \emph{frontend} dell'applicazione attraverso il \emph{RUM Agent} di \emph{Elastic APM}. \\
+Il \emph{RUM Agent}, integrato direttamente nelle pagine \emph{web}, invia i dati di \emph{performance} del \emph{browser}, la durata delle transazioni utente, gli errori \emph{JavaScript} e le informazioni sulla navigazione direttamente all'\emph{APM Server}. \\
+Il \emph{RUM Agent}, a differenza dell'\emph{OpenTelemetry Collector}, comunica nativamente con il protocollo \emph{Elastic APM} e invia i dati direttamente all'endpoint \gls{apmg}, senza transitare attraverso il \emph{Collector}. \\
+Entrambe le sorgenti, confluiscono nei data stream \texttt{traces-apm*} e \texttt{metrics-apm*}, permettendo una visione unificata delle performance sia del \emph{backend} sia del \emph{frontend}.
+
+
+\subsection{OpenTelemetry Collector}
+Il \emph{Collector} funge da punto di raccolta per i dati \gls{otlpg} provenienti dalla \emph{web app}. 
+In questo progetto è stato configurato in modalità \emph{gateway}, aggregando i dati e inoltrandoli al sistema \gls{apmg} gestito da \emph{Elastic}. \\
+Il file \texttt{config.yaml} definisce i seguenti componenti principali:
+\begin{itemize}
+    \item un \texttt{receiver} \gls{otlpg} (\gls{httpg} e \gls{grpcg}\glsfirstoccur) per ricevere i dati dall'applicazione;
+    \item un processore \texttt{memory\_limiter} per evitare sovraccarichi;
+    \item un processore \texttt{batch} per inviare i dati in blocchi ottimizzati;
+    \item un \texttt{exporter} \texttt{otlphttp/elastic} diretto verso il container \texttt{apm-agent}.
+\end{itemize}
+Il \emph{collector} è eseguito come servizio dedicato nel \texttt{docker-compose}, con volume in sola lettura. \\
+Ecco la configurazione completa:
+\begin{lstlisting}
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+        cors:
+          allowed_origins: ["http://localhost:*", "http://127.0.0.1:*", "*"]
+          allowed_headers: ["*"]
+
+processors:
+  memory_limiter:
+    check_interval: 2s
+    limit_percentage: 80
+    spike_limit_percentage: 25
+  batch:
+    timeout: 2s
+    send_batch_size: 1024
+
+
+exporters:
+  otlphttp/elastic:
+    endpoint: "http://apm-agent:8200"
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [otlphttp/elastic]
+    metrics:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [otlphttp/elastic]
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [otlphttp/elastic]
+\end{lstlisting}
+
+
+\subsection{Elastic Agent e APM Server}
+Il sistema \gls{apmg} di \emph{Elastic} è gestito tramite l'\emph{Elastic Agent} registrato in \emph{Fleet}. 
+Nel progetto è stato utilizzato un \emph{container} dedicato (\texttt{apm-agent}) configurato per:
+\begin{itemize}
+    \item registrarsi automaticamente presso il \emph{Fleet Server} tramite \emph{enrollement token};
+    \item esporre l'\emph{endpoint} \gls{apmg} sulla porta 8200;
+    \item ricevere dati \gls{otlpg} dal \emph{Collector}.
+\end{itemize}
+L'\emph{APM Server} è responsabile di:
+\begin{itemize}
+    \item validare metriche e tracce in arrivo;
+    \item convertirle nei documenti \emph{Elasticsearch};
+    \item indicizzarle automaticamente in base ai moduli di ingesione dello \emph{stack Elastic}.
+\end{itemize}
+La corretta registrazione del \emph{container} in \emph{Fleet} è un prerequisito per il funzionamento della \emph{pipeline}, a tal fine, è stata dedicata un'apposita \emph{policy APM}.
+
+
+\subsection{Indicizzazione e visualizzazione dei dati in Kibana}
+Una volta ricevuti dal sistema \gls{apmg}, i dati vengono indicizzati in \emph{Elasticsearch} nei \emph{data stream}:
+\begin{itemize}
+    \item \texttt{traces-apm*} per le tracce distribuite;
+    \item \texttt{metrics-apm*} per le metriche;
+    \item \texttt{logs-apm*} per eventuali eventi generati dall'agente.
+\end{itemize}
+Questi indici vengono raccolti automaticamente nella data view \texttt{APM}, fornita nativamente dalla piattaforma.
+
+
+\subsection{Risultato della pipeline}
+Il flusso risultante può essere sintetizzato come segue:
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=\columnwidth]{pipeline_traces_metrics.png} 
+    \caption{Figura 5.3 - Pipeline Traces e Metrics}
+\end{figure}
+
+\newpage
+
+
+\section{Containerizzazione con Docker Compose}
 
 
 
