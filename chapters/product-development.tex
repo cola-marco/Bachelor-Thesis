@@ -441,10 +441,42 @@ Questo approccio ha permesso di ottenere un sistema facilmente estendibile e sem
 
 
 \section{Visualizzazione dei dati in Kibana}
+Al termine della configurazione delle \emph{pipeline} di log, metriche, tracce e monitoraggio, è stato necessario predisporre in \emph{Kibana} gli strumenti per la visualizzazione e l'analisi dei dati raccolti. \\
+Sono stati individuati diversi \emph{data view}, alcuni già presenti di default in \emph{Kibana}, altri appositamente creati per facilitare l'accesso ai vari tipi di dati:
+\begin{itemize}
+    \item \texttt{traces-apm*}, fornita nativamente da Kibana, contenente le tracce distribuite provenienti dal \emph{backend} e dal \emph{frontend};
+    \item \texttt{metrics-apm*}, fornita nativamente da Kibana, relativa alle metriche di sistema raccolte dall'\emph{OpenTelemetry Java Agent};
+    \item \texttt{logs-apm*}, fornita nativamente da Kibana, include eventuali eventi generati dagli agenti \emph{Elastic};
+    \item \texttt{petclinic-logs-*}, \emph{data view} dedicato ai log applicativi raccolti tramite \emph{Logstash} e indicizzati in \emph{Elasticsearch}.
+\end{itemize}
+Per facilitare l'analisi, sono state create due viste dati principali:
+\begin{itemize}
+    \item \textbf{APM}: fornita nativamente da \emph{Kibana}, che aggrega metriche, tracce ed errori provenienti dal \emph{backend}, dal \emph{frontend} e dal monitoraggio sintetico;
+    \item \textbf{petclinic-logs}: vista personalizzata per l'esplorazione dei log applicativi indicizzati tramite la \emph{pipeline} \emph{Logstash}.
+\end{itemize}
 
+
+\subsection{Verifica dell'indicizzazione tramite Dev Tools}
+Dopo l'avvio dei servizi, è stata effettuata una verifica manuale dell'indicizzazione tramite la console \emph{Dev Tools} di \emph{Kibana}. \\
+Questo controllo è stato utile per confermare il corretto funzionamento della \emph{pipeline} di log e verificare che i documenti fossero instradati verso il data stream appropriato. \\
+Alcuni esempi di query utilizzate sono:
+\begin{itemize}
+  \item \texttt{GET petclinic-logs-*/\_search?size=5} per verificare che i documenti applicativi arrivino all'indice corretto;
+  \item \texttt{GET petclinic-logs-*/\_mapping} per verificare che il \emph{mapping} dei campi sia in linea con il template di indicizzazione.
+\end{itemize}
+La risposta di Elasticsearch ha confermato che:
+\begin{itemize}
+    \item \emph{Logstash} stava correttamente inviando i log verso l'alias \texttt{petclinic-logs};
+    \item il \emph{Collector} e il \emph{RUM Agent} inviavano correttamente le tracce all'\emph{APM Server};
+    \item tutti i documenti venivano mappati in base al \emph{template} configurato.
+\end{itemize}
+
+\newpage
 
 
 \section{Creazione delle dashboard}
+
+
 
 
 
@@ -463,17 +495,25 @@ Questo approccio ha permesso di ottenere un sistema facilmente estendibile e sem
     \caption{Figura 5.5 - Dashboard Backend - Health \& Stability}
 \end{figure}
 
+\newpage
+
 
 \section{Machine Learning e Anomaly Detection}
 
+
+\newpage
 
 
 \section{Synthetic Monitoring}
 
 
+\newpage
+
 
 \section{Integrazione con MCP Server e strumenti AI}
 
+
+\newpage
 
 
 \section{Sintesi dei flussi end-to-end}
