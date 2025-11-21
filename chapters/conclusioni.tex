@@ -2,9 +2,306 @@
 \label{cap:conclusioni}
 
 \section{Consuntivo finale}
+Il progetto ha portato alla realizzazione di una piattaforma completa di osservabilità per la \emph{web application PetClinic}, comprendente la raccolta e l'analisi di log, metriche, tracce distribuite e test sintetici. È stata inoltre configurata un'infrastruttura basata su \emph{Docker Compose}, integrata con \emph{Fleet}, \emph{Logstash} e l'\emph{OpenTelemetry Collector}, affiancata da strumenti di analisi avanzati quali \emph{Machine Learning} e \emph{Anomaly Detection}. \\
+Al termine dello stage, l'intera soluzione risulta funzionante, validata ed avviabile tramite un unico comando, garantendo riproducibilità e coerenza dell'ambiente. \\
+L'intera piattaforma inoltre è compatibile con le versioni utilizzate in azienda dello stack Elastic, facilitando un eventuale integrazione futura. \\
+Durante le ultime settimane di stage sono stati condotti più test sulla piattaforma alla presenza dei membri del gruppo, al fine di allineare tutti i presenti sulle funzionalità implementate e raccogliere feedback utili. \\
+Al termine di questi test, la piattaforma è stata replicata in un ambiente di staging aziendale, per valutarne il funzionamento in un contesto reale. \\
+Alla fine del percorso di stage è stata inoltre resa disponibile una documentazione completa, ad illustrare il funzionamento di tutte le componenti della piattaforma, i pro e i contro delle tecnologie utilizzate e delle scelte effettuate, assieme alle possibili evoluzioni future. \\
+In conclusione, il progetto ha raggiunto gli obiettivi prefissati, fornendo una soluzione efficace e ben documentata per l'osservabilità della \emph{web app PetClinic}.
+
+\newpage
+
 
 \section{Raggiungimento degli obiettivi}
+Per completezza, si riporta la validazione dei requisiti individuati durante l'analisi descritta al capitolo \ref{cap:analisi-requisiti}, divisi in funzionali, non funzionali, qualitativi e di vincolo. \\  
+Per ciascun requisito è stato indicato l'esito finale ottenuto al termine del progetto: soddisfatto, parzialmente soddisfatto oppure non applicabile.
+
+\subsection{Raggiungimento dei requisiti funzionali}
+I requisiti funzionali descrivono cosa deve fare il sistema.
+Sono le funzionalità concrete che la soluzione deve offrire per raggiungere gli obiettivi del progetto.
+
+\setlength{\LTcapwidth}{\textwidth}
+\begin{center}
+\begin{longtable}{|p{1.3cm}|p{7cm}|p{2.5cm}|p{1.7cm}|}
+\caption{Tabella del tracciamento dei requisiti funzionali con esito}
+\label{tab:requisiti-funzionali-esito}
+\\
+\hline
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} & \textbf{Esito} \\
+\hline
+\endfirsthead
+
+\hline
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} & \textbf{Esito} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
+ROF-1 & Il sistema deve permettere la raccolta automatica di metriche e \emph{log} relativi alla \emph{web application} tramite agenti \emph{OpenTelemetry} o \emph{Elastic APM}. & Obbligatorio & Soddisfatto \\
+\hline
+
+ROF-2 & Il sistema deve inviare i dati raccolti agli \emph{endpoint} \emph{Elasticsearch} per l'analisi e l'indicizzazione. & Obbligatorio & Soddisfatto \\
+\hline
+
+ROF-3 & Il sistema deve consentire la creazione di \emph{pipeline} di \emph{log} tramite \emph{Logstash} per filtraggio, trasformazione e inoltro dei dati in \emph{Elasticsearch}. & Obbligatorio & Soddisfatto \\
+\hline
+
+ROF-4 & Il sistema deve prevedere la configurazione di \emph{Elastic Agents} (\emph{Beats}/\emph{\gls{apm}}) per la raccolta dati della navigazione. & Obbligatorio & Soddisfatto \\
+\hline
+
+ROF-5 & Il sistema deve generare \emph{dashboard} avanzate e visualizzazioni in \emph{Kibana}, con metriche di \emph{performance}, accesso e flussi utente. & Obbligatorio & Soddisfatto \\
+\hline
+
+ROF-6 & Il sistema deve permettere la verifica della corretta acquisizione dei dati e la loro indicizzazione in \emph{Elasticsearch}. & Obbligatorio & Soddisfatto \\
+\hline
+
+ROF-7 & Il sistema deve prevedere lo sviluppo e l'esecuzione di \emph{script} automatizzati in \emph{Python} o \emph{Java} per la simulazione del traffico utente (\emph{Synthetic Monitoring}). & Obbligatorio & Soddisfatto \\
+\hline
+
+ROF-8 & Deve essere possibile filtrare e ricercare i \emph{log} per \emph{host}, servizio, livello di severità o periodo temporale. & Obbligatorio & Soddisfatto \\
+\hline
+
+RDF-9 & Il sistema dovrebbe prevedere la configurazione di regole di \emph{alerting} e notifiche in tempo reale per anomalie rilevate. & Desiderabile & Soddisfatto \\
+\hline
+
+RDF-10 & Il sistema dovrebbe integrare algoritmi di \emph{Machine Learning} per l'individuazione automatica di anomalie. & Desiderabile & Soddisfatto \\
+\hline
+
+RDF-11 & Il sistema dovrebbe consentire l'esportazione delle \emph{dashboard} o dei risultati delle \emph{query} in formato \gls{pdf}\glsfirstoccur o \gls{csv}\glsfirstoccur. & Desiderabile & Soddisfatto \\
+\hline
+
+RZF-12 & Il sistema può prevedere un modulo aggiuntivo per la generazione automatica di report periodici delle metriche raccolte. & Opzionale & Non applicabile \\
+\hline
+
+RZF-13 & Il sistema può consentire l'importazione automatica delle configurazioni \gls{apm} da ambienti di \emph{test} o \emph{staging}. & Opzionale & Non applicabile \\
+\hline
+
+\end{longtable}
+\end{center}
+
+
+\newpage
+\subsection{Raggiungimento dei requisiti non funzionali}
+I requisiti non funzionali definiscono come il sistema deve comportarsi, cioè le sue proprietà di qualità interna.
+Non aggiungono nuove funzioni, ma impongono vincoli di prestazioni, sicurezza, disponibilità, scalabilità, affidabilità e manutenibilità.
+
+\setlength{\LTcapwidth}{\textwidth}
+\begin{center}
+\begin{longtable}{|p{1.3cm}|p{7cm}|p{2.5cm}|p{1.7cm}|}
+\caption{Tabella del tracciamento dei requisiti non funzionali con esito}
+\label{tab:requisiti-non-funzionali-esito}
+\\
+\hline
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} & \textbf{Esito} \\
+\hline
+\endfirsthead
+
+\hline
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} & \textbf{Esito} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
+RON-1 & Il sistema deve essere scalabile e consentire l'aggiunta di nuove fonti di dati o agenti senza compromettere la stabilità. & Obbligatorio & Soddisfatto \\
+\hline
+
+RON-2 & Il sistema deve garantire l'affidabilità nella trasmissione e nella conservazione dei dati raccolti. & Obbligatorio & Soddisfatto \\
+\hline
+
+RON-3 & La piattaforma deve assicurare un tempo di latenza accettabile nella visualizzazione dei dati (< 5 secondi per l'aggiornamento delle \emph{dashboard}). & Obbligatorio & Soddisfatto \\
+\hline
+
+RDN-4 & Il sistema dovrebbe garantire la possibilità di eseguire \emph{test} di carico e stress per valutare la stabilità dell'ambiente. & Desiderabile & Non applicabile \\
+\hline
+
+RDN-5 & Il sistema dovrebbe supportare l'autenticazione per la gestione degli accessi a \emph{Kibana}. & Desiderabile & Soddisfatto \\
+\hline
+
+\end{longtable}
+\end{center}
+
+
+\newpage
+\subsection{Raggiungimento dei requisiti qualitativi}
+I requisiti qualitativi specificano le proprietà qualitative che influenzano l'esperienza d'uso e la manutenibilità.
+Si concentrano su aspetti percepibili, come semplicità, chiarezza, flessibilità o estendibilità.
+
+\setlength{\LTcapwidth}{\textwidth}
+\begin{center}
+\begin{longtable}{|p{1.3cm}|p{7cm}|p{2.5cm}|p{1.7cm}|}
+\caption{Tabella del tracciamento dei requisiti qualitativi con esito}
+\label{tab:requisiti-qualitativi-esito}
+\\
+\hline
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} & \textbf{Esito} \\
+\hline
+\endfirsthead
+
+\hline
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} & \textbf{Esito} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
+ROQ-1 & L'interfaccia di \emph{Kibana} deve offrire una rappresentazione chiara e intuitiva delle metriche principali. & Obbligatorio & Soddisfatto \\
+\hline
+
+ROQ-2 & I dati devono essere visualizzabili in forma aggregata e filtrabile in base a intervalli temporali e categorie di evento. & Obbligatorio & Soddisfatto \\
+\hline
+
+ROQ-3 & Le \emph{dashboard} devono presentare una chiara distinzione cromatica tra metriche positive, neutre e anomale. & Obbligatorio & Soddisfatto \\
+\hline
+
+RDQ-4 & Le \emph{dashboard} dovrebbero essere personalizzabili dall'utente secondo criteri di interesse (\emph{performance}, accessi, flussi). & Desiderabile & Soddisfatto \\
+\hline
+
+RZQ-5 & Il sistema può includere un \emph{layout dark/light mode} o temi grafici personalizzati per una migliore leggibilità. & Opzionale & Non applicabile \\
+\hline
+
+\end{longtable}
+\end{center}
+
+\newpage
+\subsection{Raggiungimento dei requisiti di vincolo}
+
+Impongono limitazioni o condizioni esterne al progetto: ambienti, tecnologie,
+compatibilità, strumenti, standard aziendali o legali.
+
+\setlength{\LTcapwidth}{\textwidth}
+\begin{center}
+\begin{longtable}{|p{1.3cm}|p{7cm}|p{2.5cm}|p{1.7cm}|}
+\caption{Tabella del tracciamento dei requisiti di vincolo con esito}
+\label{tab:requisiti-vincolo-esito}
+\\
+\hline
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} & \textbf{Esito} \\
+\hline
+\endfirsthead
+
+\hline
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} & \textbf{Esito} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
+ROV-1 & Il sistema deve utilizzare i prodotti della suite \emph{Elastic Stack} (\emph{Elasticsearch, Logstash, Kibana, Beats, APM Server/Agent}). & Obbligatorio & Soddisfatto \\
+\hline
+
+ROV-2 & L'ambiente operativo deve essere \emph{Linux} (\emph{Redphat} o distribuzioni equivalenti). & Obbligatorio & Soddisfatto \\
+\hline
+
+ROV-3 & Tutti i componenti software devono essere compatibili con la versione di Linux installata (es. Ubuntu 22.04 LTS o Red Hat 9). & Obbligatorio & Soddisfatto \\
+\hline
+
+ROV-4 & Le componenti devono rispettare le seguenti versioni minime:
+\begin{itemize}
+    \item Python >= 3.10
+    \item Java >= 16
+    \item Node.js >= 17
+    \item Logstash >= 8.10
+    \item Kibana >= 8.10
+    \item Beats >= 8.10
+    \item APM Server >= 8.10
+    \item Elasticsearch >= 8.10
+    \item OpenTelemetry >= 1.0
+\end{itemize} & Obbligatorio & Soddisfatto \\
+\hline
+
+ROV-5 & La web application deve essere compatibile con i principali browser (Chrome >= 120, Firefox >= 115, Edge >= 120, Safari >= 15). & Obbligatorio & Soddisfatto \\
+\hline
+
+ROV-6 & Le configurazioni devono essere eseguite in ambiente Docker o su infrastruttura aziendale. & Obbligatorio & Soddisfatto \\
+\hline
+
+RDV-7 & La documentazione tecnica deve essere redatta in Markdown, LaTeX o PDF. & Desiderabile & Soddisfatto \\
+\hline
+
+RDV-8 & Il sistema dovrebbe supportare la distribuzione tramite Docker Compose. & Desiderabile & Soddisfatto \\
+\hline
+
+\end{longtable}
+\end{center}
+
+
+\newpage
+\section{Riepilogo dei requisiti raggiunti}
+
+\begin{center}
+\captionof{table}{Riepilogo dei requisiti raggiunti}
+\label{tab:requisiti-riepilogo-finale}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\rowcolor[gray]{0.8}
+\textbf{Tipologia} & \textbf{Obbligatorio} & \textbf{Desiderabile} & \textbf{Opzionale} & \textbf{Totale} \\
+\hline
+\textbf{Funzionali} & 8 & 3 & 2 & 13 \\
+\hline
+\textbf{Non funzionali} & 3 & 2 & 0 & 5 \\
+\hline
+\textbf{Qualitativi} & 3 & 1 & 1 & 5 \\
+\hline
+\textbf{Di vincolo} & 6 & 2 & 0 & 8 \\
+\hline
+\textbf{Totale} & 20 & 8 & 3 & 31 \\
+\hline
+\end{tabular}
+\end{center}
+Dall'analisi conclusiva emerge che il progetto ha soddisfatto la totalità dei requisiti classificati come \emph{obbligatori} e \emph{desiderabili}, per un totale di 28 requisiti su 31.  
+I tre requisiti classificati come \emph{opzionali} sono stati valutati come non applicabili nell'ambito dello stage, in quanto non rientravano negli obiettivi tecnici concordati con l'azienda.  
+Nel dettaglio, sono stati soddisfatti:
+\begin{itemize}
+    \item 8 requisiti funzionali obbligatori, 3 desiderabili e 2 opzionali;
+    \item 3 requisiti non funzionali obbligatori e 2 desiderabili;
+    \item 3 requisiti qualitativi obbligatori, 1 desiderabile e 1 opzionale;
+    \item 6 requisiti di vincolo obbligatori e 2 desiderabili.
+\end{itemize}
+Complessivamente, il sistema realizzato rispetta pienamente le richieste principali definite nella fase di analisi dei requisiti, confermando la coerenza tra pianificazione progettuale e implementazione finale.
+
+
+\newpage
+
 
 \section{Conoscenze acquisite}
+Lo sviluppo del progetto mi ha permesso di sviluppare competenze avanzate nell'ambito dell'osservabilità delle applicazioni web, comprendendo l'utilizzo di tecnologie quali \emph{Elasticsearch}, \emph{Kibana}, \emph{Fleet}, \emph{Logstash} e l'\emph{OpenTelemetry Collector}. \\
+Ho acquisito familiarità con la progettazione di \emph{pipeline} di dati, l'analisi delle metriche applicative, la creazione di \emph{dashboard}, l'indicizzazione tramite \emph{Elasticsearch} e la gestione del monitoraggio sintetico. \\
+Sul piano operativo ho migliorato la capacità di lavorare in ambienti containerizzati, diagnosticare problemi distribuiti e strutturare documentazione tecnica chiara e replicabile. \\
+L'opportunità di sviluppare in autonomia una soluzione completa mi ha permesso di affinare le competenze di \emph{problem solving}, gestione del tempo e comunicazione tecnica. \\
+In sintesi, il progetto ha rappresentato un'importante occasione di crescita professionale, fornendomi importanti competenze pratiche e teoriche nel campo dell'osservabilità delle applicazioni moderne.
+
+
 
 \section{Valutazione personale}
+Il progetto di stage ha rappresentato per me un'importante opportunità di crescita. Sono molto grato al team di Kirey per avermi supportato in ogni fase del percorso e per avermi seguito con attenzione e competenza. \\
+Lavorare su un progetto come questo è stato stimolante in quanto mi è stata data carta bianca su come strutturare la piattaforma, permettendomi di sperimentare diverse soluzioni prima di arrivare alla soluzione definitiva con \emph{docker compose}. \\
+Il lavoro svolto su questo progetto mi ha portato sicuramente a migliorare le mie competenze tecniche, in particolare nell'ambito dell'osservabilità delle applicazioni web e della containerizzazione. \\
+Inoltre, ho avuto l'opportunità di sviluppare competenze trasversali come la gestione del tempo, la comunicazione tecnica e il problem solving, grazie alle riunioni con il team e ai momenti di allineamento. \\
+In conclusione, ritengo che questo progetto di stage sia stato un'esperienza molto positiva e formativa, che mi ha permesso di acquisire nuove competenze e di crescere professionalmente.
