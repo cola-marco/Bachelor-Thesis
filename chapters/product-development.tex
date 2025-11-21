@@ -475,25 +475,45 @@ La risposta di Elasticsearch ha confermato che:
 
 
 \section{Creazione delle dashboard}
-
-
-
+All'interno della sezione \emph{Analytics --> Dashboards} di \emph{Kibana} sono state realizzate due \emph{dashboard} dedicate all'analisi e alla visualizzazione dei dati raccolti dal \emph{data view} \gls{apmg}. \\
+Le \emph{dashboard} hanno lo scopo di fornire una panoramica del comportamento dell'applicazione sia dal punto di vista dell'utente finale sia dal punto di vista delle \emph{performance} e della stabilità lato \emph{server}.
 
 
 \subsection{Dashboard Frontend - User Journey}
+La \emph{dashboard} dedicata al \emph{frontend} analizza il comportamento degli utenti e le \emph{performance} percepite dal \emph{browser} tramite i dati raccolti dal \emph{RUM Agent}. \\
+Essa comprende cinque visualizzazioni principali:
+\begin{itemize}
+    \item \textbf{Funnel di navigazione}: con l'asse X impostato su \texttt{transaction.name} e l'asse Y sul \texttt{countof(records)}, per rappresentare i percorsi più frequenti;
+    \item \textbf{Tempo di caricamento per pagina}: con \texttt{url.full} sull'asse X e \texttt{avg(transaction.duration.us)} sull'asse Y;
+    \item \textbf{Errori JavaScript per browser}: con \texttt{countof(error.id)} sull'asse Y e \texttt{user\_agent.name} sull'asse X;
+    \item \textbf{Interazioni per tipo}: basata su \texttt{span.name} sull'asse X e \texttt{countof(records)} sull'asse Y;
+    \item \textbf{Distribuzione dei browser per indirizzo IP}: utilizzata per analizzare la provenienza e l'ambiente \emph{client} delle sessioni.
+\end{itemize}
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{/dashboards/Frontend_dashboard.png}
     \caption{Figura 5.4 - Dashboard Frontend - User Journey}
 \end{figure}
 
+\newpage
 
 \subsection{Dashboard Backend - Health \& Stability}
+La \emph{dashboard} relativa al \emph{backend} fornisce invece una panoramica dello stato di salute della \emph{web app} e delle sue \emph{performance} lato \emph{server}. \\ 
+Anche in questo caso sono presenti cinque visualizzazioni:
+\begin{itemize}
+    \item \textbf{Tempo medio di risposta per endpoint}: con \texttt{url.path} in X e \texttt{avg(transaction.duration.us)} in Y;
+    \item \textbf{Errori per tipo di eccezione}: con \texttt{error.exception.type} rappresentato in un grafico a torta;
+    \item \textbf{Chiamate lente} (oltre 2 secondi): identificate tramite un filtro su \texttt{transaction.duration.us >= 2000000} e rappresentate in formato tabellare;
+    \item \textbf{Distribuzione delle richieste per metodo HTTP}: basata su \texttt{http.request.method} in un grafico a torta;
+    \item \textbf{Conteggio totale delle richieste}: che fornisce una vista aggregata dei volumi di traffico applicativo.
+\end{itemize}
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{/dashboards/Backend_dashboard.png} 
     \caption{Figura 5.5 - Dashboard Backend - Health \& Stability}
 \end{figure}
+Le due dashboard costituiscono un insieme di strumenti utili per comprendere il comportamento dell'applicazione in condizioni reali, individuare potenziali anomalie e monitorare l'esperienza utente e la stabilità del sistema.
+
 
 \newpage
 
@@ -517,3 +537,12 @@ La risposta di Elasticsearch ha confermato che:
 
 
 \section{Sintesi dei flussi end-to-end}
+La Figura \ref{fig:sintesi-flussi} fornisce una visione complessiva del funzionamento della piattaforma di osservabilità realizzata. \\
+Il diagramma integra tutte le \emph{pipeline} sviluppate durante il progetto, ovvero la raccolta di metriche, tracce e log, il monitoraggio sintetico e l'analisi finale, evidenziando il ruolo di ciascun componente e il flusso dei dati dalla sorgente fino alla visualizzazione in \emph{Kibana}.
+
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=\columnwidth]{sintesi_pipeline.png} 
+    \caption{Figura 5.6 - Sintesi dei flussi end-to-end}
+    \label{fig:sintesi-flussi}
+\end{figure}
