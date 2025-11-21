@@ -514,18 +514,109 @@ Anche in questo caso sono presenti cinque visualizzazioni:
 \end{figure}
 Le due dashboard costituiscono un insieme di strumenti utili per comprendere il comportamento dell'applicazione in condizioni reali, individuare potenziali anomalie e monitorare l'esperienza utente e la stabilità del sistema.
 
-
 \newpage
 
 
 \section{Machine Learning e Anomaly Detection}
+All'interno dell'infrastruttura è stato integrato il modulo di \emph{Machine Learning} di \emph{Kibana} con lo scopo di identificare automaticamente comportamenti anomali nei dati raccolti. \\
+Questa funzionalità fa parte della versione premium dell'\emph{Elastic stack} messa a disposizione dall'azienda e consente di rafforzare la capacità di monitoraggio della piattaforma, introducendo un livello di analisi predittiva che va oltre le normali visualizzazioni fornite in \emph{Kibana}.
 
+
+\subsection{Anomaly Detection Jobs}
+Sono stati configurati due \emph{job} distinti, ognuno progettato per analizzare un diverso aspetto del comportamento dell'applicazione:
+\begin{itemize}
+    \item \textbf{anomaly\_transactions}: \emph{job} di tipo \emph{multimetric} con partizionamento per \texttt{transaction.name}.  
+    Analizza la durata mediana delle transazioni con l'obiettivo di rilevare rallentamenti anomali per singolo \emph{endpoint}.  
+    Gli \emph{influencer} configurati (\texttt{transaction.name} e \texttt{service.name}) permettono di identificare rapidamente quale operazione contribuisce maggiormente alla deviazione osservata.
+
+    \item \textbf{error\_rate\_detection}: \emph{job} di tipo \emph{single metric} orientato alla rilevazione di anomalie nel tasso di errori delle transazioni.  
+    Il job analizza l'andamento storico delle occorrenze di errore e segnala incrementi inaspettati rispetto al comportamento atteso.
+\end{itemize}
+Entrambi i \emph{job} operano in modalità continua, aggiornando costantemente il modello statistico in funzione dei dati più recenti e assegnando un \emph{anomaly score} agli eventi fuori norma.
+
+
+\subsection{Regole di alerting}
+Per ciascun \emph{job} è stata definita una regola di \emph{alerting} dedicata basata sugli \emph{anomaly records}.  
+La regola si attiva quando lo \emph{anomaly score} supera una soglia configurata, generando una notifica all'interno di Kibana e via email.  
+Ogni alert include informazioni su:
+\begin{itemize}
+    \item livello di anomalia;
+    \item metrica o transazione coinvolta;
+    \item valore osservato e valore previsto;
+    \item link diretto alla sezione di dettaglio del \emph{job}.
+\end{itemize}
+
+
+\subsection{Benefici per il monitoraggio}
+L'integrazione del modulo \gls{mlg}\glsfirstoccur fornisce alla piattaforma di osservabilità uno strato di analisi avanzato capace di:
+\begin{itemize}
+    \item individuare anomalie graduali o intermittenti difficili da rilevare manualmente;
+    \item evidenziare rallentamenti e incrementi del tasso di errore prima che impattino direttamente l'utente finale;
+    \item fornire una spiegazione del problema tramite gli \emph{influencer} e i grafici di contributo.
+\end{itemize}
 
 \newpage
 
 
 \section{Synthetic Monitoring}
+Il \emph{Synthetic Monitoring} è stato utilizzato per simulare in modo automatico le interazioni degli utenti con \emph{PetClinic}, per monitorarne la disponibilità, i tempi di risposta e il corretto funzionamento. \\ 
+La configurazione è stata effettuata all'interno della sezione \emph{Observability --> Synthetics --> Monitors} di \emph{Kibana}, dove sono stati creati sette \emph{monitor} dedicati ai percorsi di navigazione più rilevanti.
 
+
+\subsection{Creazione dei monitor}
+\emph{Kibana} consente di definire \emph{monitor} sintetici caricando uno \emph{script JavaScript} o scrivendolo direttamente nell'interfaccia. \\
+Per la generazione degli \emph{script} è stato utilizzato \emph{Synthetics Recorder}, strumento nativo che registra le azioni dell'utente nel \emph{browser} ed esporta automaticamente codice \emph{Playwright} pronto per l'esecuzione. \\
+Questa soluzione si è dimostrata più efficiente rispetto ad alternative come \emph{Katalon}, che forniva esportazioni non compatibili (es.\ \emph{Python2}) oppure \emph{Selenium}. \\
+Ogni \emph{monitor} esegue uno \emph{script} \emph{Playwright} che riproduce una sequenza di azioni definite: apertura della \emph{homepage}, navigazione nei menu, ricerca di proprietari, inserimento di nuovi dati e visualizzazione delle sezioni dedicate ai veterinari.
+
+
+\subsection{Flussi monitorati}
+Sono stati implementati sette monitor, ciascuno focalizzato su un flusso specifico:
+\begin{itemize}
+    \item \textbf{owners}: navigazione nella sezione \emph{Find Owners} e consultazione dei profili;
+    \item \textbf{add\_owner}: inserimento di un nuovo proprietario tramite il form dell'applicazione;
+    \item \textbf{add\_owner\_pet}: creazione di un proprietario e aggiunta di un nuovo animale;
+    \item \textbf{find}: ricerca di un proprietario tramite il campo \emph{lastName};
+    \item \textbf{home}: verifica del caricamento della \emph{homepage};
+    \item \textbf{navigation}: navigazione sequenziale tra \emph{Home, Find Owners, Veterinarians, Error} e ritorno alle sezioni principali;
+    \item \textbf{veterinarians}: esplorazione della pagina dei veterinari e delle sue sottosezioni.
+\end{itemize}
+Ciascun monitor esegue ad intervalli di tempo regolari il relativo \emph{script}, registrando attività nell'applicazione, che a sua volta invia le metriche e i risultati prodotti a \emph{Elasticsearch} secondo le pipeline previste, consentendo di analizzare la disponibilità dell'applicazione, i tempi di risposta e l'eventuale presenza di errori direttamente nella sezione \emph{Synthetics} di \emph{Kibana}. \\
+Un esempio di script utilizzato per il monitor \textbf{add\_owner\_pet} è il seguente:
+\begin{lstlisting}
+step('Go to petclinic and add owner + pet', async () => {
+  await page.goto('http://petclinic:8080/');
+  await page.getByRole('link', { name: 'Find Owners' }).click();
+  await page.getByRole('link', { name: 'Add Owner' }).click();
+  await page.getByLabel('First Name').click();
+  await page.getByLabel('First Name').fill('Mark');
+  await page.getByLabel('Last Name').click();
+  await page.getByLabel('Last Name').fill('Cole');
+  await page.getByLabel('Address').click();
+  await page.getByLabel('Address').fill('Via Roma 1');
+  await page.getByLabel('City').click();
+  await page.getByLabel('City').fill('Roma');
+  await page.getByLabel('Telephone').click();
+  await page.getByLabel('Telephone').fill('0000000000');
+  await page.getByRole('button', { name: 'Add Owner' }).click();
+  await page.getByRole('link', { name: 'Add New Pet' }).click();
+  await page.getByLabel('Name').click();
+  await page.getByLabel('Name').fill('Bob');
+  await page.getByLabel('Birth Date').fill('2025-10-10');
+  await page.getByLabel('Type').selectOption('hamster');
+  await page.getByRole('button', { name: 'Add Pet' }).click();
+});
+\end{lstlisting}
+
+\subsection{Benefici per il monitoraggio}
+L'integrazione del \emph{Synthetic Monitoring} garantisce un ulteriore livello di controllo, complementare a metriche, tracce e log. 
+Grazie ai monitor sintetici è possibile infatti rilevare:
+\begin{itemize}
+    \item rallentamenti o interruzioni nei percorsi chiave dell'applicazione;
+    \item problemi lato \gls{uig}\glsfirstoccur o di caricamento delle pagine;
+    \item differenze di comportamento tra esecuzioni consecutive.
+\end{itemize}
+Questo approccio consente di simulare l'esperienza dell'utente finale e di individuare rapidamente anomalie che potrebbero impattare sulla disponibilità complessiva del servizio, oltre ad aumentare il numero di dati di telemetria disponibili.
 
 \newpage
 
