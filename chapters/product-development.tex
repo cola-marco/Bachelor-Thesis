@@ -6,10 +6,10 @@
 \section{Architettura complessiva del sistema}
 L'architettura realizzata durante il tirocinio ha l'obiettivo di fornire un sistema completo di osservabilità per la \emph{web app PetClinic}, integrando in un ambiente unico la raccolta dei log, metriche, tracce e monitoraggio sintetico. \\
 Per raggiungere questo obiettivo è stato utilizzato l'ecosistema \emph{Elastic Stack}, \emph{Docker} e \emph{OpenTelemetry}. \\
-L'applicazione PetClinic è strumentata tramite l'\emph{OpenTelemetry Java Agent}, che esporta metriche e tracce verso un \emph{OpenTelemetry Collector}. Quest'ultimo funge da punto di aggregazione e inoltra i dati al sistema \gls{apm} gestito da \emph{Elastic Agent} tramite \emph{Fleet}. \\
-In parallelo, i log dell'applicazione vengono scritti su un file locale dal \emph{container} \emph{PetClinic} e successivamente raccolti da \emph{Logstash}, che li elabora e li inoltra verso Elasticsearch seguendo una \emph{pipeline} personalizzata. \\
-Per quanto riguarda la visualizzazione dei dati, è stato utilizzato \emph{Kibana}, tramite cui è possibile monitorare l'andamento dell'applicazione, creare dashboard, analizzare metriche di performance, effettuare ricerche sui log ed eseguire attività di anomaly detection. \\
-Accanto ai dati reali provenienti dall'applicazione, è stato integrato un sistema di \emph{Synthetic Monitoring} basato su \emph{Kibana Synthetics}, che utilizza script \emph{Playwright} per simulare il comportamento degli utenti e verificare la disponibilità e il corretto funzionamento dei principali flussi di navigazione. Trattandosi di un applicazione di prova infatti l'utilizzo di monitoraggio sintetico permette di lavorare con una quantità più significativa di dati. \\
+L'applicazione \emph{PetClinic} è strumentata tramite l'\emph{OpenTelemetry Java Agent}, che esporta metriche e tracce verso un \emph{OpenTelemetry Collector}. Quest'ultimo funge da punto di aggregazione e inoltra i dati al sistema \gls{apm} gestito da \emph{Elastic Agent} tramite \emph{Fleet}. \\
+In parallelo, i log dell'applicazione vengono scritti su un file locale dal \emph{container} \emph{PetClinic} e successivamente raccolti da \emph{Logstash}, che li elabora e li inoltra verso \emph{Elasticsearch} seguendo una \emph{pipeline} personalizzata. \\
+Per quanto riguarda la visualizzazione dei dati, è stato utilizzato \emph{Kibana}, tramite cui è possibile monitorare l'andamento dell'applicazione, creare \emph{dashboard}, analizzare metriche di \emph{performance}, effettuare ricerche sui log ed eseguire attività di \emph{anomaly detection}. \\
+Accanto ai dati reali provenienti dall'applicazione, è stato integrato un sistema di \emph{Synthetic Monitoring} basato su \emph{Kibana Synthetics}, che utilizza \emph{script Playwright} per simulare il comportamento degli utenti e verificare la disponibilità e il corretto funzionamento dei principali flussi di navigazione. Trattandosi di un applicazione di prova infatti l'utilizzo di monitoraggio sintetico permette di lavorare con una quantità più significativa di dati. \\
 Nel complesso, l'architettura si presenta come una \emph{pipeline} altamente modulare, in cui ogni componente è orchestrato tramite \emph{Docker Compose}. Questa struttura rende l'ambiente facilmente replicabile, facilitando sia le attività di sviluppo che quelle di \emph{troubleshooting}.
 \begin{figure}[H] 
     \centering 
@@ -20,8 +20,8 @@ Nel complesso, l'architettura si presenta come una \emph{pipeline} altamente mod
 
 
 \section{Struttura del progetto e organizzazione del repository}
-La realizzazione del sistema di osservabilità è stata accompagnata dalla definizione di una struttura del progetto che ne facilitasse sia lo sviluppo che le attività di manutenzione. \\
-Il repository principale, chiamato \emph{elastic-project}, contiene tutte le componenti necessarie all'avvio dell'infrastruttura tramite \emph{Docker Compose} e alla configurazione delle \emph{pipelines} di log, metriche e tracce, alla configurazione delle \emph{pipeline} di log, metriche e tracce, nonché all'avvio delle istanze del \emph{Fleet Server} e delle \emph{policy} per il \emph{Synthetic monitoring}. \\
+La realizzazione del sistema di osservabilità è stata accompagnata dalla definizione di una struttura del progetto che ne facilitasse lo sviluppo e le attività di manutenzione. \\
+Il repository principale, chiamato \emph{elastic-project}, contiene tutte le componenti necessarie all'avvio tramite \emph{Docker Compose} e alla configurazione delle \emph{pipelines} di log, metriche e tracce, nonché all'avvio delle istanze del \emph{Fleet Server} e delle \emph{policy} per il \emph{Synthetic monitoring}. \\
 La struttura complessiva è riportata di seguito:
 \begin{lstlisting}[basicstyle=\ttfamily\small]
 - elastic-project/ 
@@ -52,22 +52,22 @@ Questa struttura ha permesso di lavorare in modo indipendente sulle singole comp
 
 
 \section{Implementazione del logging}
-L'implementazione della pipeline di raccolta e indicizzazione dei log applicativi rappresenta uno dei passaggi fondamentali del sistema di osservabilità sviluppato. \\
-L'obiettivo principale era quello di acquisire i log generati da \emph{Spring PetClinic}, arricchirli con metadati utili, e renderli disponibili per la consultazione e l'analisi tramite Kibana. \\
-Per ottenere questo risultato è stata realizzata una pipeline composta da tre elementi principali:
+L'implementazione della \emph{pipeline} di raccolta e indicizzazione dei log applicativi rappresenta un passaggio fondamentale del sistema di osservabilità sviluppato. \\
+L'obiettivo principale era quello di acquisire i log generati da \emph{Spring PetClinic}, arricchirli con metadati utili, e renderli disponibili per la consultazione e l'analisi tramite \emph{Kibana}. \\
+Per ottenere questo risultato è stata realizzata una \emph{pipeline} composta da tre elementi principali:
 \begin{enumerate}
-    \item scrittura dei log nel container PetClinic, in un percorso montato come volume esterno;
-    \item raccolta ed elaborazione dei log tramite Logstash, configurato con un file di pipeline dedicato;
-    \item indicizzazione dei log in Elasticsearch tramite una struttura di indici gestita con ILM e un template personalizzato.
+    \item scrittura dei log nel \emph{container PetClinic}, in un percorso montato come volume esterno;
+    \item raccolta ed elaborazione dei log tramite \emph{Logstash}, configurato con un file di \emph{pipeline} dedicato;
+    \item indicizzazione dei log in \emph{Elasticsearch} tramite una struttura di indici gestita con \gls{ilmg}\glsfirstoccur e un \emph{template} personalizzato.
 \end{enumerate}
 
 \subsection{Scrittura dei log applicativi}
-Il primo passo ha riguardato la configurazione di \emph{PetClinic} affinché producesse log su file, in modo da poterli acquisire tramite Logstash. 
-Il \emph{Dockerfile} dell'applicazione è stato modificato aggiungendo il parametro \emph{-Dlogging.file.name=/var/log/petclinic/app.log} alla riga di comando di avvio. \\
+Il primo passo ha riguardato la configurazione di \emph{PetClinic} affinché producesse log su file, in modo da poterli acquisire tramite \emph{Logstash}.
+Il \emph{Dockerfile} dell'applicazione è stato modificato aggiungendo il parametro \texttt{-Dlogging.file.name=/var/log/petclinic/app.log} alla riga di comando di avvio. \\
 Questo approccio ha permesso di centralizzare i log in un unico file, esporlo come volume condiviso e separare la fase di generazione dei log dalla loro elaborazione. 
 
 \subsection{Pipeline Logstash}
-La raccolta e trasformazione dei log è stata implementata tramite Logstash, attraverso un file di configurazione dedicato \texttt{logstash.conf}:
+La raccolta e trasformazione dei log è stata implementata tramite \emph{Logstash}, attraverso un file di configurazione dedicato \texttt{logstash.conf}:
 \begin{lstlisting}
 input {
   file {
@@ -113,21 +113,21 @@ I log vengono arricchiti con metadati aggiuntivi, tra cui:
 \begin{itemize}
     \item \texttt{service.name},
     \item \texttt{event.dataset},
-    \item campi relativi ai data stream di Elasticsearch.
+    \item campi relativi ai data stream di \emph{Elasticsearch}.
 \end{itemize}
 Queste informazioni migliorano la struttura dei documenti, permettendo un'analisi più efficace e una migliore organizzazione dei dati nei \emph{data view}.
 
 \paragraph{Output:}
-L'output della pipeline invia i documenti verso Elasticsearch tramite l'endpoint HTTPS, utilizzando credenziali e certificati definiti nel file \texttt{.env}.  
-I log vengono scritti sull'alias \texttt{petclinic-logs}, gestito successivamente tramite ILM.
+L'output della pipeline invia i documenti verso \emph{Elasticsearch} tramite l'endpoint \gls{httpsg}\glsfirstoccur, utilizzando credenziali e certificati definiti nel file \texttt{.env}.  
+I log vengono scritti sull'alias \texttt{petclinic-logs}, gestito successivamente tramite \gls{ilmg}.
 
 \subsection{Struttura degli indici in Elasticsearch}
-Prima dell'invio dei log è stata predisposta l'infrastruttura necessaria in Elasticsearch.
+Prima dell'invio dei log è stata predisposta l'infrastruttura necessaria in \emph{Elasticsearch}.
 
 \paragraph{Policy ILM:}
 È stata definita una policy di gestione del ciclo di vita dell'indice (\emph{Index Lifecycle Management}) in grado di:
 \begin{itemize}
-    \item effettuare rollover ogni 1\,GB o ogni 24 ore;
+    \item effettuare \emph{rollover} ogni 1 GB o ogni 24 ore;
     \item eliminare automaticamente i dati più vecchi dopo 7 giorni.
 \end{itemize}
 strutturata come segue:
@@ -156,12 +156,12 @@ PUT _ilm/policy/petclinic-logs-ilm
 \end{lstlisting}
 
 \paragraph{Index Template:}
-È stato creato un template (denominato \texttt{petclinic-logs-template}) per definire:
+È stato creato un \emph{template} denominato \texttt{petclinic-logs-template} per definire:
 \begin{itemize}
-    \item il numero di shard e repliche,
+    \item il numero di \emph{shard} e repliche,
     \item il limite massimo dei campi mappati,
-    \item il mapping dei principali campi del log,
-    \item regole dinamiche per trattare le stringhe come keyword.
+    \item il \emph{mapping} dei principali campi del log,
+    \item regole dinamiche per trattare le stringhe come \emph{keyword}.
 \end{itemize}
 \begin{lstlisting}
 PUT _index_template/petclinic-logs-template
@@ -232,7 +232,7 @@ PUT _index_template/petclinic-logs-template
 \end{lstlisting}
 
 \paragraph{Alias e primo indice:}
-È stato infine creato il primo indice gestito dalla policy ILM:
+È stato infine creato il primo indice gestito dalla \emph{policy} \gls{ilmg}, associato all'\emph{alias} \texttt{petclinic-logs} con \texttt{is\_write\_index = true}, in questo modo \emph{Logstash} scrive sempre nell'\emph{alias}, mentre \emph{Elasticsearch} gestisce la creazione dei nuovi indici tramite \gls{ilmg}:
 \begin{lstlisting}
 PUT petclinic-logs-000001
 {
@@ -243,15 +243,17 @@ PUT petclinic-logs-000001
   }
 }
 \end{lstlisting}
-associato all'alias petclinic-logs con \texttt{is\_write\_index = true}, in questo modo Logstash scrive sempre nell'alias, mentre Elasticsearch gestisce la creazione dei nuovi indici tramite ILM.
+
 
 \subsection{Risultato della pipeline}
-La pipeline finale può essere sintetizzata nel seguente flusso:
-
-\begin{center}
-    \texttt{PetClinic (scrive /var/log/petclinic/app.log) -> Logstash -> Elasticsearch (ILM + index template petclinic-logs-*) -> Kibana (Data View “petclinic-logs”)}
-\end{center}
-Grazie a questa configurazione viene garantita un'acquisizione affidabile dei log, un arricchimento consistente delle informazioni e una consultazione efficace tramite Kibana.
+La \emph{pipeline} finale dei log può essere sintetizzata nel seguente flusso:
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=\columnwidth]{pipeline_logs.png} 
+    \caption{Figura 5.2 - Pipeline Logs}
+\end{figure}
+Grazie a questa configurazione viene garantita un'acquisizione affidabile dei log, un arricchimento consistente delle informazioni e una consultazione efficace tramite \emph{Kibana}.
+%\texttt{PetClinic (scrive /var/log/petclinic/app.log) -> Logstash -> Elasticsearch (ILM + index template petclinic-logs-*) -> Kibana (Data View “petclinic-logs”)}
 
 \newpage
 
