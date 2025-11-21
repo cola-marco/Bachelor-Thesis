@@ -272,7 +272,7 @@ La \emph{pipeline} completa è composta dai seguenti elementi:
 \end{enumerate}
 
 
-\subsection{Strumentazione dell'applicazione con OpenTelemetry Java Agent}
+\subsection{Strumentazione dell'applicazione}
 L'applicazione \emph{PetClinic} è stata strumentata utilizzando l'\emph{OpenTelemetry Java Agent}, un agente Java esterno che permette di raccogliere automaticamente metriche e tracce senza modifiche al codice sorgente. \\
 Nel \texttt{Dockerfile} dell'applicazione sono stati aggiunti:
 \begin{itemize}
@@ -298,7 +298,7 @@ Grazie a questa configurazione, l'applicazione esporta automaticamente:
 \end{itemize}
 
 
-\subsection{RUM Agent per la raccolta di metriche e tracce lato frontend}
+\subsection{RUM Agent frontend}
 Oltre ai dati provenienti dal backend tramite l'\emph{OpenTelemetry Java Agent}, la \emph{pipeline} raccoglie anche metriche, errori e tracce generate dal \emph{frontend} dell'applicazione attraverso il \emph{RUM Agent} di \emph{Elastic APM}. \\
 Il \emph{RUM Agent}, integrato direttamente nelle pagine \emph{web}, invia i dati di \emph{performance} del \emph{browser}, la durata delle transazioni utente, gli errori \emph{JavaScript} e le informazioni sulla navigazione direttamente all'\emph{APM Server}. \\
 Il \emph{RUM Agent}, a differenza dell'\emph{OpenTelemetry Collector}, comunica nativamente con il protocollo \emph{Elastic APM} e invia i dati direttamente all'endpoint \gls{apmg}, senza transitare attraverso il \emph{Collector}. \\
@@ -401,7 +401,43 @@ Il flusso risultante può essere sintetizzato come segue:
 
 
 \section{Containerizzazione con Docker Compose}
+L'intera infrastruttura di osservabilità è stata containerizzata utilizzando \emph{Docker Compose}, con lo scopo di ottenere un ambiente completamente riproducibile, isolato e facilmente avviabile. \\
+Il file \texttt{docker-compose.yml} rappresenta il punto centrale dell'orchestrazione e descrive un insieme eterogeneo di servizi che lavorano assieme, tra cui:
+\begin{itemize}
+    \item \texttt{es01}: nodo \emph{Elasticsearch} responsabile della memorizzazione dei log, delle metriche e delle tracce;
+    \item \texttt{kibana}: interfaccia grafica per la visualizzazione dei dati;
+    \item \texttt{fleet-server}: servizio dedicato alla gestione centralizzata degli agenti \emph{Elastic};
+    \item \texttt{apm-agent}: componente che espone l'\emph{endpoint APM} per ricevere metriche e tracce dal \emph{Collector} e dal \emph{RUM Agent};
+    \item \texttt{collector}: \emph{OpenTelemetry Collector} configurato in modalità \emph{gateway};
+    \item \texttt{logstash01}: responsabile della \emph{pipeline} di elaborazione dei log applicativi;
+    \item \texttt{petclinic}: applicazione oggetto del monitoraggio;
+    \item \texttt{mysql}: \emph{database} a supporto dell'applicazione;
+    \item \texttt{synthetics-agent}: componente dedicato al monitoraggio sintetico;
+    \item \texttt{mcp-server-elasticsearch}: server \gls{mcpg} utilizzato per l'integrazione con strumenti di \gls{aig} generativa;
+    \item \texttt{setup}: servizio dedicato alla generazione e distribuzione dei certificati \gls{tlsg}.
+\end{itemize}
 
+
+\subsection{Gestione dei certificati e della sicurezza}
+Una parte rilevante dell'orchestrazione riguarda la gestione della sicurezza. \\
+Il servizio \texttt{setup} genera automaticamente certificati autofirmati e li distribuisce agli altri container attraverso un volume condiviso. Questo passaggio è essenziale poiché i servizi dello \emph{stack Elastic} richiedono comunicazioni cifrate e autenticazione abilitata. \\
+Il file \texttt{.env}, incluso nel progetto, contiene inoltre credenziali, porte e parametri di configurazione necessari all'avvio dei container.
+
+
+\subsection{Coordinamento dell'avvio dei servizi}
+La corretta gestione dell'ordine di avvio è stata un aspetto importante della configurazione. Alcuni servizi, come \texttt{fleet-server} e \texttt{apm-agent}, richiedono che \emph{Elasticsearch} sia completamente operativo prima di potersi registrare ed esporre i propri \emph{endpoint}. \\
+Questo comportamento è stato gestito tramite direttive \texttt{depends\_on}, healthcheck e l'utilizzo di servizi come \texttt{setup}, che garantiscono la generazione dei certificati necessari al \emph{cluster}. \\
+L'uso esplicito delle dipendenze e dei controlli di stato ha reso possibile evitare errori di avvio legati alla sincronizzazione tra i servizi, un problema frequente nelle architetture \emph{multi-container}.
+
+
+\subsection{Risultato dell'orchestrazione}
+L'orchestrazione basata su \emph{Docker Compose} consente di controllare e avviare l'intero ambiente di osservabilità tramite il comando:
+\begin{verbatim}
+docker compose up -d
+\end{verbatim}
+Questo approccio ha permesso di ottenere un sistema facilmente estendibile e semplice da mantenere. 
+
+\newpage
 
 
 \section{Visualizzazione dei dati in Kibana}
@@ -424,7 +460,7 @@ Il flusso risultante può essere sintetizzato come segue:
 
 
 
-\section{Synthetic Monitoring mediante Playwright e Kibana Synthetics}
+\section{Synthetic Monitoring}
 
 
 
@@ -432,4 +468,4 @@ Il flusso risultante può essere sintetizzato come segue:
 
 
 
-\section{Sintesi dei flussi end-to-end implementati}
+\section{Sintesi dei flussi end-to-end}
