@@ -622,7 +622,34 @@ Questo approccio consente di simulare l'esperienza dell'utente finale e di indiv
 
 
 \section{Integrazione con MCP Server e strumenti AI}
+Durante il periodo di stage è stata analizzata la possibilità di integrare la piattaforma di osservabilità con strumenti di intelligenza artificiale generativa basati sul protocollo \gls{mcpg} (Model Context Protocol). 
+Tale integrazione sarebbe utile per abilitare funzionalità avanzate come il riassunto dei log e l'interazione con i dati tramite agenti conversazionali.
 
+
+\subsection{Limitazioni della versione 8.15 dello stack}
+In fase di analisi è emerso che le funzionalità \gls{aig} più recenti come gli \emph{Elastic AI Agents}, l'\emph{AI Assistant} integrato in \emph{Kibana} e le automazioni basate su agenti sono disponibili solo a partire dalla versione \textbf{9.2} dello \emph{stack Elastic}. \\  
+Tuttavia, questa versione non è stata adottata nel progetto per due motivi principali:
+\begin{itemize}
+    \item non tutte le immagini \emph{Docker} necessarie risultano ancora disponibili o stabili per un ambiente completamente containerizzato;
+    \item la clientela dell'azienda presso cui è stato svolto lo stage utilizza stabilmente versioni \textbf{8.x}, rendendo necessaria la compatibilità con tale ecosistema.
+\end{itemize}
+Per questi motivi l'integrazione con gli strumenti \gls{aig} nativi dello \emph{stack} non è stata implementata, pur essendo stata valutata e studiata.
+
+
+\subsection{Avvio e configurazione del MCP server}
+Nonostante l'impossibilità di utilizzare le funzionalità \gls{aig} avanzate, è stata preparata una procedura per l'inizializzazione corretta dell'\emph{MCP Server} con \emph{Elastic 8.15.3}, con l'obiettivo di predisporre l'infrastruttura per futuri sviluppi. \\
+La procedura include:
+\begin{itemize}
+    \item l'avvio del container \texttt{mcp-server-elasticsearch} tramite \emph{docker compose};
+    \item la configurazione delle variabili d'ambiente per autenticazione ed \emph{endpoint};
+    \item la registrazione del \emph{server MCP} con un \emph{client} compatibile.
+\end{itemize}
+Questa fase ha permesso di verificare la piena compatibilità del \emph{server MCP} con \emph{Elasticsearch 8.15} e di documentare i prerequisiti per una futura attivazione delle funzionalità \gls{aig}.
+
+
+\subsection{Risultati e prospettive}
+La configurazione del \emph{server MCP} costituisce una base solida per eventuali evoluzioni del progetto verso l'impiego di agenti di intelligenza artificiale direttamente all'interno di \emph{Kibana}, non appena tali strumenti saranno pienamente supportati in versioni stabili dello \emph{stack Elastic}. \\
+L'infrastruttura realizzata è quindi predisposta per integrare funzionalità di analisi e automazione, mantenendo allo stesso tempo la compatibilità con gli ambienti utilizzati in produzione dall'azienda.
 
 \newpage
 
