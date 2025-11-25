@@ -1,4 +1,4 @@
-\chapter{Sviluppo del prodotto}
+\chapter{Sviluppo della piattaforma}
 \label{cap:product-development}
 
 \intro{In questo capitolo vengono approfondite le fasi di sviluppo del sistema, descrivendo l'architettura complessiva, le fasi di implementazione e i risultati ottenuti}
@@ -12,13 +12,14 @@ Per quanto riguarda la visualizzazione dei dati, è stato utilizzato \emph{Kiban
 Accanto ai dati reali provenienti dall'applicazione, è stato integrato un sistema di \emph{Synthetic Monitoring} basato su \emph{Kibana Synthetics}, che utilizza \emph{script Playwright} per simulare il comportamento degli utenti e verificare la disponibilità e il corretto funzionamento dei principali flussi di navigazione. Trattandosi di un applicazione di prova infatti l'utilizzo di monitoraggio sintetico permette di lavorare con una quantità più significativa di dati. \\
 Nel complesso, l'architettura si presenta come una \emph{pipeline} altamente modulare, in cui ogni componente è orchestrato tramite \emph{Docker Compose}. Questa struttura rende l'ambiente facilmente replicabile, facilitando sia le attività di sviluppo che quelle di \emph{troubleshooting}. \\
 Nella figura si riporta l'architettura complessiva del sistema e il flusso dei dati tra le varie componenti:
+
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{Architettura_complessiva.png}
     \caption{Figura 5.1 - Architettura complessiva}
 \end{figure}
 
-
+\vspace{0.5cm}
 
 
 \section{Struttura del progetto}
@@ -248,6 +249,7 @@ PUT petclinic-logs-000001
 
 \subsection{Risultato della pipeline}
 La \emph{pipeline} finale dei log può essere sintetizzata nel seguente flusso:
+\vspace{0.5cm}
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{pipeline_logs.png} 
@@ -390,12 +392,14 @@ Questi indici vengono raccolti automaticamente nella data view \texttt{APM}, for
 
 \subsection{Risultato della pipeline}
 Il flusso risultante può essere sintetizzato come segue:
+\vspace{0.5cm}
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{pipeline_traces_metrics.png} 
     \caption{Figura 5.3 - Pipeline Traces e Metrics}
 \end{figure}
 
+\vspace{0.5cm}
 
 
 \section{Containerizzazione con Docker Compose}
@@ -486,13 +490,14 @@ Essa comprende cinque visualizzazioni principali:
     \item \textbf{Interazioni per tipo}: basata su \texttt{span.name} sull'asse X e \texttt{countof(records)} sull'asse Y;
     \item \textbf{Distribuzione dei browser per indirizzo IP}: utilizzata per analizzare la provenienza e l'ambiente \emph{client} delle sessioni.
 \end{itemize}
+\vspace{0.5cm}
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{/dashboards/Frontend_dashboard.png}
     \caption{Figura 5.4 - Dashboard Frontend - User Journey}
 \end{figure}
 
-
+\vspace{0.5cm}
 
 \subsection{Dashboard Backend - Health \& Stability}
 La \emph{dashboard} relativa al \emph{backend} fornisce invece una panoramica dello stato di salute della \emph{web app} e delle sue \emph{performance} lato \emph{server}. \\ 
@@ -504,6 +509,7 @@ Anche in questo caso sono presenti cinque visualizzazioni:
     \item \textbf{Distribuzione delle richieste per metodo HTTP}: basata su \texttt{http.request.method} in un grafico a torta;
     \item \textbf{Conteggio totale delle richieste}: che fornisce una vista aggregata dei volumi di traffico applicativo.
 \end{itemize}
+\vspace{0.5cm}
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{/dashboards/Backend_dashboard.png} 
@@ -511,7 +517,7 @@ Anche in questo caso sono presenti cinque visualizzazioni:
 \end{figure}
 Le due dashboard costituiscono un insieme di strumenti utili per comprendere il comportamento dell'applicazione in condizioni reali, individuare potenziali anomalie e monitorare l'esperienza utente e la stabilità del sistema.
 
-
+\vspace{0.5cm}
 
 
 \section{Machine Learning e Anomaly Detection}

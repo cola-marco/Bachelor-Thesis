@@ -10,8 +10,35 @@ Al termine di questi test, la piattaforma è stata replicata in un ambiente di s
 Alla fine del percorso di stage è stata inoltre resa disponibile una documentazione completa, ad illustrare il funzionamento di tutte le componenti della piattaforma, i pro e i contro delle tecnologie utilizzate e delle scelte effettuate, assieme alle possibili evoluzioni future. \\
 In conclusione, il progetto ha raggiunto gli obiettivi prefissati, fornendo una soluzione efficace e ben documentata per l'osservabilità della \emph{web app PetClinic}.
 
-\newpage
 
+\section{Valutazione dei rischi individuati}
+A conclusione del progetto è stata effettuata una revisione dei rischi identificati nella fase iniziale (Sezione ~\ref{cap:analisi-rischi}) al fine di valutare quali si siano effettivamente presentati, quali siano stati mitigati e quali non abbiano avuto impatto sullo svolgimento delle attività. \\
+In particolare:
+\begin{itemize}
+    \item \textbf{Inesperienza nella suite Elastic:}
+        si è verificato in modo parziale nelle prime settimane, ma è stato mitigato tramite studio autonomo e supporto del \emph{tutor} aziendale.
+
+    \item \textbf{Integrazione tra componenti Elastic:}  
+        il rischio si è verificato, nello specifico sono stati riscontrati alcuni problemi di comunicazione tra \emph{Logstash}, \emph{APM Server} e \emph{Elasticsearch}, ma sono stati risolti tramite \emph{debug} e lettura dei log.
+
+    \item \textbf{Qualità e coerenza dei dati raccolti:}  
+        il rischio non si è manifestato.
+
+    \item \textbf{Scalabilità e carico del sistema:}  
+        il rischio si è manifestato solamente all'interno dell'ambiente locale \gls{wslg}\glsfirstoccur \emph{Linux} a causa di una impostazione errata di memoria al container di \emph{Elasticsearch}, ma è stato risolto aumentando la memoria allocata.
+
+    \item \textbf{Implementazione di algoritmi di Machine Learning:}  
+        alcuni limiti di licenza hanno inizialmente rallentato l'adozione del modulo \gls{mlg}, successivamente superati tramite l'attivazione del periodo di prova per i test locali.
+
+    \item \textbf{Problemi di configurazione delle pipeline Logstash:}  
+        il rischio non si è manifestato.
+
+    \item \textbf{Accesso limitato a funzionalità premium di Elastic:}  
+        il rischio si è verificato nelle prime settimane; è stato poi mitigato con l'attivazione di un periodo di prova gratuito in locale.
+\end{itemize}
+Nel complesso, i rischi previsti si sono dimostrati utili a guidare il lavoro: quelli più rilevanti si sono presentati nella fase iniziale ma sono stati risolti, mentre altri non hanno avuto impatto significativo sul progetto.
+
+\newpage
 
 \section{Raggiungimento degli obiettivi}
 Per completezza, si riporta la validazione dei requisiti individuati durante l'analisi descritta al capitolo \ref{cap:analisi-requisiti}, divisi in funzionali, non funzionali, qualitativi e di vincolo. \\  
