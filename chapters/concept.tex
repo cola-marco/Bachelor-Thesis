@@ -295,7 +295,7 @@ RDV-8 & Il sistema dovrebbe supportare la distribuzione tramite Docker Compose. 
 \end{tabular}
 \end{center}
 
-\newpage
+
 \section{Rappresentazione architetturale preliminare}
 La rappresentazione architetturale descrive la struttura della soluzione proposta, evidenziando le principali componenti coinvolte nel sistema di \gls{apm} e le loro relazioni. \\
 Essa costituisce il collegamento tra la fase di analisi dei requisiti e la successiva implementazione pratica. I dettagli tecnici e i diagrammi della soluzione verranno approfonditi nel capitolo dedicato alla progettazione architetturale.
@@ -337,7 +337,6 @@ L'architettura della soluzione di monitoraggio si compone dei seguenti moduli pr
 \end{figure}
 
 
-\newpage
 \subsection{Applicazione di riferimento: Spring PetClinic}
 Per la sperimentazione del sistema di \gls{apm} è stata utilizzata come applicazione di riferimento \emph{Spring PetClinic}, una \emph{web application} \emph{open source} sviluppata in \emph{Java} e basata sul \emph{framework} \emph{Spring Boot}.  
 La scelta di \emph{PetClinic} è motivata dalla sua architettura chiara e ben documentata, composta da un livello di presentazione (\emph{controller} e \emph{template}), un livello logico (servizi) e un livello di persistenza (\emph{repository} e \emph{database} \gls{mysqlg}\glsfirstoccur).  
@@ -351,7 +350,7 @@ Tale struttura consente di osservare comportamenti applicativi realistici, come 
 
 
 L'applicazione \emph{PetClinic} verrà quindi utilizzata come caso di studio per la validazione della soluzione di monitoraggio proposta, analizzando successivamente il modo in cui i diversi moduli architetturali interagiscono con essa.
-\newpage
+
 
 \section{User Stories e scenari di utilizzo}
 Le seguenti \emph{user stories} descrivono brevemente i principali scenari di utilizzo del sistema di \gls{apm}, evidenziando gli obiettivi e le esigenze degli utenti tecnici aziendali che operano sulla piattaforma di monitoraggio.  

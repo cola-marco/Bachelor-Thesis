@@ -14,7 +14,6 @@ L'osservabilità di un sistema si basa sull'analisi congiunta di tre pilastri fo
 Un sistema \gls{apmg} moderno integra questi aspetti per fornire una visione completa dello stato e del comportamento di un applicazione. Nel contesto del monitoraggio di applicazioni \emph{web} come \emph{PetClinic}, l'osservabilità consente di analizzare i dati di performance raccolti dal sistema di \gls{apmg} per identificare e risolvere problemi, ottimizzare le prestazioni e migliorare l'esperienza utente complessiva.
 
 
-\newpage
 \section{Approcci e tecnologie per il monitoraggio}
 \label{sec:approcci-tecnologie-monitoraggio}
 Nel mondo dell'\emph{Application Performance Monitoring} esistono diversi approcci e tecnologie per raccogliere, analizzare e visualizzare i dati di telemetria. \\
@@ -54,7 +53,6 @@ Le soluzioni \emph{open source}, come \emph{Elastic Stack} e \emph{OpenTelemetry
 Nel contesto del progetto di monitoraggio \emph{PetClinic}, l'attenzione si è concentrata sull'integrazione tra l'\emph{Elastic Stack} e \emph{OpenTelemetry}, con l'obiettivo di realizzare una soluzione di monitoraggio estendibile e compatibile con l'infrastruttura aziendale.
 
 
-\newpage
 \section{Tecnologie e strumenti utilizzati}
 \label{sec:tecnologie-strumenti}
 Di seguito viene data una panoramica delle tecnologie e degli strumenti utilizzati.
@@ -155,7 +153,7 @@ Java\footcite{site:java} è un linguaggio di programmazione ad alto livello, ori
 \end{figure}
 
 
-\newpage
+
 \subsection{Framework e librerie}
 \subsection*{Node.js}
 Node.js\footcite{site:nodejs} è utilizzato in PetClinic lato server per eseguire codice JavaScript. Funge da intermediario per le richieste tra il client e il server, gestendo operazioni asincrone e migliorando le prestazioni complessive dell'applicazione web.
@@ -186,7 +184,7 @@ Selenium\footcite{site:selenium} è un \emph{framework open source} utilizzato p
 \end{figure}
 
 
-\newpage
+
 \subsection{Strumenti di sviluppo}
 \subsection*{VSCode}
 Visual Studio Code (VSCode)\footcite{site:vscode} è un editor di codice sorgente sviluppato da Microsoft. Supporta una vasta gamma di linguaggi di programmazione e offre diverse funzionalità avanzate come il debugging integrato, il controllo della versione tramite \emph{Git} e un \emph{marketplace} ricco di estensioni.
@@ -197,7 +195,7 @@ Visual Studio Code (VSCode)\footcite{site:vscode} è un editor di codice sorgent
 \end{figure}
 
 
-\newpage
+
 \subsection{Database}
 \subsection*{MySQL}
 MySQL\footcite{site:mysql} è un sistema di gestione di \emph{database} relazionali \emph{open source}, ampiamente utilizzato per la memorizzazione e la gestione dei dati in applicazioni \emph{web} e aziendali. MySQL supporta il linguaggio \gls{sqlg}\glsfirstoccur per l'interrogazione e la manipolazione dei dati, offrendo funzionalità avanzate come transazioni, indicizzazione e replicazione. Nel contesto dell'applicazione \emph{PetClinic}, MySQL viene utilizzato come \emph{database} principale per archiviare le informazioni relative agli utenti, agli animali domestici, alle visite veterinarie e ad altri dati pertinenti all'applicazione.
@@ -207,7 +205,7 @@ MySQL\footcite{site:mysql} è un sistema di gestione di \emph{database} relazion
     \caption{Figura 4.14 - MySQL}
 \end{figure}
 
-\newpage
+
 \subsection{Containerizzazione}
 \subsection*{Docker}
 Docker\footcite{site:docker} è una piattaforma di containerizzazione che consente di automatizzare il deployment di applicazioni all'interno di container leggeri e portabili. I container isolano le applicazioni e le loro dipendenze, garantendo coerenza tra gli ambienti di sviluppo, test e produzione. Nel contesto dell'applicazione \emph{PetClinic}, Docker è stato utilizzato per creare un ambiente di sviluppo replicabile e per semplificare il deployment dell'applicazione e dei suoi componenti.
@@ -218,7 +216,6 @@ Docker\footcite{site:docker} è una piattaforma di containerizzazione che consen
 \end{figure}
 
 
-\newpage
 \section{Criteri di scelta della soluzione}
 \label{sec:criteri-scelta-soluzione}
 Le principali motivazioni che hanno guidato la scelta della soluzione di monitoraggio basata su \emph{Elastic Stack} e \emph{OpenTelemetry} sono:

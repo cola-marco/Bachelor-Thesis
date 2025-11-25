@@ -10,14 +10,15 @@ L'applicazione \emph{PetClinic} è strumentata tramite l'\emph{OpenTelemetry Jav
 In parallelo, i log dell'applicazione vengono scritti su un file locale dal \emph{container} \emph{PetClinic} e successivamente raccolti da \emph{Logstash}, che li elabora e li inoltra verso \emph{Elasticsearch} seguendo una \emph{pipeline} personalizzata. \\
 Per quanto riguarda la visualizzazione dei dati, è stato utilizzato \emph{Kibana}, tramite cui è possibile monitorare l'andamento dell'applicazione, creare \emph{dashboard}, analizzare metriche di \emph{performance}, effettuare ricerche sui log ed eseguire attività di \emph{anomaly detection}. \\
 Accanto ai dati reali provenienti dall'applicazione, è stato integrato un sistema di \emph{Synthetic Monitoring} basato su \emph{Kibana Synthetics}, che utilizza \emph{script Playwright} per simulare il comportamento degli utenti e verificare la disponibilità e il corretto funzionamento dei principali flussi di navigazione. Trattandosi di un applicazione di prova infatti l'utilizzo di monitoraggio sintetico permette di lavorare con una quantità più significativa di dati. \\
-Nel complesso, l'architettura si presenta come una \emph{pipeline} altamente modulare, in cui ogni componente è orchestrato tramite \emph{Docker Compose}. Questa struttura rende l'ambiente facilmente replicabile, facilitando sia le attività di sviluppo che quelle di \emph{troubleshooting}.
+Nel complesso, l'architettura si presenta come una \emph{pipeline} altamente modulare, in cui ogni componente è orchestrato tramite \emph{Docker Compose}. Questa struttura rende l'ambiente facilmente replicabile, facilitando sia le attività di sviluppo che quelle di \emph{troubleshooting}. \\
+Nella figura si riporta l'architettura complessiva del sistema e il flusso dei dati tra le varie componenti:
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{Architettura_complessiva.png}
     \caption{Figura 5.1 - Architettura complessiva}
 \end{figure}
 
-\newpage
+
 
 
 \section{Struttura del progetto}
@@ -49,7 +50,6 @@ Questa organizzazione è stata costruita con l'obiettivo di isolare le responsab
 \end{itemize}
 Questa struttura ha permesso di lavorare in modo indipendente sulle singole componenti del sistema senza introdurre interferenze tra servizi, e ha contribuito a semplificare la fase di diagnosi dei problemi.
 
-\newpage
 
 
 \section{Implementazione del logging}
@@ -256,7 +256,6 @@ La \emph{pipeline} finale dei log può essere sintetizzata nel seguente flusso:
 Grazie a questa configurazione viene garantita un'acquisizione affidabile dei log, un arricchimento consistente delle informazioni e una consultazione efficace tramite \emph{Kibana}.
 %\texttt{PetClinic (scrive /var/log/petclinic/app.log) -> Logstash -> Elasticsearch (ILM + index template petclinic-logs-*) -> Kibana (Data View “petclinic-logs”)}
 
-\newpage
 
 
 \section{Implementazione di traces e metrics}
@@ -397,7 +396,6 @@ Il flusso risultante può essere sintetizzato come segue:
     \caption{Figura 5.3 - Pipeline Traces e Metrics}
 \end{figure}
 
-\newpage
 
 
 \section{Containerizzazione con Docker Compose}
@@ -437,7 +435,7 @@ docker compose up -d
 \end{verbatim}
 Questo approccio ha permesso di ottenere un sistema facilmente estendibile e semplice da mantenere. 
 
-\newpage
+
 
 
 \section{Visualizzazione dei dati in Kibana}
@@ -471,7 +469,6 @@ La risposta di Elasticsearch ha confermato che:
     \item tutti i documenti venivano mappati in base al \emph{template} configurato.
 \end{itemize}
 
-\newpage
 
 
 \section{Creazione delle dashboard}
@@ -495,7 +492,7 @@ Essa comprende cinque visualizzazioni principali:
     \caption{Figura 5.4 - Dashboard Frontend - User Journey}
 \end{figure}
 
-\newpage
+
 
 \subsection{Dashboard Backend - Health \& Stability}
 La \emph{dashboard} relativa al \emph{backend} fornisce invece una panoramica dello stato di salute della \emph{web app} e delle sue \emph{performance} lato \emph{server}. \\ 
@@ -514,7 +511,7 @@ Anche in questo caso sono presenti cinque visualizzazioni:
 \end{figure}
 Le due dashboard costituiscono un insieme di strumenti utili per comprendere il comportamento dell'applicazione in condizioni reali, individuare potenziali anomalie e monitorare l'esperienza utente e la stabilità del sistema.
 
-\newpage
+
 
 
 \section{Machine Learning e Anomaly Detection}
@@ -555,7 +552,7 @@ L'integrazione del modulo \gls{mlg}\glsfirstoccur fornisce alla piattaforma di o
     \item fornire una spiegazione del problema tramite gli \emph{influencer} e i grafici di contributo.
 \end{itemize}
 
-\newpage
+
 
 
 \section{Synthetic Monitoring}
@@ -618,7 +615,7 @@ Grazie ai monitor sintetici è possibile infatti rilevare:
 \end{itemize}
 Questo approccio consente di simulare l'esperienza dell'utente finale e di individuare rapidamente anomalie che potrebbero impattare sulla disponibilità complessiva del servizio, oltre ad aumentare il numero di dati di telemetria disponibili.
 
-\newpage
+
 
 
 \section{Integrazione con MCP Server e strumenti AI}
@@ -651,7 +648,6 @@ Questa fase ha permesso di verificare la piena compatibilità del \emph{server M
 La configurazione del \emph{server MCP} costituisce una base solida per eventuali evoluzioni del progetto verso l'impiego di agenti di intelligenza artificiale direttamente all'interno di \emph{Kibana}, non appena tali strumenti saranno pienamente supportati in versioni stabili dello \emph{stack Elastic}. \\
 L'infrastruttura realizzata è quindi predisposta per integrare funzionalità di analisi e automazione, mantenendo allo stesso tempo la compatibilità con gli ambienti utilizzati in produzione dall'azienda.
 
-\newpage
 
 
 \section{Sintesi dei flussi end-to-end}
