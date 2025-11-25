@@ -60,103 +60,134 @@ Nelle tabelle \ref{tab:requisiti-funzionali}, \ref{tab:requisiti-non-funzionali}
 I requisiti funzionali descrivono cosa deve fare il sistema.
 Sono le funzionalità concrete che la soluzione deve offrire per raggiungere gli obiettivi del progetto.
 
-\begin{table}[htbp]
+\setlength{\LTcapwidth}{\textwidth}
+\begin{center}
+\begin{longtable}{|p{1.3cm}|p{8.2cm}|p{2.5cm}|}
 \caption{Tabella del tracciamento dei requisiti funzionali}
 \label{tab:requisiti-funzionali}
-\begin{tabularx}{\textwidth}{lXl}
+\\
 \hline
 \rowcolor[gray]{0.8}
 \textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione}\\
 \hline
+\endfirsthead
+
+\hline
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
 ROF-1     & Il sistema deve permettere la raccolta automatica di metriche e \emph{log} relativi alla \emph{web application} tramite agenti \emph{OpenTelemetry} o \emph{Elastic APM}. & Obbligatorio \\
 \hline
 
-\hline
+
 ROF-2     & Il sistema deve inviare i dati raccolti agli \emph{endpoint} \emph{Elasticsearch} per l'analisi e l'indicizzazione. & Obbligatorio \\
 \hline
 
-\hline
+
 ROF-3     & Il sistema deve consentire la creazione di \emph{pipeline} di \emph{log} tramite \emph{Logstash} per filtraggio, trasformazione e inoltro dei dati in \emph{Elasticsearch}. & Obbligatorio \\
 \hline
 
-\hline
+
 ROF-4     & Il sistema deve prevedere la configurazione di \emph{Elastic Agents} (\emph{Beats}/\emph{\gls{apm}}) per la raccolta dati della navigazione. & Obbligatorio \\
 \hline
 
-\hline
+
 ROF-5     & Il sistema deve generare \emph{dashboard} avanzate e visualizzazioni in \emph{Kibana}, con metriche di \emph{performance}, accesso e flussi utente. & Obbligatorio \\
 \hline
 
-\hline
+
 ROF-6     & Il sistema deve permettere la verifica della corretta acquisizione dei dati e la loro indicizzazione in \emph{Elasticsearch}. & Obbligatorio \\
 \hline
 
-\hline
+
 ROF-7     & Il sistema deve prevedere lo sviluppo e l'esecuzione di \emph{script} automatizzati in \emph{Python} o \emph{Java} per la simulazione del traffico utente (\emph{Synthetic Monitoring}). & Obbligatorio \\
 \hline
 
-\hline
+
 ROF-8     & Deve essere possibile filtrare e ricercare i \emph{log} per \emph{host}, servizio, livello di severità o periodo temporale. & Obbligatorio \\
 \hline
 
-\hline
+
 RDF-9     & Il sistema dovrebbe prevedere la configurazione di regole di \emph{alerting} e notifiche in tempo reale per anomalie rilevate. & Desiderabile \\
 \hline
 
-\hline
+
 RDF-10     & Il sistema dovrebbe integrare algoritmi di \emph{Machine Learning} per l'individuazione automatica di anomalie. & Desiderabile \\
 \hline
 
-\hline
+
 RDF-11     & Il sistema dovrebbe consentire l'esportazione delle \emph{dashboard} o dei risultati delle \emph{query} in formato \gls{pdf}\glsfirstoccur o \gls{csv}\glsfirstoccur. & Desiderabile \\
 \hline
 
-\hline
+
 RZF-12     & Il sistema può prevedere un modulo aggiuntivo per la generazione automatica di report periodici delle metriche raccolte. & Opzionale \\
 \hline
 
-\hline
+
 RZF-13     & Il sistema può consentire l'importazione automatica delle configurazioni \gls{apm} da ambienti di \emph{test} o \emph{staging}. & Opzionale \\
 \hline
 
-\end{tabularx}
-\end{table}%
+\end{longtable}
+\end{center}
 
 \newpage
 \subsection{Requisiti non funzionali}
 I requisiti non funzionali definiscono come il sistema deve comportarsi, cioè le sue proprietà di qualità interna.
 Non aggiungono nuove funzioni, ma impongono vincoli di prestazioni, sicurezza, disponibilità, scalabilità, affidabilità e manutenibilità.
 
-\begin{table}[htbp]
+\setlength{\LTcapwidth}{\textwidth}
+\begin{center}
+\begin{longtable}{|p{1.3cm}|p{8.2cm}|p{2.5cm}|}
 \caption{Tabella del tracciamento dei requisiti non funzionali}
 \label{tab:requisiti-non-funzionali}
-\begin{tabularx}{\textwidth}{lXl}
+\\
 \hline
 \rowcolor[gray]{0.8}
-\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione}\\
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} \\
 \hline
-RON-1    & Il sistema deve essere scalabile e consentire l'aggiunta di nuove fonti di dati o agenti senza compromettere la stabilità. & - Obbligatorio \\
-\hline
+\endfirsthead
 
 \hline
-RON-2    & Il sistema deve garantire l'affidabilità nella trasmissione e nella conservazione dei dati raccolti. & - Obbligatorio \\
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} \\
 \hline
+\endhead
 
 \hline
-RON-3    & La piattaforma deve assicurare un tempo di latenza accettabile nella visualizzazione dei dati (< 5 secondi per l'aggiornamento delle \emph{dashboard}). & - Obbligatorio \\
-\hline
+\endfoot
 
 \hline
-RDN-4    & Il sistema dovrebbe garantire la possibilità di eseguire \emph{test} di carico e stress per valutare la stabilità dell'ambiente. & - Desiderabile \\
-\hline
+\endlastfoot
 
-\hline
-RDN-5    & Il sistema dovrebbe supportare l'autenticazione per la gestione degli accessi a \emph{Kibana}. & - Desiderabile \\
+RON-1    & Il sistema deve essere scalabile e consentire l'aggiunta di nuove fonti di dati o agenti senza compromettere la stabilità. & Obbligatorio \\
 \hline
 
 
-\end{tabularx}
-\end{table}%
+RON-2    & Il sistema deve garantire l'affidabilità nella trasmissione e nella conservazione dei dati raccolti. & Obbligatorio \\
+\hline
+
+
+RON-3    & La piattaforma deve assicurare un tempo di latenza accettabile nella visualizzazione dei dati (< 5 secondi per l'aggiornamento delle \emph{dashboard}). & Obbligatorio \\
+\hline
+
+
+RDN-4    & Il sistema dovrebbe garantire la possibilità di eseguire \emph{test} di carico e stress per valutare la stabilità dell'ambiente. & Desiderabile \\
+\hline
+
+
+RDN-5    & Il sistema dovrebbe supportare l'autenticazione per la gestione degli accessi a \emph{Kibana}. & Desiderabile \\
+\hline
+
+\end{longtable}
+\end{center}
 
 
 \newpage
@@ -164,35 +195,51 @@ RDN-5    & Il sistema dovrebbe supportare l'autenticazione per la gestione degli
 I requisiti qualitativi specificano le proprietà qualitative che influenzano l'esperienza d'uso e la manutenibilità.
 Si concentrano su aspetti percepibili, come semplicità, chiarezza, flessibilità o estendibilità.
 
-\begin{table}[htbp]
+\setlength{\LTcapwidth}{\textwidth}
+\begin{center}
+\begin{longtable}{|p{1.3cm}|p{8.2cm}|p{2.5cm}|}
 \caption{Tabella del tracciamento dei requisiti qualitativi}
 \label{tab:requisiti-qualitativi}
-\begin{tabularx}{\textwidth}{lXl}
+\\
 \hline
 \rowcolor[gray]{0.8}
-\textbf{Codice} & \textbf{Descrizione} & \textbf{Use Case}\\
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} \\
 \hline
-ROQ-1    & L'interfaccia di \emph{Kibana} deve offrire una rappresentazione chiara e intuitiva delle metriche principali. & - Obbligatorio \\
-\hline
+\endfirsthead
 
 \hline
-ROQ-2    & I dati devono essere visualizzabili in forma aggregata e filtrabile in base a intervalli temporali e categorie di evento. & - Obbligatorio\\
+\rowcolor[gray]{0.8}
+\textbf{Codice} & \textbf{Descrizione} & \textbf{Classificazione} \\
 \hline
+\endhead
 
 \hline
-ROQ-3    & Le \emph{dashboard} devono presentare una chiara distinzione cromatica tra metriche positive, neutre e anomale. & - Obbligatorio\\
-\hline
+\endfoot
 
 \hline
-RDQ-4    & Le \emph{dashboard} dovrebbero essere personalizzabili dall'utente secondo criteri di interesse (\emph{performance}, accessi, flussi). & - Desiderabile \\
+\endlastfoot
+
+ROQ-1    & L'interfaccia di \emph{Kibana} deve offrire una rappresentazione chiara e intuitiva delle metriche principali. & Obbligatorio \\
 \hline
 
-\hline
-RZQ-5    & Il sistema può includere un \emph{layout dark/light mode} o temi grafici personalizzati per una migliore leggibilità. & - Opzionale \\
+
+ROQ-2    & I dati devono essere visualizzabili in forma aggregata e filtrabile in base a intervalli temporali e categorie di evento. & Obbligatorio\\
 \hline
 
-\end{tabularx}
-\end{table}%
+
+ROQ-3    & Le \emph{dashboard} devono presentare una chiara distinzione cromatica tra metriche positive, neutre e anomale. & Obbligatorio\\
+\hline
+
+
+RDQ-4    & Le \emph{dashboard} dovrebbero essere personalizzabili dall'utente secondo criteri di interesse (\emph{performance}, accessi, flussi). & Desiderabile \\
+\hline
+
+
+RZQ-5    & Il sistema può includere un \emph{layout dark/light mode} o temi grafici personalizzati per una migliore leggibilità. & Opzionale \\
+\hline
+
+\end{longtable}
+\end{center}
 
 \newpage
 \subsection{Requisiti di vincolo}
@@ -200,7 +247,7 @@ RZQ-5    & Il sistema può includere un \emph{layout dark/light mode} o temi gra
 Impongono limitazioni o condizioni esterne al progetto: ambienti, tecnologie,
 compatibilità, strumenti, standard aziendali o legali.
 
-\begin{longtable}{|p{1.5cm}|p{9cm}|p{2.5cm}|}
+\begin{longtable}{|p{1.3cm}|p{8.2cm}|p{2.5cm}|}
 \caption{Tabella del tracciamento dei requisiti di vincolo}
 \label{tab:requisiti-vincolo}
 \\
@@ -357,9 +404,12 @@ Le seguenti \emph{user stories} descrivono brevemente i principali scenari di ut
 L'unico attore considerato è l'\emph{Observability Engineer}, figura responsabile della configurazione, analisi e manutenzione del sistema all'interno dell'azienda.
 
 
-\begin{longtable}{|p{1cm}|p{8cm}|p{3cm}|}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{center}
+\begin{longtable}{|p{1.3cm}|p{8.2cm}|p{2.5cm}|}
 \caption{User Stories}
-\label{tab:user-stories} \\
+\label{tab:user-stories}
+\\
 \hline
 \rowcolor[gray]{0.8}
 \textbf{ID} & \textbf{User Story} & \textbf{Obiettivo} \\
@@ -367,6 +417,17 @@ L'unico attore considerato è l'\emph{Observability Engineer}, figura responsabi
 \endfirsthead
 
 \hline
+\rowcolor[gray]{0.8}
+\textbf{ID} & \textbf{User Story} & \textbf{Obiettivo} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
 \textbf{US1} & Come \emph{Observability Engineer}, voglio analizzare i tempi medi di risposta degli \emph{endpoint} dell'applicazione per individuare colli di bottiglia o degradi di \emph{performance}. & Ottimizzare le prestazioni applicative. \\
 \hline
 
@@ -416,6 +477,7 @@ L'unico attore considerato è l'\emph{Observability Engineer}, figura responsabi
 \hline
 
 \end{longtable}
+\end{center}
 
 
 %\section{Conclusioni}
