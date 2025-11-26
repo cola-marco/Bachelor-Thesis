@@ -27,16 +27,18 @@ La realizzazione del sistema di osservabilità è stata accompagnata dalla defin
 Il \emph{repository} principale, chiamato \emph{elastic-project}, contiene tutte le componenti necessarie all'avvio tramite \emph{Docker Compose} e alla configurazione delle \emph{pipelines} di \emph{log}, metriche e tracce, nonché all'avvio delle istanze del \emph{Fleet Server} e delle \emph{policy} per il \emph{Synthetic monitoring}. \\
 La struttura complessiva è riportata di seguito:
 \begin{lstlisting}[basicstyle=\ttfamily\small]
-- elastic-project/ 
--- docker-compose.yml
--- .env
--- logstash.conf
--- logs/
--- collector/
-    -> config.yaml
--- mcp-server-elasticsearch/
--- spring-petclinic/
-    -> Dockerfile
+elastic-project/
+|-- docker-compose.yml
+|-- .env
+|-- logstash.conf
+|-- logs/
+|-- collector/
+|   \-- config.yaml
+|-- mcp-server-elasticsearch/
+|   \-- Dockerfile
+\-- spring-petclinic/
+    \-- Dockerfile
+    \-- opentelemetry-javaagent.jar
 \end{lstlisting}
 Questa organizzazione è stata costruita con l'obiettivo di isolare le responsabilità dei vari componenti:
 \begin{itemize}
