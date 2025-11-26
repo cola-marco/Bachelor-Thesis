@@ -16,7 +16,7 @@ Nella figura si riporta l'architettura complessiva del sistema e il flusso dei d
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{Architettura_complessiva.png}
-    \caption{Figura 5.1 - Architettura complessiva}
+    \caption{Architettura complessiva}
 \end{figure}
 
 \vspace{0.5cm}
@@ -253,7 +253,7 @@ La \emph{pipeline} finale dei log può essere sintetizzata nel seguente flusso:
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{pipeline_logs.png} 
-    \caption{Figura 5.2 - Pipeline Logs}
+    \caption{Pipeline Logs}
 \end{figure}
 Grazie a questa configurazione viene garantita un'acquisizione affidabile dei log, un arricchimento consistente delle informazioni e una consultazione efficace tramite \emph{Kibana}.
 %\texttt{PetClinic (scrive /var/log/petclinic/app.log) -> Logstash -> Elasticsearch (ILM + index template petclinic-logs-*) -> Kibana (Data View “petclinic-logs”)}
@@ -396,7 +396,7 @@ Il flusso risultante può essere sintetizzato come segue:
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{pipeline_traces_metrics.png} 
-    \caption{Figura 5.3 - Pipeline Traces e Metrics}
+    \caption{Pipeline Traces e Metrics}
 \end{figure}
 
 \vspace{0.5cm}
@@ -494,7 +494,7 @@ Essa comprende cinque visualizzazioni principali:
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{/dashboards/Frontend_dashboard.png}
-    \caption{Figura 5.4 - Dashboard Frontend - User Journey}
+    \caption{Dashboard Frontend - User Journey}
 \end{figure}
 
 \vspace{0.5cm}
@@ -513,7 +513,7 @@ Anche in questo caso sono presenti cinque visualizzazioni:
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{/dashboards/Backend_dashboard.png} 
-    \caption{Figura 5.5 - Dashboard Backend - Health \& Stability}
+    \caption{Dashboard Backend - Health \& Stability}
 \end{figure}
 Le due dashboard costituiscono un insieme di strumenti utili per comprendere il comportamento dell'applicazione in condizioni reali, individuare potenziali anomalie e monitorare l'esperienza utente e la stabilità del sistema.
 
@@ -663,6 +663,6 @@ Il diagramma integra tutte le \emph{pipeline} sviluppate durante il progetto, ov
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{sintesi_pipeline.png} 
-    \caption{Figura 5.6 - Sintesi dei flussi end-to-end}
+    \caption{Sintesi dei flussi end-to-end}
     \label{fig:sintesi-flussi}
 \end{figure}

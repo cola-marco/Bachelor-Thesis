@@ -65,7 +65,7 @@ Di seguito viene data una panoramica delle tecnologie e degli strumenti utilizza
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/elasticsearch.png} 
-    \caption{Figura 4.1 - Logo Elasticsearch}
+    \caption{Logo Elasticsearch}
 \end{figure}
 
 \vspace{1em}
@@ -76,7 +76,7 @@ Di seguito viene data una panoramica delle tecnologie e degli strumenti utilizza
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/kibana.png} 
-    \caption{Figura 4.2 - Logo Kibana}
+    \caption{Logo Kibana}
 \end{figure}
 
 \vspace{1em}
@@ -88,7 +88,7 @@ Integrando funzionalità di raccolta dati, sicurezza e monitoraggio, \emph{Elast
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{fleet-agents.png} 
-    \caption{Figura 4.3 - Funzionamento Elastic Agents e Fleet}
+    \caption{Funzionamento Elastic Agents e Fleet}
     \label{fig:fleet-agents}
 \end{figure}
 La figura \ref{fig:fleet-agents} mostra l'architettura generale di gestione degli agenti tramite \emph{Fleet}. Gli \emph{Elastic Agents} installati sull'applicazione comunicano con il \emph{Fleet Server} per ricevere le \emph{policy} di configurazione e inviare i dati raccolti a \emph{Elasticsearch} per la visualizzazione in \emph{Kibana}.   
@@ -101,7 +101,7 @@ L'obiettivo di \emph{OpenTelemetry} è standardizzare la raccolta e l'esportazio
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/OpenTelemetry.png} 
-    \caption{Figura 4.4 - OpenTelemetry}
+    \caption{Logo OpenTelemetry}
 \end{figure}
 
 \vspace{1em}
@@ -113,7 +113,7 @@ L'\emph{APM Server} è un componente dell'\emph{Elastic stack} che funge da punt
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/ElasticAPM.png} 
-    \caption{Figura 4.5 - Elastic APM}
+    \caption{Logo Elastic APM}
 \end{figure}
 
 \vspace{1em}
@@ -126,112 +126,133 @@ Nel progetto, tale monitoraggio è stato implementato tramite \emph{Kibana Synth
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=7cm]{/logos/playwright.png} 
-    \caption{Figura 4.6 - Playwright}
+    \caption{Logo Playwright}
 \end{figure}
 
 
 \newpage
 \subsection{Linguaggi di programmazione}
 \subsection*{Python}
-Python\footcite{site:python} è un linguaggio di programmazione ad alto livello, ampiamente utilizzato in vari ambiti, tra cui lo sviluppo web, l'analisi dei dati, l'intelligenza artificiale e l'automazione. Python è dotato di una vasta libreria standard e di un ecosistema ricco di pacchetti e framework che ne estendono le funzionalità e lo rendono un linguaggio versatile e potente. In questo progetto Python è stato utilizzato principalmente per la creazione di script di automazione tramite Selenium, al fine di eseguire test automatizzati sull'applicazione \emph{web PetClinic}.
+\emph{Python}\footcite{site:python} è un linguaggio di programmazione ad alto livello, ampiamente utilizzato in vari ambiti, tra cui lo sviluppo \emph{web}, l'analisi dei dati, l'intelligenza artificiale e l'automazione. \\
+\emph{Python} è dotato di una vasta libreria standard e di un ecosistema ricco di pacchetti e \emph{framework} che ne estendono le funzionalità e lo rendono un linguaggio versatile e potente. \\
+In questo progetto \emph{Python} è stato utilizzato principalmente per la creazione di \emph{script} di automazione tramite \emph{Selenium}, al fine di eseguire test automatizzati sull'applicazione \emph{web PetClinic}.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/Python_logonormal.png} 
-    \caption{Figura 4.7 - Python}
+    \caption{Logo Python}
 \end{figure}
 
 \vspace{1em}
 
 \subsection*{JavaScript}
-JavaScript\footcite{site:javascript} è un linguaggio di programmazione interpretato, utilizzato per lo sviluppo di applicazioni \emph{web} lato \emph{client} che consente di creare interfacce utente interattive e dinamiche. Nel contesto del progetto di monitoraggio di \emph{PetClinic}, JavaScript è stato utilizzato per integrare il RUM Agent di Elastic APM, permettendo la raccolta di dati sulle prestazioni dell'applicazione dal punto di vista dell'utente finale.
+\emph{JavaScript}\footcite{site:javascript} è un linguaggio di programmazione interpretato, utilizzato per lo sviluppo di applicazioni \emph{web} lato \emph{client} che consente di creare interfacce utente interattive e dinamiche. \\
+Nel contesto del progetto di monitoraggio di \emph{PetClinic}, \emph{JavaScript} è stato utilizzato per integrare il \emph{RUM Agent}, permettendo la raccolta di dati sulle prestazioni dell'applicazione dal punto di vista dell'utente finale.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/javascript.png} 
-    \caption{Figura 4.8 - JavaScript}
+    \caption{Logo JavaScript}
 \end{figure}
 
 \vspace{1em}
 
 \subsection*{Java}
-Java\footcite{site:java} è un linguaggio di programmazione ad alto livello, orientato agli oggetti, ampiamente utilizzato nel mondo dello sviluppo software. OpenTelemetry fornisce un agente APM specifico per Java, che consente di monitorare le prestazioni di \emph{backend} dell'applicazione \emph{PetClinic} in modo dettagliato integrando l'agente Java nel codice dell'applicazione.
+\emph{Java}\footcite{site:java} è un linguaggio di programmazione ad alto livello, orientato agli oggetti, ampiamente utilizzato nel mondo dello sviluppo \emph{software}. \\
+\emph{OpenTelemetry} fornisce un agente \emph{APM} specifico per \emph{Java}, che consente di monitorare le prestazioni di \emph{backend} dell'applicazione \emph{PetClinic} in modo dettagliato integrando l'agente nel codice dell'applicazione.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/java.png} 
-    \caption{Figura 4.9 - Java}
+    \caption{Logo Java}
 \end{figure}
 
 
 
 \subsection{Framework e librerie}
 \subsection*{Node.js}
-Node.js\footcite{site:nodejs} è utilizzato in PetClinic lato server per eseguire codice JavaScript. Funge da intermediario per le richieste tra il client e il server, gestendo operazioni asincrone e migliorando le prestazioni complessive dell'applicazione web.
+\emph{Node.js}\footcite{site:nodejs} è utilizzato in \emph{PetClinic} lato \emph{server} per eseguire codice \emph{JavaScript}. Funge da intermediario per le richieste tra il \emph{client} e il \emph{server}, gestendo operazioni asincrone e migliorando le prestazioni complessive dell'applicazione \emph{web}.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/nodeJS.png} 
-    \caption{Figura 4.10 - Node.js}
+    \caption{Logo Node.js}
 \end{figure}
 
 \vspace{1em}
 
 \subsection*{Spring Boot}
-Spring Boot\footcite{site:spring} è il framework principale utilizzato per sviluppare l'applicazione \emph{PetClinic}. Fornisce un ambiente di sviluppo semplificato per la creazione di applicazioni \emph{Java} basate su \emph{Spring}, offrendo funzionalità integrate per la gestione delle dipendenze, la configurazione automatica e il supporto per vari moduli come \emph{Spring MVC}, \emph{Spring Data} e \emph{Spring Security}.
+\emph{Spring Boot}\footcite{site:spring} è il \emph{framework} principale utilizzato per sviluppare l'applicazione \emph{PetClinic}. Fornisce un ambiente di sviluppo semplificato per la creazione di applicazioni \emph{Java} basate su \emph{Spring}, offrendo funzionalità integrate per la gestione delle dipendenze, la configurazione automatica e il supporto per vari moduli come \emph{Spring MVC}, \emph{Spring Data} e \emph{Spring Security}.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/spring.png} 
-    \caption{Figura 4.11 - Spring}
+    \caption{Logo Spring}
 \end{figure}
 
 \vspace{1em}
 
 \subsection*{Selenium}
-Selenium\footcite{site:selenium} è un \emph{framework open source} utilizzato per l'automazione dei test delle applicazioni \emph{web}. Consente di simulare le interazioni degli utenti con il \emph{browser}, eseguendo test funzionali e di regressione in modo automatizzato. Selenium supporta diversi linguaggi di programmazione, tra cui \emph{Java}, \emph{Python} e \emph{JavaScript} e può essere integrato con vari strumenti di \emph{testing} e \emph{framework} di sviluppo. Durante il progetto è stata utilizzata la libreria Selenium per \emph{Python} per creare \emph{script} di test automatizzati che simulano le azioni degli utenti sull'applicazione \emph{PetClinic}.
+\emph{Selenium}\footcite{site:selenium} è un \emph{framework open source} utilizzato per l'automazione dei \emph{test} delle applicazioni \emph{web}. Consente di simulare le interazioni degli utenti con il \emph{browser}, eseguendo \emph{test} funzionali e di regressione in modo automatizzato. \\
+\emph{Selenium} supporta diversi linguaggi di programmazione, tra cui \emph{Java}, \emph{Python} e \emph{JavaScript} e può essere integrato con vari strumenti di \emph{testing} e \emph{framework} di sviluppo. \\
+Durante il progetto è stata utilizzata la libreria \emph{Selenium} per \emph{Python} per creare \emph{script} di \emph{test} automatizzati che simulano le azioni degli utenti sull'applicazione \emph{PetClinic}.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/selenium.png} 
-    \caption{Figura 4.12 - Selenium}
+    \caption{Logo Selenium}
 \end{figure}
 
 
 
 \subsection{Strumenti di sviluppo}
 \subsection*{VSCode}
-Visual Studio Code (VSCode)\footcite{site:vscode} è un editor di codice sorgente sviluppato da Microsoft. Supporta una vasta gamma di linguaggi di programmazione e offre diverse funzionalità avanzate come il debugging integrato, il controllo della versione tramite \emph{Git} e un \emph{marketplace} ricco di estensioni.
+\emph{Visual Studio Code (VSCode)}\footcite{site:vscode} è un \emph{editor} di codice sorgente sviluppato da \emph{Microsoft}. Supporta una vasta gamma di linguaggi di programmazione e offre diverse funzionalità avanzate come il \emph{debugging} integrato, il controllo della versione tramite \emph{Git} e un \emph{marketplace} ricco di estensioni.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/vscode.png} 
-    \caption{Figura 4.13 - VSCode}
+    \caption{Logo VSCode}
 \end{figure}
 
 
 
 \subsection{Database}
 \subsection*{MySQL}
-MySQL\footcite{site:mysql} è un sistema di gestione di \emph{database} relazionali \emph{open source}, ampiamente utilizzato per la memorizzazione e la gestione dei dati in applicazioni \emph{web} e aziendali. MySQL supporta il linguaggio \gls{sqlg}\glsfirstoccur per l'interrogazione e la manipolazione dei dati, offrendo funzionalità avanzate come transazioni, indicizzazione e replicazione. Nel contesto dell'applicazione \emph{PetClinic}, MySQL viene utilizzato come \emph{database} principale per archiviare le informazioni relative agli utenti, agli animali domestici, alle visite veterinarie e ad altri dati pertinenti all'applicazione.
+\emph{MySQL}\footcite{site:mysql} è un sistema di gestione di \emph{database} relazionali \emph{open source}, ampiamente utilizzato per la memorizzazione e la gestione dei dati in applicazioni \emph{web} e aziendali. \emph{MySQL} supporta il linguaggio \gls{sqlg}\glsfirstoccur per l'interrogazione e la manipolazione dei dati, offrendo funzionalità avanzate come transazioni, indicizzazione e replicazione. \\
+Nel contesto dell'applicazione \emph{PetClinic}, \emph{MySQL} viene utilizzato come \emph{database} per archiviare le informazioni relative agli utenti, agli animali domestici, alle visite veterinarie e ad altri dati pertinenti all'applicazione.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/Mysql_barattolo.png} 
-    \caption{Figura 4.14 - MySQL}
+    \caption{Logo MySQL}
 \end{figure}
 
 
 \subsection{Containerizzazione}
 \subsection*{Docker}
-Docker\footcite{site:docker} è una piattaforma di containerizzazione che consente di automatizzare il deployment di applicazioni all'interno di container leggeri e portabili. I container isolano le applicazioni e le loro dipendenze, garantendo coerenza tra gli ambienti di sviluppo, test e produzione. Nel contesto dell'applicazione \emph{PetClinic}, Docker è stato utilizzato per creare un ambiente di sviluppo replicabile e per semplificare il deployment dell'applicazione e dei suoi componenti.
+\emph{Docker}\footcite{site:docker} è una piattaforma di containerizzazione che consente di automatizzare il \emph{deployment} di applicazioni all'interno di \emph{container} leggeri e portabili. I \emph{container} isolano le applicazioni e le loro dipendenze, garantendo coerenza tra gli ambienti di sviluppo, \emph{test} e produzione. \\
+Nel contesto dell'applicazione \emph{PetClinic}, \emph{Docker} è stato utilizzato per creare un ambiente di sviluppo replicabile e per semplificare il \emph{deployment} dell'applicazione e dei suoi componenti.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/docker.png} 
-    \caption{Figura 4.15 - Docker}
+    \caption{Logo Docker}
 \end{figure}
+
+
+\subsection*{Docker Compose}
+\emph{Docker Compose}\footcite{site:docker-compose} è uno strumento che consente di definire e gestire applicazioni \emph{multi-container} tramite un file di configurazione \texttt{docker-compose.yml}. \\
+Attraverso \emph{Compose} è possibile avviare, fermare e orchestrare più servizi correlati come un'unica applicazione, semplificando la gestione degli ambienti di sviluppo e test. \\
+Nel contesto dell'applicazione \emph{PetClinic}, \emph{Docker Compose} è stato utilizzato per avviare simultaneamente i componenti dell'applicazione, come il servizio principale, il \emph{database} e gli strumenti di monitoraggio.
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=4cm]{/logos/docker.png} 
+    \caption{Logo Docker Compose}
+\end{figure}
+
+\newpage
 
 
 \section{Criteri di scelta della soluzione}
 \label{sec:criteri-scelta-soluzione}
 Le principali motivazioni che hanno guidato la scelta della soluzione di monitoraggio basata su \emph{Elastic Stack} e \emph{OpenTelemetry} sono:
 \begin{itemize}
-    \item \textbf{Open source e flessibilità:} entrambe le tecnologie sono open source, consentendo una maggiore personalizzazione e adattabilità alle esigenze specifiche del progetto;
+    \item \textbf{Open source e flessibilità:} entrambe le tecnologie sono \emph{open source}, consentendo una maggiore personalizzazione e adattabilità alle esigenze specifiche del progetto;
     \item \textbf{Scalabilità:} la soluzione è progettata per gestire grandi volumi di dati in ambienti distribuiti, garantendo prestazioni elevate anche con l'aumento del carico di lavoro;
     \item \textbf{Ecosistema completo:} \emph{Elastic Stack} offre un ecosistema completo per la raccolta, l'analisi e la visualizzazione dei dati, semplificando la gestione del sistema di monitoraggio;
-    \item \textbf{Requisiti aziendali:} la scelta è stata influenzata dalla necessità di integrare il sistema di monitoraggio con l'infrastruttura esistente dell'azienda, che già utilizza componenti dell'\emph{Elastic Stack};
+    \item \textbf{Requisiti aziendali:} la scelta è stata influenzata dalla necessità di integrare il sistema di monitoraggio con l'infrastruttura esistente dell'azienda, che già utilizza componenti dell'\emph{Elastic Stack} e \emph{Docker};
     \item \textbf{Comunità attiva:} entrambe le tecnologie vantano una comunità di sviluppatori attiva e in crescita, che contribuisce al miglioramento continuo delle piattaforme e fornisce supporto agli utenti.
 \end{itemize}
 
@@ -239,8 +260,8 @@ Le principali motivazioni che hanno guidato la scelta della soluzione di monitor
 \section{Integrazione con l'ambiente esistente}
 \label{sec:integrazione-ambiente-esistente}
 L'integrazione della soluzione di monitoraggio è stata progettata tenendo conto delle specifiche dell'ambiente tecnico aziendale, basato su infrastrutture \emph{Linux} e containerizzazione tramite \emph{Docker}. \\
-Tutti i componenti dell'\emph{Elastic Stack} sono stati distribuiti in un ambiente isolato, gestito tramite Docker, mantenendo la compatibilità con le versioni approvate dall'azienda. \\
-La comunicazione tra l'applicazione \emph{web PetClinic} e il sistema di osservabilità avviene tramite l'agente \emph{OpenTelemetry Java}, che esporta i dati di telemetria verso l'\emph{Elastic APM Server} gestito da \emph{Fleet} dopo essere passati per un Collector OpenTelemetry. 
+Tutti i componenti dell'\emph{Elastic Stack} sono stati distribuiti in un ambiente isolato, gestito tramite \emph{Docker}, mantenendo la compatibilità con le versioni approvate dall'azienda. \\
+La comunicazione tra l'applicazione \emph{web PetClinic} e il sistema di osservabilità avviene tramite l'agente \emph{OpenTelemetry Java}, che esporta i dati di telemetria verso l'\emph{Elastic APM Server} gestito da \emph{Fleet} dopo essere passati per un \emph{Collector OpenTelemetry}. \\
 L'approccio adottato permette un'integrazione trasparente con l'ambiente esistente, garantendo la scalabilità del sistema e la possibilità di estendere la soluzione ad altri servizi o applicazioni monitorate nel futuro.
 
 %\section{Ciclo di vita del software}
