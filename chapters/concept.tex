@@ -24,9 +24,8 @@
 %\end{usecase}
 
 \section{Requisiti del sistema}
-
 A seguito di un'attenta attività di analisi del progetto e degli obiettivi tecnici e funzionali prefissati, sono state redatte le tabelle di tracciamento che riassumono in modo strutturato i requisiti individuati. \\
-Durante questa fase sono state identificate differenti tipologie di requisiti, distinte sia in base alla loro categoria (funzionale, non funzionale, qualitativo o di vincolo), sia in base alla loro priorità di implementazione (obbligatorio, desiderabile o opzionale).
+Durante questa fase sono state identificate differenti tipologie di requisiti, distinte sia in base alla loro categoria (funzionale, non funzionale, qualitativo o di vincolo), sia in base alla loro priorità di implementazione (obbligatorio, desiderabile o opzionale). \\
 Per garantire una tracciabilità chiara e univoca, a ciascun requisito è stato assegnato un codice identificativo composto da lettere che ne descrivono la tipologia e l'importanza, secondo la seguente convenzione:
 \begin{description}
 	\item [R =] Requisito
@@ -40,13 +39,11 @@ Per garantire una tracciabilità chiara e univoca, a ciascun requisito è stato 
 \end{description}
 
 \newpage
-
 Ogni requisito analizzato sarà identificato univocamente dalla seguente notazione:
 \begin{center}
     \textbf{R[Priorità][Categoria]-[Numero]}
 \end{center}
 Dove:
-
 \begin{itemize}
     \item \textbf{Priorità} indica la priorità di implementazione, che può essere O = Obbligatorio, D = Desiderabile, Z = Opzionale;
     \item \textbf{Categoria} la categoria di appartenenza, che può essere F = Funzionale, N = Non funzionale, Q = Qualitativo, V = Vincolo;
@@ -57,8 +54,7 @@ Nelle tabelle \ref{tab:requisiti-funzionali}, \ref{tab:requisiti-non-funzionali}
 
 \newpage
 \subsection{Requisiti funzionali}
-I requisiti funzionali descrivono cosa deve fare il sistema.
-Sono le funzionalità concrete che la soluzione deve offrire per raggiungere gli obiettivi del progetto.
+I requisiti funzionali descrivono cosa deve fare il sistema. Sono le funzionalità concrete che la soluzione deve offrire per raggiungere gli obiettivi del progetto.
 
 \setlength{\LTcapwidth}{\textwidth}
 \begin{center}
@@ -96,7 +92,7 @@ ROF-3     & Il sistema deve consentire la creazione di \emph{pipeline} di \emph{
 \hline
 
 
-ROF-4     & Il sistema deve prevedere la configurazione di \emph{Elastic Agents} (\emph{Beats}/\emph{\gls{apm}}) per la raccolta dati della navigazione. & Obbligatorio \\
+ROF-4     & Il sistema deve prevedere la configurazione di \emph{Elastic Agents} (\emph{Beats}/\emph{\gls{apmg}}) per la raccolta dati della navigazione. & Obbligatorio \\
 \hline
 
 
@@ -124,15 +120,15 @@ RDF-10     & Il sistema dovrebbe integrare algoritmi di \emph{Machine Learning} 
 \hline
 
 
-RDF-11     & Il sistema dovrebbe consentire l'esportazione delle \emph{dashboard} o dei risultati delle \emph{query} in formato \gls{pdf}\glsfirstoccur o \gls{csv}\glsfirstoccur. & Desiderabile \\
+RDF-11     & Il sistema dovrebbe consentire l'esportazione delle \emph{dashboard} o dei risultati delle \emph{query} in formato \gls{pdfg}\glsfirstoccur o \gls{csvg}\glsfirstoccur. & Desiderabile \\
 \hline
 
 
-RZF-12     & Il sistema può prevedere un modulo aggiuntivo per la generazione automatica di report periodici delle metriche raccolte. & Opzionale \\
+RZF-12     & Il sistema può prevedere un modulo aggiuntivo per la generazione automatica di \emph{report} periodici delle metriche raccolte. & Opzionale \\
 \hline
 
 
-RZF-13     & Il sistema può consentire l'importazione automatica delle configurazioni \gls{apm} da ambienti di \emph{test} o \emph{staging}. & Opzionale \\
+RZF-13     & Il sistema può consentire l'importazione automatica delle configurazioni \gls{apmg} da ambienti di \emph{test} o \emph{staging}. & Opzionale \\
 \hline
 
 \end{longtable}
@@ -140,7 +136,7 @@ RZF-13     & Il sistema può consentire l'importazione automatica delle configur
 
 \newpage
 \subsection{Requisiti non funzionali}
-I requisiti non funzionali definiscono come il sistema deve comportarsi, cioè le sue proprietà di qualità interna.
+I requisiti non funzionali definiscono come il sistema deve comportarsi, cioè le sue proprietà di qualità interna. \\
 Non aggiungono nuove funzioni, ma impongono vincoli di prestazioni, sicurezza, disponibilità, scalabilità, affidabilità e manutenibilità.
 
 \setlength{\LTcapwidth}{\textwidth}
@@ -192,7 +188,7 @@ RDN-5    & Il sistema dovrebbe supportare l'autenticazione per la gestione degli
 
 \newpage
 \subsection{Requisiti qualitativi}
-I requisiti qualitativi specificano le proprietà qualitative che influenzano l'esperienza d'uso e la manutenibilità.
+I requisiti qualitativi specificano le proprietà qualitative che influenzano l'esperienza d'uso e la manutenibilità. \\
 Si concentrano su aspetti percepibili, come semplicità, chiarezza, flessibilità o estendibilità.
 
 \setlength{\LTcapwidth}{\textwidth}
@@ -245,7 +241,7 @@ RZQ-5    & Il sistema può includere un \emph{layout dark/light mode} o temi gra
 \subsection{Requisiti di vincolo}
 
 Impongono limitazioni o condizioni esterne al progetto: ambienti, tecnologie,
-compatibilità, strumenti, standard aziendali o legali.
+compatibilità, strumenti, \emph{standard} aziendali o legali.
 
 \begin{longtable}{|p{1.3cm}|p{8.2cm}|p{2.5cm}|}
 \caption{Tabella del tracciamento dei requisiti di vincolo}
@@ -275,35 +271,35 @@ ROV-1 & Il sistema deve utilizzare i prodotti della suite \emph{Elastic Stack}
 ROV-2 & L'ambiente operativo deve essere \emph{Linux} (\emph{Red Hat} o distribuzioni equivalenti). & Obbligatorio \\
 \hline
 
-ROV-3 & Tutti i componenti software devono essere compatibili con la versione di Linux installata
-(es. Ubuntu 22.04 LTS o Red Hat 9). & Obbligatorio \\
+ROV-3 & Tutti i componenti \emph{software} devono essere compatibili con la versione di \emph{Linux} installata
+(es. \emph{Ubuntu 22.04 LTS} o \emph{Red Hat 9}). & Obbligatorio \\
 \hline
 
 ROV-4 & Le componenti devono rispettare le seguenti versioni minime:
 \begin{itemize}
-    \item Python >= 3.10
-    \item Java >= 16
-    \item Node.js >= 17
-    \item Logstash >= 8.10
-    \item Kibana >= 8.10
-    \item Beats >= 8.10
-    \item APM Server >= 8.10
-    \item Elasticsearch >= 8.10
-    \item OpenTelemetry >= 1.0
+    \item \emph{Python} >= 3.10
+    \item \emph{Java} >= 16
+    \item \emph{Node.js} >= 17
+    \item \emph{Logstash} >= 8.10
+    \item \emph{Kibana} >= 8.10
+    \item \emph{Beats} >= 8.10
+    \item \emph{APM Server} >= 8.10
+    \item \emph{Elasticsearch} >= 8.10
+    \item \emph{OpenTelemetry Java Agent} >= 1.26.0
 \end{itemize} & Obbligatorio \\
 \hline
 
-ROV-5 & La web application deve essere compatibile con i principali browser
-(Chrome >= 120, Firefox >= 115, Edge >= 120, Safari >= 15). & Obbligatorio \\
+ROV-5 & La \emph{web application} deve essere compatibile con i principali \emph{browser}
+(\emph{Chrome} >= 120, \emph{Firefox} >= 115, \emph{Edge} >= 120, \emph{Safari} >= 15). & Obbligatorio \\
 \hline
 
-ROV-6 & Le configurazioni devono essere eseguite in ambiente Docker o su infrastruttura aziendale. & Obbligatorio \\
+ROV-6 & Le configurazioni devono essere eseguite in ambiente \emph{Docker} o su infrastruttura aziendale. & Obbligatorio \\
 \hline
 
-RDV-7 & La documentazione tecnica deve essere redatta in Markdown, LaTeX o PDF. & Desiderabile \\
+RDV-7 & La documentazione tecnica deve essere redatta in \emph{Markdown}, \emph{LaTeX} o \gls{pdfg}. & Desiderabile \\
 \hline
 
-RDV-8 & Il sistema dovrebbe supportare la distribuzione tramite Docker Compose. & Desiderabile \\
+RDV-8 & Il sistema dovrebbe supportare la distribuzione tramite \emph{Docker Compose}. & Desiderabile \\
 \hline
 
 \end{longtable}
@@ -336,7 +332,7 @@ RDV-8 & Il sistema dovrebbe supportare la distribuzione tramite Docker Compose. 
 \hline
 
 \hline
-\textbf{Totale} &  &  &  & 31 \\
+\textbf{Totale} & 20 & 8 & 3 & 31 \\
 \hline
 
 \end{tabular}
@@ -344,15 +340,15 @@ RDV-8 & Il sistema dovrebbe supportare la distribuzione tramite Docker Compose. 
 
 
 \section{Rappresentazione architetturale preliminare}
-La rappresentazione architetturale descrive la struttura della soluzione proposta, evidenziando le principali componenti coinvolte nel sistema di \gls{apm} e le loro relazioni. \\
+La rappresentazione architetturale descrive la struttura della soluzione proposta, evidenziando le principali componenti coinvolte nel sistema di \gls{apmg} e le loro relazioni. \\
 Essa costituisce il collegamento tra la fase di analisi dei requisiti e la successiva implementazione pratica. I dettagli tecnici e i diagrammi della soluzione verranno approfonditi nel capitolo dedicato allo sviluppo della piattaforma.
 
 
 \subsection{Struttura generale della soluzione di monitoraggio}
-La soluzione di \gls{apm} proposta si fonda su un'architettura ibrida che combina le funzionalità di \emph{OpenTelemetry} con la potenza analitica dello \emph{Stack Elastic}, fornendo un sistema di osservabilità completo. \\
-L'applicazione di riferimento, \emph{PetClinic}, viene monitorata sul lato \emph{backend} tramite l'\emph{OpenTelemetry Java Agent}, avviato insieme all'applicazione mediante parametri \texttt{-Dotel}. L'agente intercetta automaticamente chiamate \gls{httpg}, operazioni sul database e transazioni applicative, generando le relative tracce e metriche. \\
+La soluzione di \gls{apmg} proposta si fonda su un'architettura ibrida che combina le funzionalità di \emph{OpenTelemetry} con la potenza analitica dello \emph{Stack Elastic}, fornendo un sistema di osservabilità completo. \\
+L'applicazione di riferimento, \emph{PetClinic}, viene monitorata sul lato \emph{backend} tramite l'\emph{OpenTelemetry Java Agent}, avviato insieme all'applicazione mediante parametri \texttt{-Dotel}. L'agente intercetta automaticamente chiamate \gls{httpg}\glsfirstoccur, operazioni sul \emph{database} e transazioni applicative, generando le relative tracce e metriche. \\
 A differenza di un'integrazione diretta, i dati raccolti non vengono inviati immediatamente all'\emph{APM Server}, ma passano prima attraverso l'\emph{OpenTelemetry Collector}. Il \emph{Collector} funge da livello intermedio dedicato all'elaborazione e arricchimento dei dati di telemetria, oltre a gestire la traduzione del formato in modo efficiente. \\
-Una volta processati, i dati vengono inoltrati all'\emph{APM Server} (integrato nell'\emph{Elastic Agent} gestito tramite \emph{Fleet}) utilizzando il protocollo \gls{otlpg}. \\
+Una volta processati, i dati vengono inoltrati all'\emph{APM Server} (integrato nell'\emph{Elastic Agent} gestito tramite \emph{Fleet}) utilizzando il protocollo \gls{otlpg}\glsfirstoccur. \\
 L'\emph{APM Server} riceve i dati normalizzati dal \emph{Collector}, li converte nel formato interno di \emph{Elastic} e li invia a \emph{Elasticsearch} per l'indicizzazione. \\
 Parallelamente, il monitoraggio del \emph{frontend} è gestito dal \emph{RUM Agent JavaScript}, che traccia interazioni utente, tempi di caricamento, prestazioni percepite nel \emph{browser} ed eventuali errori \emph{JavaScript}.
 Il \emph{RUM Agent} comunica direttamente con l'\emph{APM Server}, senza passare dal \emph{Collector}. \\
@@ -374,7 +370,7 @@ L'architettura della soluzione di monitoraggio si compone dei seguenti moduli pr
     
     \item \textbf{OpenTelemetry Collector:} componente intermedio che riceve i dati di telemetria dall'\emph{OpenTelemetry Java Agent}, li elabora e li inoltra all'\emph{APM Server} tramite \gls{otlpg};
 
-    \item \textbf{OpenTelemetry Java Agent:} agente di strumentazione automatica avviato con l'applicazione \emph{PetClinic}, utilizzato per raccogliere metriche e tracce delle transazioni lato \emph{backend} (chiamate \gls{httpg}, query al \emph{database}, eccezioni, tempi di risposta). I dati generati vengono inviati all'\emph{APM Server} attraverso il protocollo \gls{otlp}\glsfirstoccur;
+    \item \textbf{OpenTelemetry Java Agent:} agente di strumentazione automatica avviato con l'applicazione \emph{PetClinic}, utilizzato per raccogliere metriche e tracce delle transazioni lato \emph{backend} (chiamate \gls{httpg}, query al \emph{database}, eccezioni, tempi di risposta). I dati generati vengono inviati all'\emph{APM Server} attraverso il protocollo \gls{otlpg};
     
     \item \textbf{RUM Agent JavaScript:} agente di monitoraggio \gls{rumg} eseguito nel \emph{frontend} dell'applicazione, che raccoglie dati sulle interazioni utente, sui tempi di caricamento delle pagine e sulle prestazioni percepite nel \emph{browser};
     
@@ -388,25 +384,24 @@ L'architettura della soluzione di monitoraggio si compone dei seguenti moduli pr
     \caption{Figura 3.1 - Integrazione tra componenti del sistema di monitoraggio}
 \end{figure}
 
-\vspace{0.5cm}
+\newpage
+
 
 \subsection{Applicazione di riferimento: Spring PetClinic}
-Per la sperimentazione del sistema di \gls{apm} è stata utilizzata come applicazione di riferimento \emph{Spring PetClinic}, una \emph{web application} \emph{open source} sviluppata in \emph{Java} e basata sul \emph{framework} \emph{Spring Boot}.  
-La scelta di \emph{PetClinic} è motivata dalla sua architettura chiara e ben documentata, composta da un livello di presentazione (\emph{controller} e \emph{template}), un livello logico (servizi) e un livello di persistenza (\emph{repository} e \emph{database} \gls{mysqlg}\glsfirstoccur).  
-Tale struttura consente di osservare comportamenti applicativi realistici, come chiamate \gls{httpg}\glsfirstoccur, interazioni con il \emph{database} e logiche di \emph{business}, fornendo un contesto ideale per testare le funzionalità di monitoraggio offerte da \emph{Elastic APM} e \emph{OpenTelemetry}.  
+Per la sperimentazione del sistema di \gls{apm} è stata utilizzata come applicazione di riferimento \emph{Spring PetClinic}, una \emph{web application} \emph{open source} sviluppata in \emph{Java} e basata sul \emph{framework} \emph{Spring Boot}. \\  
+La scelta di \emph{PetClinic} è motivata dalla sua architettura chiara e ben documentata, composta da un livello di presentazione (\emph{controller} e \emph{template}), un livello logico (servizi) e un livello di persistenza (\emph{repository} e \emph{database} \gls{mysqlg}\glsfirstoccur). \\
+Tale struttura consente di osservare comportamenti applicativi realistici, come chiamate \gls{httpg}, interazioni con il \emph{database} e logiche di \emph{business}, fornendo un contesto ideale per testare le funzionalità di monitoraggio offerte da \emph{Elastic APM} e \emph{OpenTelemetry}. \\
 
 \begin{figure}[!h] 
     \centering 
     \includegraphics[width=\columnwidth]{Architettura_PetClinic.png} 
     \caption{Figura 3.2 - Architettura di Spring PetClinic}
 \end{figure}
-
-
 L'applicazione \emph{PetClinic} verrà quindi utilizzata come caso di studio per la validazione della soluzione di monitoraggio proposta, analizzando successivamente il modo in cui i diversi moduli architetturali interagiscono con essa.
 
 
 \section{User Stories e scenari di utilizzo}
-Le seguenti \emph{user stories} descrivono brevemente i principali scenari di utilizzo del sistema di \gls{apm}, evidenziando gli obiettivi e le esigenze degli utenti tecnici aziendali che operano sulla piattaforma di monitoraggio.  
+Le seguenti \emph{user stories} descrivono brevemente i principali scenari di utilizzo del sistema di \gls{apmg}, evidenziando gli obiettivi e le esigenze degli utenti tecnici aziendali che operano sulla piattaforma di monitoraggio. \\
 L'unico attore considerato è l'\emph{Observability Engineer}, figura responsabile della configurazione, analisi e manutenzione del sistema all'interno dell'azienda.
 
 
@@ -437,7 +432,7 @@ L'unico attore considerato è l'\emph{Observability Engineer}, figura responsabi
 \textbf{US1} & Come \emph{Observability Engineer}, voglio analizzare i tempi medi di risposta degli \emph{endpoint} dell'applicazione per individuare colli di bottiglia o degradi di \emph{performance}. & Ottimizzare le prestazioni applicative. \\
 \hline
 
-\textbf{US2} & Come \emph{Observability Engineer}, voglio monitorare l'utilizzo di \gls{cpug}, memoria e connessioni per valutare la stabilità del sistema. & Garantire la corretta gestione delle risorse. \\
+\textbf{US2} & Come \emph{Observability Engineer}, voglio monitorare l'utilizzo di \gls{cpug}\glsfirstoccur, memoria e connessioni per valutare la stabilità del sistema. & Garantire la corretta gestione delle risorse. \\
 \hline
 
 \textbf{US3} & Come \emph{Observability Engineer}, voglio rilevare e classificare errori e anomalie dai \emph{log} per identificare rapidamente le cause dei malfunzionamenti. & Migliorare l'affidabilità del sistema. \\
@@ -470,10 +465,10 @@ L'unico attore considerato è l'\emph{Observability Engineer}, figura responsabi
 \textbf{US12} & Come \emph{Observability Engineer}, voglio eseguire \emph{test} sintetici periodici per monitorare la disponibilità e i tempi di risposta delle pagine. & Garantire la continuità operativa. \\
 \hline
 
-\textbf{US13} & Come \emph{Observability Engineer}, voglio esportare le \emph{dashboard} in formato \gls{pdf} o \gls{csv} per la condivisione all'interno del team. & Documentare e condividere le analisi in modo efficace. \\
+\textbf{US13} & Come \emph{Observability Engineer}, voglio esportare le \emph{dashboard} in formato \gls{pdfg} o \gls{csvg} per la condivisione all'interno del \emph{team}. & Documentare e condividere le analisi in modo efficace. \\
 \hline
 
-\textbf{US14} & Come \emph{Observability Engineer}, voglio ricevere notifiche automatiche via email quando vengono superate determinate soglie di prestazione. & Automatizzare la gestione degli incidenti e migliorare il tempo di reazione. \\
+\textbf{US14} & Come \emph{Observability Engineer}, voglio ricevere notifiche automatiche via \emph{email} quando vengono superate determinate soglie di prestazione. & Automatizzare la gestione degli incidenti e migliorare il tempo di reazione. \\
 \hline
 
 \textbf{US15} & Come \emph{Observability Engineer}, voglio configurare in \emph{Kibana} \emph{job} di \emph{Machine Learning} per l'individuazione automatica di anomalie. & Rilevare comportamenti anomali senza intervento manuale. \\

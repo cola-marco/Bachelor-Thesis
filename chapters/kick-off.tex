@@ -4,18 +4,26 @@
 \intro{Il capitolo approfondisce il progetto di stage, descrivendo gli obiettivi e le attività svolte, la metodologia di lavoro adottata e un'analisi preventiva dei principali rischi e relative strategie di mitigazione.}\\
 
 \section{Introduzione al progetto}
-Lo stage è stato svolto presso l'azienda Kirey Group S.r.l., realtà consolidata nell'ambito della fornitura di prodotti e servizi informatici, con clienti internazionali e una forte specializzazione nei settori \emph{Banking}, \emph{Insurance}, \emph{Oil\&Gas} e Pubblica Amministrazione. \\ 
-L'attività si è inserita nel contesto del team \gls{apm}\glsfirstoccur e ha avuto come obiettivo principale la realizzazione e il collaudo di una piattaforma per il monitoraggio delle performance di una \emph{web application}. \\
-Il progetto è stato sviluppato interamente in ambiente \emph{Linux} mediante \emph{Windows Subsystem for Linux}, utilizzando la \emph{suite} \emph{Elastic Stack} e i suoi principali componenti: \emph{Elasticsearch} per la gestione dei dati, \emph{Kibana} per la visualizzazione, \emph{Logstash} per l'ingestione e la trasformazione dei log, \emph{Beats} e \emph{Fleet Server} per la raccolta distribuita delle metriche e \emph{APM Server/Agent} per il tracciamento delle \emph{performance} applicative. \\ 
-Sono stati realizzati sviluppi in \emph{Python} e \emph{Java} per l'estensione delle funzionalità e l'integrazione di algoritmi di \gls{ai}\glsfirstoccur e \emph{Machine Learning}, con l'obiettivo di rilevare automaticamente anomalie e problematiche di prestazione. \\   
+Lo \emph{stage} è stato svolto presso l'azienda Kirey Group S.r.l., realtà consolidata nell'ambito della fornitura di prodotti e servizi informatici, con clienti internazionali e una forte specializzazione nei settori \emph{Banking}, \emph{Insurance}, \emph{Oil\&Gas} e Pubblica Amministrazione. \\ 
+L'attività si è inserita nel contesto del team \gls{apmg}\glsfirstoccur e ha avuto come obiettivo principale la realizzazione e il collaudo di una piattaforma per il monitoraggio delle performance di una \emph{web application}. \\
+Il progetto è stato sviluppato interamente in ambiente \emph{Linux} mediante \gls{wslg}\glsfirstoccur, utilizzando la \emph{suite} \emph{Elastic Stack} e i suoi principali componenti: 
+\begin{itemize}
+    \item \emph{Elasticsearch} per la gestione e indicizzazione dei dati;
+    \item \emph{Kibana} per la visualizzazione;
+    \item \emph{Logstash} per l'ingestione e la trasformazione dei log;
+    \item \emph{Fleet Server} per la raccolta distribuita delle metriche e la gestione degli agenti;
+    \item \emph{APM Server/Agent} per il tracciamento delle \emph{performance} applicative.
+\end{itemize}
+Sono stati realizzati sviluppi in \emph{Python} e \emph{Java} per l'estensione delle funzionalità e l'integrazione di algoritmi di \gls{aig}\glsfirstoccur e \emph{Machine Learning}, con l'obiettivo di rilevare automaticamente anomalie e problematiche di prestazione. \\   
 La finalità complessiva è quella di fornire un sistema scalabile, proattivo e ben documentato, capace di garantire prestazioni ottimali e un monitoraggio continuo della \emph{web application}.  
 
+\newpage
 
 \section{Pianificazione}
-Tutte le attività sono state condotte in affiancamento ad un tutor aziendale che ha curato sia la parte di formazione che di indirizzamento delle attività.
+Tutte le attività sono state condotte in affiancamento ad un \emph{tutor} aziendale che ha curato sia la parte di formazione che di indirizzamento delle attività. \\
 A tal fine sono stati svolti dei momenti di confronto settimanali per la valutazione dello stato di avanzamento delle attività e momenti quotidiani di confronto sulle problematiche riscontrate. \\
-Le attività proposte sono state collocate all'interno di un progetto più ampio portato avanti in Kirey da un team di persone eterogeneo. \\
-Al termine dello stage sono stati presentati i risultati ottenuti a tutto il team.
+Le attività proposte sono state collocate all'interno di un progetto più ampio portato avanti in Kirey da un \emph{team} di persone eterogeneo. \\
+Al termine dello \emph{stage} sono stati presentati i risultati ottenuti a tutto il \emph{team}. \\
 L'infrastruttura tecnologica e le piattaforme su cui girerà l'applicazione sono state messe a disposizione da Kirey.
 
 
@@ -110,15 +118,17 @@ Si è quindi proceduto a elaborare delle possibili soluzioni per far fronte a ta
 
 \begin{risk}{Accesso limitato a funzionalità premium di Elastic}
     \vspace{0.5em}
-    \riskdescription{Durante le prime settimane di lavoro in locale, la mancata possibilità di operare su \emph{Elastic Cloud} e di accedere a funzionalità premium come il \emph{Machine Learning} potrebbe limitare l'analisi dei dati e rallentare la validazione di alcune funzionalità previste dal progetto}
+    \riskdescription{Durante le prime settimane di lavoro in locale, la mancata possibilità di operare su \emph{Elastic Cloud} e di accedere a funzionalità \emph{premium} come il \emph{Machine Learning} potrebbe limitare l'analisi dei dati e rallentare la validazione di alcune funzionalità previste dal progetto}
     \vspace{0.5em}
     \riskimpact{Medio}
     \vspace{0.5em}
     \riskprobability{Bassa}
     \vspace{0.5em}
-    \risksolution{Esecuzione preventiva delle attività in locale con dati di test, studio della documentazione sulle funzionalità premium e pianificazione di un passaggio successivo a \emph{Elastic Cloud} non appena disponibile, con supporto del tutor aziendale}
+    \risksolution{Esecuzione preventiva delle attività in locale con dati di \emph{test}, studio della documentazione sulle funzionalità \emph{premium} e pianificazione di un passaggio successivo a \emph{Elastic Cloud} non appena disponibile, con supporto del \emph{tutor} aziendale}
     \label{risk:elastic-cloud-limitations}
 \end{risk}
+
+\newpage
 
 
 \section{Requisiti e obiettivi}
@@ -129,9 +139,6 @@ Gli obiettivi del progetto sono stati classificati in base alla loro priorità s
     \item \textbf{D} (Requisiti Desiderabili) - requisiti importanti ma non critici, la cui assenza non compromette il progetto, non vincolanti o strettamente necessari, ma dal riconoscibile valore aggiunto;
     \item \textbf{Op} (Requisiti Opzionali) - requisiti desiderabili ma non essenziali, rappresentanti valore aggiunto non strettamente competitivo.
 \end{itemize}
-
-\vspace{1em}
-
 Durante il periodo di stage si prevede il raggiungimento dei seguenti obiettivi:
 
 \begin{itemize}
@@ -139,7 +146,7 @@ Durante il periodo di stage si prevede il raggiungimento dei seguenti obiettivi:
         \begin{itemize}
             \item \textbf{Ob1.1:} Individuazione delle componenti ed eventuali librerie da utilizzare;
             \item \textbf{Ob1.2:} Installazione e configurazione delle componenti;
-            \item \textbf{Ob1.3:} Verifica del corretto funzionamento dell'ambiente e test di connettività tra componenti.
+            \item \textbf{Ob1.3:} Verifica del corretto funzionamento dell'ambiente e \emph{test} di connettività tra componenti.
         \end{itemize}
     \item \textbf{Implementazione estrazione dati dalla web application:}  
         \begin{itemize}
@@ -151,7 +158,7 @@ Durante il periodo di stage si prevede il raggiungimento dei seguenti obiettivi:
         \begin{itemize}
             \item \textbf{Ob3.1:} Sviluppo \emph{script} \emph{Python/Java} per il monitoraggio sintetico (\emph{Selenium}) e generazione di traffico \emph{log};
             \item \textbf{Ob3.2:} Analisi e aggregazione dati in \emph{Elasticsearch}, con \emph{query} e visualizzazioni preliminari;
-            \item \textbf{Ob3.3:} Creazione dashboard avanzate su \emph{Kibana} con metriche di \emph{performance}, accesso e flussi utente;
+            \item \textbf{Ob3.3:} Creazione \emph{dashboard} avanzate su \emph{Kibana} con metriche di \emph{performance}, accesso e flussi utente;
             \item \textbf{Op3.4:} Configurazione regole di \emph{alerting} e notifiche per anomalie rilevate in tempo reale.
         \end{itemize}
     \item \textbf{Documentazione dettagliata:}  

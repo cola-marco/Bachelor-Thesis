@@ -5,13 +5,13 @@
 
 \section{APM e Observability}
 \label{sec:apm-observability}
-L'osservabilità di un sistema si basa sull'analisi congiunta di tre pilastri fondamentali: metriche, log e tracce. 
+L'osservabilità di un sistema si basa sull'analisi congiunta di tre pilastri fondamentali: metriche, \emph{log} e tracce. 
 \begin{itemize}
-    \item \textbf{Logs}: un log è un record testuale di un evento ad un orario specifico, come un tentativo di accesso, un errore di sistema o una transazione completata. I log forniscono dettagli di contesto che aiutano a diagnosticare problemi specifici;
+    \item \textbf{Logs}: un \emph{log} è un \emph{record} testuale di un evento ad un orario specifico, come un tentativo di accesso, un errore di sistema o una transazione completata. I \emph{log} forniscono dettagli di contesto che aiutano a diagnosticare problemi specifici;
     \item \textbf{Metriche}: una metrica è una misurazione numerica di un aspetto specifico delle prestazioni del sistema, come l'utilizzo della \gls{cpug}, la latenza delle richieste o il numero di utenti attivi;
     \item \textbf{Tracce}: una traccia rappresenta il percorso di una singola richiesta attraverso i vari componenti di un sistema distribuito, consentendo di visualizzare il flusso delle operazioni e identificare i colli di bottiglia.
 \end{itemize}
-Un sistema \gls{apmg} moderno integra questi aspetti per fornire una visione completa dello stato e del comportamento di un applicazione. Nel contesto del monitoraggio di applicazioni \emph{web} come \emph{PetClinic}, l'osservabilità consente di analizzare i dati di performance raccolti dal sistema di \gls{apmg} per identificare e risolvere problemi, ottimizzare le prestazioni e migliorare l'esperienza utente complessiva.
+Un sistema \gls{apmg} moderno integra questi aspetti per fornire una visione completa dello stato e del comportamento di un applicazione. Nel contesto del monitoraggio di applicazioni \emph{web} come \emph{PetClinic}, l'osservabilità consente di analizzare i dati di \emph{performance} raccolti dal sistema di \gls{apmg} per identificare e risolvere problemi, ottimizzare le prestazioni e migliorare l'esperienza utente complessiva.
 
 
 \section{Approcci e tecnologie per il monitoraggio}
@@ -24,26 +24,26 @@ Il monitoraggio delle prestazioni può essere realizzato mediante diverse strate
 Gli approcci al monitoraggio delle applicazioni possono essere classificati in base alla modalità di raccolta dei dati e al livello di osservabilità fornito. \\
 Tra i principali si distinguono:
 \begin{itemize}
-\item \textbf{Monitoraggio basato sugli agenti (Agent-based monitoring)\footcite{article:agent-based-monitoring}:} prevede l'integrazione di componenti \emph{software}, detti \emph{agent}, all'interno dell'applicazione o dell'infrastruttura. Questi raccolgono metriche, log e tracce in tempo reale, offrendo una visione complessiva del sistema. È il modello adottato da strumenti come \emph{Elastic APM};
+\item \textbf{Monitoraggio basato sugli agenti (Agent-based monitoring)\footcite{article:agent-based-monitoring}:} prevede l'integrazione di componenti \emph{software}, detti \emph{agent}, all'interno dell'applicazione o dell'infrastruttura. Questi raccolgono metriche, \emph{log} e tracce in tempo reale, offrendo una visione complessiva del sistema. È il modello adottato da strumenti come \emph{Elastic APM};
 
-\item \textbf{Monitoraggio senza agenti (Agentless monitoring)\footcite{article:agentless-monitoring}:} in questo caso la raccolta dei dati avviene tramite l'analisi di log o metriche esposte da servizi esterni, senza modificare il codice dell'applicazione. Sebbene riduca l'invasività, questo approccio offre un livello di dettaglio inferiore rispetto ai sistemi \emph{agent-based};
+\item \textbf{Monitoraggio senza agenti (Agentless monitoring)\footcite{article:agentless-monitoring}:} in questo caso la raccolta dei dati avviene tramite l'analisi di \emph{log} o metriche esposte da servizi esterni, senza modificare il codice dell'applicazione. Sebbene riduca l'invasività, questo approccio offre un livello di dettaglio inferiore rispetto ai sistemi \emph{agent-based};
 
 \item \textbf{Distributed tracing\footcite{article:distributed-tracing}:} metodo che consente di tracciare l'intero ciclo di vita di una richiesta distribuita tra più servizi o microservizi, associando a ciascun evento un identificativo univoco;
 
-\item \textbf{Synthetic monitoring\footcite{article:synthetic-monitoring}:} utilizza richieste simulate e test automatizzati per verificare la disponibilità e le prestazioni delle applicazioni da diverse località geografiche. È utile per individuare problemi prima che impattino sugli utenti reali dell'applicazione;
+\item \textbf{Synthetic monitoring\footcite{article:synthetic-monitoring}:} utilizza richieste simulate e \emph{test} automatizzati per verificare la disponibilità e le prestazioni delle applicazioni da diverse località geografiche. È utile per individuare problemi prima che impattino sugli utenti reali dell'applicazione;
 
 \item \textbf{Real User Monitoring (RUM)\footcite{article:real-user-monitoring}:} misura le prestazioni dal punto di vista dell'utente reale, analizzando tempi di caricamento, interazioni e metriche di esperienza. Combinato con il monitoraggio sintetico, fornisce una visione completa della \emph{user experience} indicata con il termine \gls{eum}\glsfirstoccur.
 \end{itemize}
-Nel corso del monitoraggio di \emph{PetClinic}, l'approccio adottato integra principalmente il monitoraggio basato sugli agenti, il \emph{distributed tracing} e il \emph{Real User Monitoring}, al fine di ottenere una visione dettagliata delle prestazioni dell'applicazione.
+Nel corso del monitoraggio di \emph{PetClinic}, l'approccio adottato integra principalmente l'\emph{Agent-based monitoring}, il \emph{distributed tracing}, il \emph{Synthetic Monitoring} e il \emph{Real User Monitoring}, al fine di ottenere una visione dettagliata delle prestazioni dell'applicazione.
 
 
 \subsection{Tecnologie e piattaforme note}
 Negli ultimi anni si sono affermate diverse piattaforme e \emph{framework} dedicati al monitoraggio e all'osservabilità, che adottano architetture e modelli di raccolta dati differenti. \\
 Tra le più rilevanti si trovano:
 \begin{itemize}
-\item \textbf{Elastic Stack:} una delle soluzioni \emph{open source} più diffuse, integra \emph{Elasticsearch}, \emph{Logstash} e \emph{Kibana}, estesa con \emph{Elastic APM} per il tracciamento delle prestazioni. Offre un ecosistema unificato per metriche, log e tracce;
+\item \textbf{Elastic Stack:} una delle soluzioni \emph{open source} più diffuse, integra \emph{Elasticsearch}, \emph{Logstash} e \emph{Kibana}, estesa con \emph{Elastic APM} per il tracciamento delle prestazioni. Offre un ecosistema unificato per metriche, \emph{log} e tracce;
 
-\item \textbf{OpenTelemetry:} standard \emph{open source} promosso dalla \emph{Cloud Native Computing Foundation (CNCF)} per la raccolta e l'esportazione di dati di telemetria. Fornisce \gls{sdk}\glsfirstoccur e agenti per numerosi linguaggi di programmazione, garantendo interoperabilità tra sistemi di osservabilità differenti;
+\item \textbf{OpenTelemetry:} standard \emph{open source} promosso dalla \emph{Cloud Native Computing Foundation (CNCF)} per la raccolta e l'esportazione di dati di telemetria. Fornisce \gls{sdkg}\glsfirstoccur e agenti per numerosi linguaggi di programmazione, garantendo interoperabilità tra sistemi di osservabilità differenti;
 
 \item \textbf{Prometheus e Grafana:} soluzione \emph{open source} focalizzata sulle metriche. \emph{Prometheus} raccoglie e memorizza dati temporali, mentre \emph{Grafana} li visualizza in \emph{dashboard} personalizzabili. È molto usata in ambienti \emph{cloud-native} e \emph{Kubernetes};
 
@@ -60,7 +60,8 @@ Di seguito viene data una panoramica delle tecnologie e degli strumenti utilizza
 \subsection{Elastic Stack}
 
 \subsection*{Elasticsearch}
-Elasticsearch\footcite{site:elasticsearch} è un motore di ricerca e analisi distribuito basato su \emph{Apache Lucene}, progettato per gestire grandi volumi di dati in tempo reale. Fornisce funzionalità avanzate di ricerca \emph{full-text}, analisi dei dati e aggregazioni, rendendolo ideale per applicazioni di monitoraggio, analisi dei \emph{log} e \emph{business intelligence}. Elasticsearch supporta un'architettura scalabile e flessibile, consentendo di distribuire i dati su più nodi e \emph{cluster} per garantire alta disponibilità e prestazioni elevate.
+\emph{Elasticsearch}\footcite{site:elasticsearch} è un motore di ricerca e analisi distribuito basato su \emph{Apache Lucene}, progettato per gestire grandi volumi di dati in tempo reale. Fornisce funzionalità avanzate di ricerca \emph{full-text}, analisi dei dati e aggregazioni, rendendolo ideale per applicazioni di monitoraggio, analisi dei \emph{log} e \emph{business intelligence}. \\
+\emph{Elasticsearch} supporta un'architettura scalabile e flessibile, consentendo di distribuire i dati su più nodi e \emph{cluster} per garantire alta disponibilità e prestazioni elevate.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/elasticsearch.png} 
@@ -70,7 +71,8 @@ Elasticsearch\footcite{site:elasticsearch} è un motore di ricerca e analisi dis
 \vspace{1em}
 
 \subsection*{Kibana}
-Kibana\footcite{site:kibana} è uno strumento di visualizzazione e analisi dei dati \emph{open source}, progettato per lavorare in stretta integrazione con Elasticsearch. Fornisce un'interfaccia utente intuitiva che consente agli utenti di creare \emph{dashboard} interattive, visualizzare grafici, mappe e tabelle, e analizzare i dati in tempo reale. Kibana supporta una vasta gamma di visualizzazioni personalizzabili e offre funzionalità avanzate come il filtraggio dei dati, la ricerca \emph{full-text} e l'esplorazione delle relazioni tra i dati, rendendolo uno strumento potente per l'analisi dei \emph{log}, il monitoraggio delle prestazioni e la \emph{business intelligence}.
+\emph{Kibana}\footcite{site:kibana} è uno strumento di visualizzazione e analisi dei dati \emph{open source}, progettato per lavorare in stretta integrazione con \emph{Elasticsearch}. Fornisce un'interfaccia utente intuitiva che consente agli utenti di creare \emph{dashboard} interattive, visualizzare grafici, mappe e tabelle, e analizzare i dati in tempo reale. \\
+\emph{Kibana} supporta una vasta gamma di visualizzazioni personalizzabili e offre funzionalità avanzate come il filtraggio dei dati, la ricerca \emph{full-text} e l'esplorazione delle relazioni tra i dati, rendendolo uno strumento potente per l'analisi dei \emph{log}, il monitoraggio delle prestazioni e la \emph{business intelligence}.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/kibana.png} 
@@ -80,18 +82,22 @@ Kibana\footcite{site:kibana} è uno strumento di visualizzazione e analisi dei d
 \vspace{1em}
 
 \subsection*{Elastic Agent e Fleet}
-Elastic Agent\footcite{site:elastic-agent} è un agente unificato sviluppato da Elastic che consente di raccogliere, monitorare e proteggere i dati da diverse fonti in modo semplice ed efficace. Integrando funzionalità di raccolta dati, sicurezza e monitoraggio, Elastic Agent semplifica la gestione degli agenti e riduce la complessità operativa. \\
-Fleet è una funzionalità di gestione centralizzata all'interno di Kibana che consente di distribuire, configurare e monitorare gli Elastic Agent in modo scalabile e automatizzato. Attraverso Fleet, gli utenti possono gestire facilmente le policy di raccolta dati, aggiornare gli agenti e monitorare lo stato della loro infrastruttura da un'unica interfaccia.
+\emph{Elastic Agent}\footcite{site:elastic-agent} è un agente unificato sviluppato da \emph{Elastic} che consente di raccogliere, monitorare e proteggere i dati da diverse fonti in modo semplice ed efficace. \\
+Integrando funzionalità di raccolta dati, sicurezza e monitoraggio, \emph{Elastic Agent} semplifica la gestione degli agenti e riduce la complessità operativa. \\
+\emph{Fleet} è una funzionalità di gestione centralizzata all'interno di \emph{Kibana} che consente di distribuire, configurare e monitorare gli \emph{Elastic Agent} in modo scalabile e automatizzato. Attraverso \emph{Fleet}, gli utenti possono gestire facilmente le \emph{policy} di raccolta dati, aggiornare gli agenti e monitorare lo stato della loro infrastruttura da un'unica interfaccia.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{fleet-agents.png} 
     \caption{Figura 4.3 - Funzionamento Elastic Agents e Fleet}
+    \label{fig:fleet-agents}
 \end{figure}
-La figura 4.3 mostra l'architettura generale di gestione degli agenti tramite \emph{Fleet}. Gli \emph{Elastic Agents} installati sull'applicazione comunicano con il \emph{Fleet Server} per ricevere le \emph{policy} di configurazione e inviare i dati raccolti a \emph{Elasticsearch} per la visualizzazione in \emph{Kibana}.   
+La figura \ref{fig:fleet-agents} mostra l'architettura generale di gestione degli agenti tramite \emph{Fleet}. Gli \emph{Elastic Agents} installati sull'applicazione comunicano con il \emph{Fleet Server} per ricevere le \emph{policy} di configurazione e inviare i dati raccolti a \emph{Elasticsearch} per la visualizzazione in \emph{Kibana}.   
 \vspace{1em}
 
 \subsection*{OpenTelemetry}
-OpenTelemetry\footcite{site:opentelemetry} è un progetto \emph{open source} che fornisce un insieme di \gls{apig}, librerie e strumenti per la raccolta di dati di telemetria da applicazioni e servizi. L'obiettivo di OpenTelemetry è standardizzare la raccolta e l'esportazione di dati di telemetria mediante l'\gls{otlp}, facilitando l'integrazione con diversi sistemi di monitoraggio e analisi, tra cui l'Elastic Stack. OpenTelemetry supporta vari linguaggi di programmazione e offre un'architettura che consente agli sviluppatori di personalizzare la raccolta dei dati in base alle esigenze specifiche delle loro applicazioni.
+\emph{OpenTelemetry}\footcite{site:opentelemetry} è un progetto \emph{open source} che fornisce un insieme di \gls{apig}\glsfirstoccur, librerie e strumenti per la raccolta di dati di telemetria da applicazioni e servizi. \\
+L'obiettivo di \emph{OpenTelemetry} è standardizzare la raccolta e l'esportazione di dati di telemetria mediante l'\gls{otlpg}, facilitando l'integrazione con diversi sistemi di monitoraggio e analisi, tra cui l'\emph{Elastic Stack}. \\
+\emph{OpenTelemetry} supporta vari linguaggi di programmazione e offre un'architettura che consente agli sviluppatori di personalizzare la raccolta dei dati in base alle esigenze specifiche delle loro applicazioni.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/OpenTelemetry.png} 
@@ -101,8 +107,9 @@ OpenTelemetry\footcite{site:opentelemetry} è un progetto \emph{open source} che
 \vspace{1em}
 
 \subsection*{Elastic APM e APM Server}
-Elastic APM\footcite{site:apm} è una soluzione di monitoraggio delle prestazioni applicative sviluppata da \emph{Elastic}, progettata per tracciare e analizzare le prestazioni delle applicazioni in tempo reale. Elastic APM consente di identificare colli di bottiglia, errori e problemi di latenza, fornendo una visione dettagliata del comportamento dell'applicazione attraverso tracce distribuite, metriche e log. \\
-L'APM Server è un componente di Elastic APM che funge da punto di raccolta per i dati di telemetria inviati dagli agenti APM integrati nelle applicazioni. L'APM Server elabora questi dati e li invia a \emph{Elasticsearch} per l'indicizzazione, consentendo agli utenti di visualizzare le informazioni tramite \emph{Kibana}.
+\emph{Elastic APM}\footcite{site:apm} è una soluzione di monitoraggio delle prestazioni applicative sviluppata da \emph{Elastic}, progettata per tracciare e analizzare le prestazioni delle applicazioni in tempo reale. \\
+\emph{Elastic APM} consente di identificare colli di bottiglia, errori e problemi di latenza, fornendo una visione dettagliata del comportamento dell'applicazione attraverso tracce distribuite, metriche e \emph{log}. \\
+L'\emph{APM Server} è un componente dell'\emph{Elastic stack} che funge da punto di raccolta per i dati di telemetria inviati dagli agenti integrati nelle applicazioni. L'\emph{APM Server} elabora questi dati e li invia a \emph{Elasticsearch} per l'indicizzazione, consentendo agli utenti di visualizzare le informazioni tramite \emph{Kibana}.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=4cm]{/logos/ElasticAPM.png} 
@@ -112,9 +119,10 @@ L'APM Server è un componente di Elastic APM che funge da punto di raccolta per 
 \vspace{1em}
 
 \subsection*{RUM Agent e Synthetic Monitoring}
-Il RUM Agent (Real User Monitoring Agent)\footcite{site:rum-js} di Elastic APM, nel contesto del progetto di monitoraggio di \emph{PetClinic} è una libreria \emph{JavaScript} che consente di monitorare le prestazioni dell'applicazione \emph{web} dal punto di vista dell'utente finale. Integrando il RUM Agent nelle pagine web, è possibile raccogliere dati sulle interazioni degli utenti, i tempi di caricamento delle pagine e altri eventi significativi. Questi dati vengono inviati all'APM Server per l'analisi e la visualizzazione tramite Kibana. \\
-Il Synthetic Monitoring\footcite{site:synthetic}, invece, utilizza \emph{script} automatizzati per simulare le interazioni degli utenti con l'applicazione web, consentendo di testare la disponibilità e le prestazioni da diverse località geografiche. \\
-Nel progetto, tale monitoraggio è stato implementato tramite \emph{Kibana Synthetics}, che utilizza \emph{Playwright} come motore di esecuzione di script basati su browser. Sono stati quindi sviluppati \emph{script Playwright} dedicati, eseguiti da Kibana per riprodurre scenari di utilizzo reali e verificare la corretta operatività dell'applicazione.
+Il \emph{RUM Agent} \emph{(Real User Monitoring Agent)}\footcite{site:rum-js}, nel contesto del progetto di monitoraggio di \emph{PetClinic} è una libreria \emph{JavaScript} che consente di monitorare le prestazioni dell'applicazione \emph{web} dal punto di vista dell'utente finale. \\
+Integrando il \emph{RUM Agent} nelle pagine \emph{web}, è possibile raccogliere dati sulle interazioni degli utenti, i tempi di caricamento delle pagine e altri eventi significativi. Questi dati vengono inviati all'\emph{APM Server} per l'analisi e la visualizzazione tramite \emph{Kibana}. \\
+Il \emph{Synthetic Monitoring}\footcite{site:synthetic}, invece, utilizza \emph{script} automatizzati per simulare le interazioni degli utenti con l'applicazione \emph{web}, consentendo di testare la disponibilità e le prestazioni da diverse località geografiche. \\
+Nel progetto, tale monitoraggio è stato implementato tramite \emph{Kibana Synthetics}, che utilizza \emph{Playwright} come motore di esecuzione di \emph{script} basati su \emph{browser}. Sono stati quindi sviluppati \emph{script Playwright} dedicati, eseguiti da \emph{Kibana} per riprodurre scenari di utilizzo reali e verificare la corretta operatività dell'applicazione.
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=7cm]{/logos/playwright.png} 
