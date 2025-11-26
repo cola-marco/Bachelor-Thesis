@@ -2,12 +2,12 @@
 \label{cap:conclusioni}
 
 \section{Consuntivo finale}
-Il progetto ha portato alla realizzazione di una piattaforma completa di osservabilità per la \emph{web application PetClinic}, comprendente la raccolta e l'analisi di log, metriche, tracce distribuite e test sintetici. È stata inoltre configurata un'infrastruttura basata su \emph{Docker Compose}, integrata con \emph{Fleet}, \emph{Logstash} e l'\emph{OpenTelemetry Collector}, affiancata da strumenti di analisi avanzati quali \emph{Machine Learning} e \emph{Anomaly Detection}. \\
-Al termine dello stage, l'intera soluzione risulta funzionante, validata ed avviabile tramite un unico comando, garantendo riproducibilità e coerenza dell'ambiente. \\
-L'intera piattaforma inoltre è compatibile con le versioni utilizzate in azienda dello stack Elastic, facilitando un eventuale integrazione futura. \\
-Durante le ultime settimane di stage sono stati condotti più test sulla piattaforma alla presenza dei membri del gruppo, al fine di allineare tutti i presenti sulle funzionalità implementate e raccogliere feedback utili. \\
-Al termine di questi test, la piattaforma è stata replicata in un ambiente di staging aziendale, per valutarne il funzionamento in un contesto reale. \\
-Alla fine del percorso di stage è stata inoltre resa disponibile una documentazione completa, ad illustrare il funzionamento di tutte le componenti della piattaforma, i pro e i contro delle tecnologie utilizzate e delle scelte effettuate, assieme alle possibili evoluzioni future. \\
+Il progetto ha portato alla realizzazione di una piattaforma completa di osservabilità per la \emph{web application PetClinic}, comprendente la raccolta e l'analisi di \emph{log}, metriche, tracce distribuite e \emph{test} sintetici. È stata inoltre configurata un'infrastruttura basata su \emph{Docker Compose}, integrata con \emph{Fleet}, \emph{Logstash} e l'\emph{OpenTelemetry Collector}, affiancata da strumenti di analisi avanzati quali \emph{Machine Learning} e \emph{Anomaly Detection}. \\
+Al termine dello \emph{stage}, l'intera soluzione risulta funzionante, validata ed avviabile tramite un unico comando, garantendo riproducibilità e coerenza dell'ambiente. \\
+L'intera piattaforma inoltre è compatibile con le versioni utilizzate in azienda dello \emph{stack Elastic}, facilitando un eventuale integrazione futura. \\
+Durante le ultime settimane di \emph{stage} sono stati condotti più \emph{test} sulla piattaforma alla presenza dei membri del gruppo, al fine di allineare tutti i presenti sulle funzionalità implementate e raccogliere \emph{feedback} utili. \\
+Al termine di questi \emph{test}, la piattaforma è stata replicata in un ambiente di laboratorio aziendale, per valutarne il funzionamento in un contesto reale. \\
+Alla fine del percorso di \emph{stage} è stata inoltre resa disponibile una documentazione completa, ad illustrare il funzionamento di tutte le componenti della piattaforma, i pro e i contro delle tecnologie utilizzate e delle scelte effettuate, assieme alle possibili evoluzioni future. \\
 In conclusione, il progetto ha raggiunto gli obiettivi prefissati, fornendo una soluzione efficace e ben documentata per l'osservabilità della \emph{web app PetClinic}.
 
 
@@ -19,7 +19,7 @@ In particolare:
         si è verificato in modo parziale nelle prime settimane, ma è stato mitigato tramite studio autonomo e supporto del \emph{tutor} aziendale.
 
     \item \textbf{Integrazione tra componenti Elastic:}  
-        il rischio si è verificato, nello specifico sono stati riscontrati alcuni problemi di comunicazione tra \emph{Logstash}, \emph{APM Server} e \emph{Elasticsearch}, ma sono stati risolti tramite \emph{debug} e lettura dei log.
+        il rischio si è verificato, nello specifico sono stati riscontrati alcuni problemi di comunicazione tra \emph{Logstash}, \emph{APM Server} e \emph{Elasticsearch}, ma sono stati risolti tramite \emph{debug} e lettura dei \emph{log}.
 
     \item \textbf{Qualità e coerenza dei dati raccolti:}  
         il rischio non si è manifestato.
@@ -28,7 +28,7 @@ In particolare:
         il rischio si è manifestato solamente all'interno dell'ambiente locale \gls{wslg}\glsfirstoccur \emph{Linux} a causa di una impostazione errata di memoria al container di \emph{Elasticsearch}, ma è stato risolto aumentando la memoria allocata.
 
     \item \textbf{Implementazione di algoritmi di Machine Learning:}  
-        alcuni limiti di licenza hanno inizialmente rallentato l'adozione del modulo \gls{mlg}, successivamente superati tramite l'attivazione del periodo di prova per i test locali.
+        alcuni limiti di licenza hanno inizialmente rallentato l'adozione del modulo \gls{mlg}, successivamente superati tramite l'attivazione del periodo di prova per i \emph{test} locali.
 
     \item \textbf{Problemi di configurazione delle pipeline Logstash:}  
         il rischio non si è manifestato.
@@ -102,7 +102,7 @@ RDF-9 & Il sistema dovrebbe prevedere la configurazione di regole di \emph{alert
 RDF-10 & Il sistema dovrebbe integrare algoritmi di \emph{Machine Learning} per l'individuazione automatica di anomalie. & Desiderabile & Soddisfatto \\
 \hline
 
-RDF-11 & Il sistema dovrebbe consentire l'esportazione delle \emph{dashboard} o dei risultati delle \emph{query} in formato \gls{pdf}\glsfirstoccur o \gls{csv}\glsfirstoccur. & Desiderabile & Soddisfatto \\
+RDF-11 & Il sistema dovrebbe consentire l'esportazione delle \emph{dashboard} o dei risultati delle \emph{query} in formato \gls{pdfg} o \gls{csvg}. & Desiderabile & Soddisfatto \\
 \hline
 
 RZF-12 & Il sistema può prevedere un modulo aggiuntivo per la generazione automatica di report periodici delle metriche raccolte. & Opzionale & Parzialmente soddisfatto \\
@@ -246,30 +246,30 @@ ROV-1 & Il sistema deve utilizzare i prodotti della suite \emph{Elastic Stack} (
 ROV-2 & L'ambiente operativo deve essere \emph{Linux} (\emph{Redphat} o distribuzioni equivalenti). & Obbligatorio & Soddisfatto \\
 \hline
 
-ROV-3 & Tutti i componenti software devono essere compatibili con la versione di Linux installata (es. Ubuntu 22.04 LTS o Red Hat 9). & Obbligatorio & Soddisfatto \\
+ROV-3 & Tutti i componenti \emph{software} devono essere compatibili con la versione di \emph{Linux} installata (es. \emph{Ubuntu 22.04 LTS} o \emph{Red Hat 9}). & Obbligatorio & Soddisfatto \\
 \hline
 
 ROV-4 & Le componenti devono rispettare le seguenti versioni minime:
 \begin{itemize}
-    \item Python >= 3.10
-    \item Java >= 16
-    \item Node.js >= 17
-    \item Logstash >= 8.10
-    \item Kibana >= 8.10
-    \item Beats >= 8.10
-    \item APM Server >= 8.10
-    \item Elasticsearch >= 8.10
-    \item OpenTelemetry >= 1.0
-\end{itemize} & Obbligatorio & Soddisfatto \\
+    \item \emph{Python} >= 3.10
+    \item \emph{Java} >= 16
+    \item \emph{Node.js} >= 17
+    \item \emph{Logstash} >= 8.10
+    \item \emph{Kibana} >= 8.10
+    \item \emph{Beats} >= 8.10
+    \item \emph{APM Server} >= 8.10
+    \item \emph{Elasticsearch} >= 8.10
+    \item \emph{OpenTelemetry Java Agent} >= 1.26.0
+\end{itemize} & Obbligatorio &Soddisfatto \\
 \hline
 
-ROV-5 & La \emph{web application} deve essere compatibile con i principali \emph{browser} (Chrome >= 120, Firefox >= 115, Edge >= 120, Safari >= 15). & Obbligatorio & Soddisfatto \\
+ROV-5 & La \emph{web application} deve essere compatibile con i principali \emph{browser} (\emph{Chrome} >= 120, \emph{Firefox} >= 115, \emph{Edge} >= 120, \emph{Safari} >= 15). & Obbligatorio & Soddisfatto \\
 \hline
 
 ROV-6 & Le configurazioni devono essere eseguite in ambiente \emph{Docker} o su infrastruttura aziendale. & Obbligatorio & Soddisfatto \\
 \hline
 
-RDV-7 & La documentazione tecnica deve essere redatta in \emph{Markdown}, \emph{LaTeX} o \emph{PDF}. & Desiderabile & Soddisfatto \\
+RDV-7 & La documentazione tecnica deve essere redatta in \emph{Markdown}, \emph{LaTeX} o \gls{pdfg}. & Desiderabile & Soddisfatto \\
 \hline
 
 RDV-8 & Il sistema dovrebbe supportare la distribuzione tramite \emph{Docker Compose}. & Desiderabile & Soddisfatto \\
@@ -328,6 +328,6 @@ In sintesi, il progetto ha rappresentato un'importante occasione di crescita pro
 \section{Valutazione personale}
 Il progetto di stage ha rappresentato per me un'importante opportunità di crescita. Sono molto grato al team di Kirey per avermi supportato in ogni fase del percorso e per avermi seguito con attenzione e competenza. \\
 Lavorare su un progetto come questo è stato stimolante in quanto mi è stata data carta bianca su come strutturare la piattaforma, permettendomi di sperimentare diverse soluzioni prima di arrivare alla soluzione definitiva con \emph{docker compose}. \\
-Il lavoro svolto su questo progetto mi ha portato sicuramente a migliorare le mie competenze tecniche, in particolare nell'ambito dell'osservabilità delle applicazioni web e della containerizzazione. \\
-Inoltre, ho avuto l'opportunità di sviluppare competenze trasversali come la gestione del tempo, la comunicazione tecnica e il problem solving, grazie alle riunioni con il team e ai momenti di allineamento. \\
-In conclusione, ritengo che questo progetto di stage sia stato un'esperienza molto positiva e formativa, che mi ha permesso di acquisire nuove competenze e di crescere professionalmente.
+Il lavoro svolto su questo progetto mi ha portato sicuramente a migliorare le mie competenze tecniche, in particolare nell'ambito dell'osservabilità delle applicazioni \emph{web} e della containerizzazione. \\
+Inoltre, ho avuto l'opportunità di sviluppare competenze trasversali come la gestione del tempo, la comunicazione tecnica e il \emph{problem solving}, grazie alle riunioni con il \emph{team} e ai momenti di allineamento. \\
+In conclusione, ritengo che questo progetto di \emph{stage} sia stato un'esperienza molto positiva e formativa, che mi ha permesso di acquisire nuove competenze e di crescere professionalmente.

@@ -4,11 +4,11 @@
 \intro{In questo capitolo vengono approfondite le fasi di sviluppo del sistema, descrivendo l'architettura complessiva, le fasi di implementazione e i risultati ottenuti}
 
 \section{Architettura complessiva del sistema}
-L'architettura realizzata durante il tirocinio ha l'obiettivo di fornire un sistema completo di osservabilità per la \emph{web app PetClinic}, integrando in un ambiente unico la raccolta dei log, metriche, tracce e monitoraggio sintetico. \\
+L'architettura realizzata durante il tirocinio ha l'obiettivo di fornire un sistema completo di osservabilità per la \emph{web app PetClinic}, integrando in un ambiente unico la raccolta dei \emph{log}, metriche, tracce e monitoraggio sintetico. \\
 Per raggiungere questo obiettivo è stato utilizzato l'ecosistema \emph{Elastic Stack}, \emph{Docker} e \emph{OpenTelemetry}. \\
 L'applicazione \emph{PetClinic} è strumentata tramite l'\emph{OpenTelemetry Java Agent}, che esporta metriche e tracce verso un \emph{OpenTelemetry Collector}. Quest'ultimo funge da punto di aggregazione e inoltra i dati al sistema \gls{apm} gestito da \emph{Elastic Agent} tramite \emph{Fleet}. \\
-In parallelo, i log dell'applicazione vengono scritti su un file locale dal \emph{container} \emph{PetClinic} e successivamente raccolti da \emph{Logstash}, che li elabora e li inoltra verso \emph{Elasticsearch} seguendo una \emph{pipeline} personalizzata. \\
-Per quanto riguarda la visualizzazione dei dati, è stato utilizzato \emph{Kibana}, tramite cui è possibile monitorare l'andamento dell'applicazione, creare \emph{dashboard}, analizzare metriche di \emph{performance}, effettuare ricerche sui log ed eseguire attività di \emph{anomaly detection}. \\
+In parallelo, i \emph{log} dell'applicazione vengono scritti su un file locale dal \emph{container} \emph{PetClinic} e successivamente raccolti da \emph{Logstash}, che li elabora e li inoltra verso \emph{Elasticsearch} seguendo una \emph{pipeline} personalizzata. \\
+Per quanto riguarda la visualizzazione dei dati, è stato utilizzato \emph{Kibana}, tramite cui è possibile monitorare l'andamento dell'applicazione, creare \emph{dashboard}, analizzare metriche di \emph{performance}, effettuare ricerche sui \emph{log} ed eseguire attività di \emph{anomaly detection}. \\
 Accanto ai dati reali provenienti dall'applicazione, è stato integrato un sistema di \emph{Synthetic Monitoring} basato su \emph{Kibana Synthetics}, che utilizza \emph{script Playwright} per simulare il comportamento degli utenti e verificare la disponibilità e il corretto funzionamento dei principali flussi di navigazione. Trattandosi di un applicazione di prova infatti l'utilizzo di monitoraggio sintetico permette di lavorare con una quantità più significativa di dati. \\
 Nel complesso, l'architettura si presenta come una \emph{pipeline} altamente modulare, in cui ogni componente è orchestrato tramite \emph{Docker Compose}. Questa struttura rende l'ambiente facilmente replicabile, facilitando sia le attività di sviluppo che quelle di \emph{troubleshooting}. \\
 Nella figura si riporta l'architettura complessiva del sistema e il flusso dei dati tra le varie componenti:
@@ -24,7 +24,7 @@ Nella figura si riporta l'architettura complessiva del sistema e il flusso dei d
 
 \section{Struttura del progetto}
 La realizzazione del sistema di osservabilità è stata accompagnata dalla definizione di una struttura del progetto che ne facilitasse lo sviluppo e le attività di manutenzione. \\
-Il repository principale, chiamato \emph{elastic-project}, contiene tutte le componenti necessarie all'avvio tramite \emph{Docker Compose} e alla configurazione delle \emph{pipelines} di log, metriche e tracce, nonché all'avvio delle istanze del \emph{Fleet Server} e delle \emph{policy} per il \emph{Synthetic monitoring}. \\
+Il \emph{repository} principale, chiamato \emph{elastic-project}, contiene tutte le componenti necessarie all'avvio tramite \emph{Docker Compose} e alla configurazione delle \emph{pipelines} di \emph{log}, metriche e tracce, nonché all'avvio delle istanze del \emph{Fleet Server} e delle \emph{policy} per il \emph{Synthetic monitoring}. \\
 La struttura complessiva è riportata di seguito:
 \begin{lstlisting}[basicstyle=\ttfamily\small]
 - elastic-project/ 
@@ -38,15 +38,14 @@ La struttura complessiva è riportata di seguito:
 -- spring-petclinic/
     -> Dockerfile
 \end{lstlisting}
-
 Questa organizzazione è stata costruita con l'obiettivo di isolare le responsabilità dei vari componenti:
 \begin{itemize}
-    \item \textbf{docker-compose.yml} rappresenta il file principale per l'orchestrazione dei \emph{container}, in cui vengono definiti i servizi fondamentali. La scelta di accorpare tutti i servizi in un unico file semplifica la fase di avvio e garantisce un ambiente riproducibile;
+    \item \textbf{docker-compose.yml} rappresenta il \emph{file} principale per l'orchestrazione dei \emph{container}, in cui vengono definiti i servizi fondamentali. La scelta di accorpare tutti i servizi in un unico file semplifica la fase di avvio e garantisce un ambiente riproducibile;
     \item \textbf{spring-petclinic/} contiene il codice dell'applicazione \emph{PetClinic} e il relativo \emph{Dockerfile} per la creazione dell'immagine personalizzata con l'\emph{OpenTelemetry Java Agent} integrato;
-    \item \textbf{collector/} include la configurazione dell'\emph{OpenTelemetry Collector} nel file \emph{config.yaml}, responsabile della ricezione dei dati \gls{otlp} provenienti da \emph{PetClinic} e del loro inoltro al sistema \gls{apm} gestito da \emph{Fleet};
-    \item \textbf{logstash.conf} definisce la \emph{pipeline} di \emph{Logstash} che legge e filtra i log dell'applicazione, applicando un primo livello di arricchimento e inviando i dati a \emph{Elasticsearch};
-    \item \textbf{logs/} funge da volume locale in cui l'applicazione \emph{PetClinic} rende disponibili i file di log;
-    \item \textbf{mcp-server-elasticsearch/} contiene i file necessari per l'esecuzione del \emph{server} \gls{mcpg}\glsfirstoccur dedicato a \emph{Elasticsearch}, che abilita l'interazione con strumenti di \gls{ai} generativa come \emph{Claude Code};
+    \item \textbf{collector/} include la configurazione dell'\emph{OpenTelemetry Collector} nel \emph{file} \emph{config.yaml}, responsabile della ricezione dei dati \gls{otlpg} provenienti da \emph{PetClinic} e del loro inoltro al sistema \gls{apmg} gestito da \emph{Fleet};
+    \item \textbf{logstash.conf} definisce la \emph{pipeline} di \emph{Logstash} che legge e filtra i \emph{log} dell'applicazione, applicando un primo livello di arricchimento e inviando i dati a \emph{Elasticsearch};
+    \item \textbf{logs/} funge da volume locale in cui l'applicazione \emph{PetClinic} rende disponibili i \emph{file} di \emph{log};
+    \item \textbf{mcp-server-elasticsearch/} contiene i \emph{file} necessari per l'esecuzione del \emph{server} \gls{mcpg}\glsfirstoccur dedicato a \emph{Elasticsearch}, che abilita l'interazione con strumenti di \gls{aig} generativa come \emph{Claude Code};
     \item \textbf{.env} contiene le variabili d'ambiente necessarie per la configurazione dei servizi.
 \end{itemize}
 Questa struttura ha permesso di lavorare in modo indipendente sulle singole componenti del sistema senza introdurre interferenze tra servizi, e ha contribuito a semplificare la fase di diagnosi dei problemi.
@@ -54,22 +53,25 @@ Questa struttura ha permesso di lavorare in modo indipendente sulle singole comp
 
 
 \section{Implementazione del logging}
-L'implementazione della \emph{pipeline} di raccolta e indicizzazione dei log applicativi rappresenta un passaggio fondamentale del sistema di osservabilità sviluppato. \\
-L'obiettivo principale era quello di acquisire i log generati da \emph{Spring PetClinic}, arricchirli con metadati utili, e renderli disponibili per la consultazione e l'analisi tramite \emph{Kibana}. \\
+L'implementazione della \emph{pipeline} di raccolta e indicizzazione dei \emph{log} applicativi rappresenta un passaggio fondamentale del sistema di osservabilità sviluppato. \\
+L'obiettivo principale era quello di acquisire i \emph{log} generati da \emph{Spring PetClinic}, arricchirli con metadati utili, e renderli disponibili per la consultazione e l'analisi tramite \emph{Kibana}. \\
 Per ottenere questo risultato è stata realizzata una \emph{pipeline} composta da tre elementi principali:
 \begin{enumerate}
-    \item scrittura dei log nel \emph{container PetClinic}, in un percorso montato come volume esterno;
-    \item raccolta ed elaborazione dei log tramite \emph{Logstash}, configurato con un file di \emph{pipeline} dedicato;
-    \item indicizzazione dei log in \emph{Elasticsearch} tramite una struttura di indici gestita con \gls{ilmg}\glsfirstoccur e un \emph{template} personalizzato.
+    \item Scrittura dei \emph{log} nel \emph{container PetClinic}, in un percorso montato come volume esterno;
+    \item Raccolta ed elaborazione dei \emph{log} tramite \emph{Logstash}, configurato con un \emph{file} di \emph{pipeline} dedicato;
+    \item Indicizzazione dei \emph{log} in \emph{Elasticsearch} tramite una struttura di indici gestita con \gls{ilmg}\glsfirstoccur e un \emph{template} personalizzato.
 \end{enumerate}
 
 \subsection{Scrittura dei log applicativi}
-Il primo passo ha riguardato la configurazione di \emph{PetClinic} affinché producesse log su file, in modo da poterli acquisire tramite \emph{Logstash}.
+Il primo passo ha riguardato la configurazione di \emph{PetClinic} affinché producesse \emph{log} su \emph{file}, in modo da poterli acquisire tramite \emph{Logstash}.
 Il \emph{Dockerfile} dell'applicazione è stato modificato aggiungendo il parametro \texttt{-Dlogging.file.name=/var/log/petclinic/app.log} alla riga di comando di avvio. \\
-Questo approccio ha permesso di centralizzare i log in un unico file, esporlo come volume condiviso e separare la fase di generazione dei log dalla loro elaborazione. 
+Questo approccio ha permesso di centralizzare i \emph{log} in un unico \emph{file}, esporlo come volume condiviso e separare la fase di generazione dei \emph{log} dalla loro elaborazione.
+
+\newpage
+
 
 \subsection{Pipeline Logstash}
-La raccolta e trasformazione dei log è stata implementata tramite \emph{Logstash}, attraverso un file di configurazione dedicato \texttt{logstash.conf}:
+La raccolta e trasformazione dei \emph{log} è stata implementata tramite \emph{Logstash}, attraverso un \emph{file} di configurazione dedicato \texttt{logstash.conf}:
 \begin{lstlisting}
 input {
   file {
@@ -104,32 +106,31 @@ output {
   }
 }
 \end{lstlisting}
-La pipeline si articola in tre fasi: input, filtro e output.
+La \emph{pipeline} si articola in tre fasi: input, filtro e output.
 
 \paragraph{Input:}
-Viene utilizzato il plugin \texttt{file} per monitorare il file \texttt{app.log} generato dall'applicazione.  
-Il file viene letto dall'inizio e l'avanzamento è tracciato tramite un file \texttt{sincedb}, così da evitare duplicazioni in caso di riavvio.
+Viene utilizzato il plugin \texttt{file} per monitorare il \emph{file} \texttt{app.log} generato dall'applicazione. Il \emph{file} viene letto dall'inizio e l'avanzamento è tracciato tramite un \emph{file} \texttt{sincedb}, così da evitare duplicazioni in caso di riavvio.
 
 \paragraph{Filter:}
-I log vengono arricchiti con metadati aggiuntivi, tra cui:
+I \emph{log} vengono arricchiti con metadati aggiuntivi, tra cui:
 \begin{itemize}
-    \item \texttt{service.name},
-    \item \texttt{event.dataset},
+    \item \texttt{service.name};
+    \item \texttt{event.dataset};
     \item campi relativi ai data stream di \emph{Elasticsearch}.
 \end{itemize}
 Queste informazioni migliorano la struttura dei documenti, permettendo un'analisi più efficace e una migliore organizzazione dei dati nei \emph{data view}.
 
 \paragraph{Output:}
-L'output della pipeline invia i documenti verso \emph{Elasticsearch} tramite l'endpoint \gls{httpsg}\glsfirstoccur, utilizzando credenziali e certificati definiti nel file \texttt{.env}.  
-I log vengono scritti sull'alias \texttt{petclinic-logs}, gestito successivamente tramite \gls{ilmg}.
+L'output della pipeline invia i documenti verso \emph{Elasticsearch} tramite l'\emph{endpoint} \gls{httpsg}\glsfirstoccur, utilizzando credenziali e certificati definiti nel \emph{file} \texttt{.env}. \\
+I \emph{log} vengono scritti sull'alias \texttt{petclinic-logs}, gestito successivamente tramite \gls{ilmg}.
 
 \subsection{Struttura degli indici in Elasticsearch}
-Prima dell'invio dei log è stata predisposta l'infrastruttura necessaria in \emph{Elasticsearch}.
+Prima dell'invio dei \emph{log} è stata predisposta l'infrastruttura necessaria in \emph{Elasticsearch}.
 
 \paragraph{Policy ILM:}
-È stata definita una policy di gestione del ciclo di vita dell'indice (\emph{Index Lifecycle Management}) in grado di:
+È stata definita una \emph{policy} di gestione del ciclo di vita dell'indice (\emph{Index Lifecycle Management}) in grado di:
 \begin{itemize}
-    \item effettuare \emph{rollover} ogni 1 GB o ogni 24 ore;
+    \item effettuare \emph{rollover} ogni 1 \gls{gbg}\glsfirstoccur o ogni 24 ore;
     \item eliminare automaticamente i dati più vecchi dopo 7 giorni.
 \end{itemize}
 strutturata come segue:
@@ -160,9 +161,9 @@ PUT _ilm/policy/petclinic-logs-ilm
 \paragraph{Index Template:}
 È stato creato un \emph{template} denominato \texttt{petclinic-logs-template} per definire:
 \begin{itemize}
-    \item il numero di \emph{shard} e repliche,
-    \item il limite massimo dei campi mappati,
-    \item il \emph{mapping} dei principali campi del log,
+    \item il numero di \emph{shard} e repliche;
+    \item il limite massimo dei campi mappati;
+    \item il \emph{mapping} dei principali campi del \emph{log};
     \item regole dinamiche per trattare le stringhe come \emph{keyword}.
 \end{itemize}
 \begin{lstlisting}
@@ -248,37 +249,37 @@ PUT petclinic-logs-000001
 
 
 \subsection{Risultato della pipeline}
-La \emph{pipeline} finale dei log può essere sintetizzata nel seguente flusso:
+La \emph{pipeline} finale dei \emph{log} può essere sintetizzata nel seguente flusso:
 \vspace{0.5cm}
 \begin{figure}[H] 
     \centering 
     \includegraphics[width=\columnwidth]{pipeline_logs.png} 
     \caption{Pipeline Logs}
 \end{figure}
-Grazie a questa configurazione viene garantita un'acquisizione affidabile dei log, un arricchimento consistente delle informazioni e una consultazione efficace tramite \emph{Kibana}.
+Grazie a questa configurazione viene garantita un'acquisizione affidabile dei \emph{log}, un arricchimento consistente delle informazioni e una consultazione efficace tramite \emph{Kibana}.
 %\texttt{PetClinic (scrive /var/log/petclinic/app.log) -> Logstash -> Elasticsearch (ILM + index template petclinic-logs-*) -> Kibana (Data View “petclinic-logs”)}
 
 
 
 \section{Implementazione di traces e metrics}
-Parallelamente alla \emph{pipeline} dei log, è stata realizzata una \emph{pipeline} dedicata alla raccolta di metriche e tracce distribuite generate dalla \emph{web app PetClinic}. \\
-L'obiettivo è stato quello di ottenere una visione approfondita sui tempi di risposta, sui flussi di esecuzione delle richieste e sulle interazioni tra i componenti del sistema. 
+Parallelamente alla \emph{pipeline} dei \emph{log}, è stata realizzata una \emph{pipeline} dedicata alla raccolta di metriche e tracce distribuite generate dalla \emph{web app PetClinic}. \\
+L'obiettivo è stato quello di ottenere una visione approfondita sui tempi di risposta, sui flussi di esecuzione delle richieste e sulle interazioni tra i componenti del sistema. \\
 Per raggiungere questo risultato è stato adottato \emph{OpenTelemetry}, integrato con l'\emph{Elastic APM} tramite \emph{Fleet}. \\
 La \emph{pipeline} completa è composta dai seguenti elementi:
 \begin{enumerate}
-    \item strumentazione automatica dell'applicazione tramite \emph{OpenTelemetry Java Agent};
-    \item raccolta dei dati \gls{otlpg} (\emph{OpenTelemetry Protocol}) da parte dell'\emph{OpenTelemetry Collector};
-    \item inoltro dei dati verso l'\emph{APM Server} gestito dall'\emph{Elastic Agent};
-    \item indicizzazione delle metriche e delle tracce in \emph{Elasticsearch} e visualizzazione in \emph{Kibana}.
+    \item Strumentazione automatica dell'applicazione tramite \emph{OpenTelemetry Java Agent};
+    \item Raccolta dei dati \gls{otlpg} (\emph{OpenTelemetry Protocol}) da parte dell'\emph{OpenTelemetry Collector};
+    \item Inoltro dei dati verso l'\emph{APM Server} gestito dall'\emph{Elastic Agent};
+    \item Indicizzazione delle metriche e delle tracce in \emph{Elasticsearch} e visualizzazione in \emph{Kibana}.
 \end{enumerate}
 
 
 \subsection{Strumentazione dell'applicazione}
-L'applicazione \emph{PetClinic} è stata strumentata utilizzando l'\emph{OpenTelemetry Java Agent}, un agente Java esterno che permette di raccogliere automaticamente metriche e tracce senza modifiche al codice sorgente. \\
-Nel \texttt{Dockerfile} dell'applicazione sono stati aggiunti:
+L'applicazione \emph{PetClinic} è stata strumentata utilizzando l'\emph{OpenTelemetry Java Agent}, un agente \emph{Java} esterno che permette di raccogliere automaticamente metriche e tracce senza modifiche al codice sorgente. \\
+Nel \texttt{Dockerfile} e nella cartella di \emph{Petclinic} rispettivamente sono stati aggiunti:
 \begin{itemize}
-    \item il file \texttt{opentelemetry-javaagent.jar};
-    \item i parametri di avvio per abilitarne il caricamento e configurarne l'esportazione.
+    \item i parametri di avvio per abilitarne il caricamento e configurarne l'esportazione;
+    \item il file \texttt{opentelemetry-javaagent.jar}.
 \end{itemize}
 Il comando di avvio che viene eseguito dal \texttt{Dockerfile} è il seguente:
 \begin{verbatim}
@@ -300,10 +301,10 @@ Grazie a questa configurazione, l'applicazione esporta automaticamente:
 
 
 \subsection{RUM Agent frontend}
-Oltre ai dati provenienti dal backend tramite l'\emph{OpenTelemetry Java Agent}, la \emph{pipeline} raccoglie anche metriche, errori e tracce generate dal \emph{frontend} dell'applicazione attraverso il \emph{RUM Agent} di \emph{Elastic APM}. \\
+Oltre ai dati provenienti dal \emph{backend} tramite l'\emph{OpenTelemetry Java Agent}, la \emph{pipeline} raccoglie anche metriche, errori e tracce generate dal \emph{frontend} dell'applicazione attraverso il \emph{RUM Agent} di \emph{Elastic APM}. \\
 Il \emph{RUM Agent}, integrato direttamente nelle pagine \emph{web}, invia i dati di \emph{performance} del \emph{browser}, la durata delle transazioni utente, gli errori \emph{JavaScript} e le informazioni sulla navigazione direttamente all'\emph{APM Server}. \\
-Il \emph{RUM Agent}, a differenza dell'\emph{OpenTelemetry Collector}, comunica nativamente con il protocollo \emph{Elastic APM} e invia i dati direttamente all'endpoint \gls{apmg}, senza transitare attraverso il \emph{Collector}. \\
-Entrambe le sorgenti, confluiscono nei data stream \texttt{traces-apm*} e \texttt{metrics-apm*}, permettendo una visione unificata delle performance sia del \emph{backend} sia del \emph{frontend}.
+Il \emph{RUM Agent}, a differenza dell'\emph{OpenTelemetry Collector}, comunica nativamente con il protocollo \emph{Elastic APM} e invia i dati direttamente all'\emph{endpoint} \gls{apmg}, senza transitare attraverso il \emph{Collector}. \\
+Entrambe le sorgenti, confluiscono nei \emph{data stream} \texttt{traces-apm*} e \texttt{metrics-apm*}, permettendo una visione unificata delle \emph{performance} sia del \emph{backend} sia del \emph{frontend}.
 
 
 \subsection{OpenTelemetry Collector}
@@ -387,7 +388,7 @@ Una volta ricevuti dal sistema \gls{apmg}, i dati vengono indicizzati in \emph{E
     \item \texttt{metrics-apm*} per le metriche;
     \item \texttt{logs-apm*} per eventuali eventi generati dall'agente.
 \end{itemize}
-Questi indici vengono raccolti automaticamente nella data view \texttt{APM}, fornita nativamente dalla piattaforma.
+Questi indici vengono raccolti automaticamente nella \emph{data view} \texttt{APM}, fornita nativamente dalla piattaforma.
 
 
 \subsection{Risultato della pipeline}
@@ -406,29 +407,29 @@ Il flusso risultante può essere sintetizzato come segue:
 L'intera infrastruttura di osservabilità è stata containerizzata utilizzando \emph{Docker Compose}, con lo scopo di ottenere un ambiente completamente riproducibile, isolato e facilmente avviabile. \\
 Il file \texttt{docker-compose.yml} rappresenta il punto centrale dell'orchestrazione e descrive un insieme eterogeneo di servizi che lavorano assieme, tra cui:
 \begin{itemize}
-    \item \texttt{es01}: nodo \emph{Elasticsearch} responsabile della memorizzazione dei log, delle metriche e delle tracce;
+    \item \texttt{es01}: nodo \emph{Elasticsearch} responsabile della memorizzazione dei \emph{log}, delle metriche e delle tracce;
     \item \texttt{kibana}: interfaccia grafica per la visualizzazione dei dati;
     \item \texttt{fleet-server}: servizio dedicato alla gestione centralizzata degli agenti \emph{Elastic};
     \item \texttt{apm-agent}: componente che espone l'\emph{endpoint APM} per ricevere metriche e tracce dal \emph{Collector} e dal \emph{RUM Agent};
-    \item \texttt{collector}: \emph{OpenTelemetry Collector} configurato in modalità \emph{gateway};
-    \item \texttt{logstash01}: responsabile della \emph{pipeline} di elaborazione dei log applicativi;
+    \item \texttt{collector}: \emph{OpenTelemetry Collector} configurato in modalità \emph{gateway} sulla porta 4318;
+    \item \texttt{logstash01}: responsabile della \emph{pipeline} di elaborazione dei \emph{log} applicativi;
     \item \texttt{petclinic}: applicazione oggetto del monitoraggio;
     \item \texttt{mysql}: \emph{database} a supporto dell'applicazione;
     \item \texttt{synthetics-agent}: componente dedicato al monitoraggio sintetico;
     \item \texttt{mcp-server-elasticsearch}: server \gls{mcpg} utilizzato per l'integrazione con strumenti di \gls{aig} generativa;
-    \item \texttt{setup}: servizio dedicato alla generazione e distribuzione dei certificati \gls{tlsg}.
+    \item \texttt{setup}: servizio dedicato alla generazione e distribuzione dei certificati \gls{tlsg}\glsfirstoccur.
 \end{itemize}
 
 
 \subsection{Gestione dei certificati e della sicurezza}
 Una parte rilevante dell'orchestrazione riguarda la gestione della sicurezza. \\
-Il servizio \texttt{setup} genera automaticamente certificati autofirmati e li distribuisce agli altri container attraverso un volume condiviso. Questo passaggio è essenziale poiché i servizi dello \emph{stack Elastic} richiedono comunicazioni cifrate e autenticazione abilitata. \\
-Il file \texttt{.env}, incluso nel progetto, contiene inoltre credenziali, porte e parametri di configurazione necessari all'avvio dei container.
+Il servizio \texttt{setup} genera automaticamente certificati autofirmati e li distribuisce agli altri \emph{container} attraverso un volume condiviso. Questo passaggio è essenziale poiché i servizi dello \emph{stack Elastic} richiedono comunicazioni cifrate e autenticazione abilitata. \\
+Il file \texttt{.env}, incluso nel progetto, contiene inoltre credenziali, porte e parametri di configurazione necessari all'avvio dei \emph{container}.
 
 
 \subsection{Coordinamento dell'avvio dei servizi}
 La corretta gestione dell'ordine di avvio è stata un aspetto importante della configurazione. Alcuni servizi, come \texttt{fleet-server} e \texttt{apm-agent}, richiedono che \emph{Elasticsearch} sia completamente operativo prima di potersi registrare ed esporre i propri \emph{endpoint}. \\
-Questo comportamento è stato gestito tramite direttive \texttt{depends\_on}, healthcheck e l'utilizzo di servizi come \texttt{setup}, che garantiscono la generazione dei certificati necessari al \emph{cluster}. \\
+Questo comportamento è stato gestito tramite direttive \texttt{depends\_on}, \emph{healthcheck} e l'utilizzo di servizi come \texttt{setup}, che garantiscono la generazione dei certificati necessari al \emph{cluster}. \\
 L'uso esplicito delle dipendenze e dei controlli di stato ha reso possibile evitare errori di avvio legati alla sincronizzazione tra i servizi, un problema frequente nelle architetture \emph{multi-container}.
 
 
@@ -441,34 +442,33 @@ Questo approccio ha permesso di ottenere un sistema facilmente estendibile e sem
 
 
 
-
 \section{Visualizzazione dei dati in Kibana}
-Al termine della configurazione delle \emph{pipeline} di log, metriche, tracce e monitoraggio, è stato necessario predisporre in \emph{Kibana} gli strumenti per la visualizzazione e l'analisi dei dati raccolti. \\
-Sono stati individuati diversi \emph{data view}, alcuni già presenti di default in \emph{Kibana}, altri appositamente creati per facilitare l'accesso ai vari tipi di dati:
+Al termine della configurazione delle \emph{pipeline} di \emph{log}, metriche, tracce e monitoraggio, è stato necessario predisporre in \emph{Kibana} gli strumenti per la visualizzazione e l'analisi dei dati raccolti. \\
+Sono stati individuati diversi \emph{data view}, alcuni già presenti di \emph{default} in \emph{Kibana}, altri appositamente creati per facilitare l'accesso ai vari tipi di dati:
 \begin{itemize}
-    \item \texttt{traces-apm*}, fornita nativamente da Kibana, contenente le tracce distribuite provenienti dal \emph{backend} e dal \emph{frontend};
-    \item \texttt{metrics-apm*}, fornita nativamente da Kibana, relativa alle metriche di sistema raccolte dall'\emph{OpenTelemetry Java Agent};
-    \item \texttt{logs-apm*}, fornita nativamente da Kibana, include eventuali eventi generati dagli agenti \emph{Elastic};
-    \item \texttt{petclinic-logs-*}, \emph{data view} dedicato ai log applicativi raccolti tramite \emph{Logstash} e indicizzati in \emph{Elasticsearch}.
+    \item \texttt{traces-apm*}, fornita nativamente da \emph{Kibana}, contenente le tracce distribuite provenienti dal \emph{backend} e dal \emph{frontend};
+    \item \texttt{metrics-apm*}, fornita nativamente da \emph{Kibana}, relativa alle metriche di sistema raccolte dall'\emph{OpenTelemetry Java Agent};
+    \item \texttt{logs-apm*}, fornita nativamente da \emph{Kibana}, include eventuali eventi generati dagli agenti \emph{Elastic};
+    \item \texttt{petclinic-logs-*}, \emph{data view} dedicato ai \emph{log} applicativi raccolti tramite \emph{Logstash} e indicizzati in \emph{Elasticsearch}.
 \end{itemize}
 Per facilitare l'analisi, sono state create due viste dati principali:
 \begin{itemize}
     \item \textbf{APM}: fornita nativamente da \emph{Kibana}, che aggrega metriche, tracce ed errori provenienti dal \emph{backend}, dal \emph{frontend} e dal monitoraggio sintetico;
-    \item \textbf{petclinic-logs}: vista personalizzata per l'esplorazione dei log applicativi indicizzati tramite la \emph{pipeline} \emph{Logstash}.
+    \item \textbf{petclinic-logs}: vista personalizzata per l'esplorazione dei \emph{log} applicativi indicizzati tramite la \emph{pipeline} \emph{Logstash}.
 \end{itemize}
 
 
 \subsection{Verifica dell'indicizzazione tramite Dev Tools}
-Dopo l'avvio dei servizi, è stata effettuata una verifica manuale dell'indicizzazione tramite la console \emph{Dev Tools} di \emph{Kibana}. \\
-Questo controllo è stato utile per confermare il corretto funzionamento della \emph{pipeline} di log e verificare che i documenti fossero instradati verso il data stream appropriato. \\
-Alcuni esempi di query utilizzate sono:
+Dopo l'avvio dei servizi, è stata effettuata una verifica manuale dell'indicizzazione tramite la \emph{console} \emph{Dev Tools} di \emph{Kibana}. \\
+Questo controllo è stato utile per confermare il corretto funzionamento della \emph{pipeline} di \emph{log} e verificare che i documenti fossero instradati verso il \emph{data stream} appropriato. \\
+Alcuni esempi di \emph{query} utilizzate sono:
 \begin{itemize}
   \item \texttt{GET petclinic-logs-*/\_search?size=5} per verificare che i documenti applicativi arrivino all'indice corretto;
   \item \texttt{GET petclinic-logs-*/\_mapping} per verificare che il \emph{mapping} dei campi sia in linea con il template di indicizzazione.
 \end{itemize}
 La risposta di Elasticsearch ha confermato che:
 \begin{itemize}
-    \item \emph{Logstash} stava correttamente inviando i log verso l'alias \texttt{petclinic-logs};
+    \item \emph{Logstash} stava correttamente inviando i \emph{log} verso l'alias \texttt{petclinic-logs};
     \item il \emph{Collector} e il \emph{RUM Agent} inviavano correttamente le tracce all'\emph{APM Server};
     \item tutti i documenti venivano mappati in base al \emph{template} configurato.
 \end{itemize}
@@ -476,7 +476,7 @@ La risposta di Elasticsearch ha confermato che:
 
 
 \section{Creazione delle dashboard}
-All'interno della sezione \emph{Analytics --> Dashboards} di \emph{Kibana} sono state realizzate due \emph{dashboard} dedicate all'analisi e alla visualizzazione dei dati raccolti dal \emph{data view} \gls{apmg}. \\
+All'interno della sezione \emph{"Dashboards"} di \emph{Kibana} sono state realizzate due \emph{dashboard} dedicate all'analisi e alla visualizzazione dei dati raccolti dal \emph{data view} \texttt{APM}. \\
 Le \emph{dashboard} hanno lo scopo di fornire una panoramica del comportamento dell'applicazione sia dal punto di vista dell'utente finale sia dal punto di vista delle \emph{performance} e della stabilità lato \emph{server}.
 
 
@@ -497,7 +497,7 @@ Essa comprende cinque visualizzazioni principali:
     \caption{Dashboard Frontend - User Journey}
 \end{figure}
 
-\vspace{0.5cm}
+\newpage
 
 \subsection{Dashboard Backend - Health \& Stability}
 La \emph{dashboard} relativa al \emph{backend} fornisce invece una panoramica dello stato di salute della \emph{web app} e delle sue \emph{performance} lato \emph{server}. \\ 
@@ -515,7 +515,7 @@ Anche in questo caso sono presenti cinque visualizzazioni:
     \includegraphics[width=\columnwidth]{/dashboards/Backend_dashboard.png} 
     \caption{Dashboard Backend - Health \& Stability}
 \end{figure}
-Le due dashboard costituiscono un insieme di strumenti utili per comprendere il comportamento dell'applicazione in condizioni reali, individuare potenziali anomalie e monitorare l'esperienza utente e la stabilità del sistema.
+Le due \emph{dashboard} costituiscono un insieme di strumenti utili per comprendere il comportamento dell'applicazione in condizioni reali, individuare potenziali anomalie e monitorare l'esperienza utente e la stabilità del sistema.
 
 \vspace{0.5cm}
 
@@ -540,8 +540,8 @@ Entrambi i \emph{job} operano in modalità continua, aggiornando costantemente i
 
 \subsection{Regole di alerting}
 Per ciascun \emph{job} è stata definita una regola di \emph{alerting} dedicata basata sugli \emph{anomaly records}.  
-La regola si attiva quando lo \emph{anomaly score} supera una soglia configurata, generando una notifica all'interno di Kibana e via email.  
-Ogni alert include informazioni su:
+La regola si attiva quando lo \emph{anomaly score} supera una soglia configurata, generando una notifica all'interno di \emph{Kibana} e via \emph{email}.  
+Ogni \emph{alert} include informazioni su:
 \begin{itemize}
     \item livello di anomalia;
     \item metrica o transazione coinvolta;
@@ -574,18 +574,18 @@ Ogni \emph{monitor} esegue uno \emph{script} \emph{Playwright} che riproduce una
 
 
 \subsection{Flussi monitorati}
-Sono stati implementati sette monitor, ciascuno focalizzato su un flusso specifico:
+Sono stati implementati sette \emph{monitor}, ciascuno focalizzato su un flusso specifico:
 \begin{itemize}
     \item \textbf{owners}: navigazione nella sezione \emph{Find Owners} e consultazione dei profili;
-    \item \textbf{add\_owner}: inserimento di un nuovo proprietario tramite il form dell'applicazione;
+    \item \textbf{add\_owner}: inserimento di un nuovo proprietario tramite il \emph{form} dell'applicazione;
     \item \textbf{add\_owner\_pet}: creazione di un proprietario e aggiunta di un nuovo animale;
     \item \textbf{find}: ricerca di un proprietario tramite il campo \emph{lastName};
     \item \textbf{home}: verifica del caricamento della \emph{homepage};
     \item \textbf{navigation}: navigazione sequenziale tra \emph{Home, Find Owners, Veterinarians, Error} e ritorno alle sezioni principali;
     \item \textbf{veterinarians}: esplorazione della pagina dei veterinari e delle sue sottosezioni.
 \end{itemize}
-Ciascun monitor esegue ad intervalli di tempo regolari il relativo \emph{script}, registrando attività nell'applicazione, che a sua volta invia le metriche e i risultati prodotti a \emph{Elasticsearch} secondo le pipeline previste, consentendo di analizzare la disponibilità dell'applicazione, i tempi di risposta e l'eventuale presenza di errori direttamente nella sezione \emph{Synthetics} di \emph{Kibana}. \\
-Un esempio di script utilizzato per il monitor \textbf{add\_owner\_pet} è il seguente:
+Ciascun monitor esegue ad intervalli di tempo regolari il relativo \emph{script}, registrando attività nell'applicazione, che a sua volta invia le metriche e i risultati prodotti a \emph{Elasticsearch} secondo le \emph{pipeline} previste, consentendo di analizzare la disponibilità dell'applicazione, i tempi di risposta e l'eventuale presenza di errori direttamente nella sezione \emph{Synthetics} di \emph{Kibana}. \\
+Un esempio di \emph{script Playwright} utilizzato per il \emph{monitor} \textbf{add\_owner\_pet} è il seguente:
 \begin{lstlisting}
 step('Go to petclinic and add owner + pet', async () => {
   await page.goto('http://petclinic:8080/');
@@ -610,10 +610,76 @@ step('Go to petclinic and add owner + pet', async () => {
   await page.getByRole('button', { name: 'Add Pet' }).click();
 });
 \end{lstlisting}
+Lo stesso script in \emph{Python}, presentato di seguito, è stato testato con \emph{Selenium} ma ha richiesto maggiori passaggi per essere eseguito correttamente, dimostrando l'efficienza dell'approccio basato su \emph{Playwright} e \emph{Synthetics Recorder}:
+\begin{lstlisting}
+import sys
+import time
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+
+def main(show_gui=True):
+    opts = Options()
+    if not show_gui:
+        opts.add_argument("--headless")
+
+    try:
+        driver = webdriver.Firefox(options=opts)
+    except WebDriverException as e:
+        print("Errore avviando webdriver:", e)
+        sys.exit(2)
+
+    try:
+        url = "http://petclinic:8080"
+        print("apro", url)
+        driver.get(url)
+        time.sleep(1)
+
+        driver.get(url +"/owners/find")
+        time.sleep(1)
+
+        add_owner_link = driver.find_element(By.LINK_TEXT, "Add Owner")
+        add_owner_link.click()
+        time.sleep(1)
+
+        driver.find_element(By.ID, "firstName").send_keys("Mark")
+        driver.find_element(By.ID, "lastName").send_keys("Cole")
+        driver.find_element(By.ID, "address").send_keys("Via Roma 1")
+        driver.find_element(By.ID, "city").send_keys("Roma")
+        driver.find_element(By.ID, "telephone").send_keys("0000000000")
+
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        time.sleep(2)
+
+        add_pet_link = driver.find_element(By.LINK_TEXT, "Add New Pet")
+        add_pet_link.click()
+        time.sleep(1)
+
+        driver.find_element(By.ID, "name").send_keys("Bob")
+        driver.find_element(By.ID, "birthDate").send_keys("10/10/2025")
+        Select(driver.find_element(By.ID, "type")).select_by_visible_text("hamster")
+
+        driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        time.sleep(2)
+
+        print("Proprietario e animale aggiunti con successo.")
+    finally:
+        try:
+            driver.quit()
+        except Exception:
+            pass
+        print("Test completato")
+
+if __name__ == "__main__":
+    main(show_gui=True)
+\end{lstlisting}
+
 
 \subsection{Benefici per il monitoraggio}
-L'integrazione del \emph{Synthetic Monitoring} garantisce un ulteriore livello di controllo, complementare a metriche, tracce e log. 
-Grazie ai monitor sintetici è possibile infatti rilevare:
+L'integrazione del \emph{Synthetic Monitoring} garantisce un ulteriore livello di controllo, complementare a metriche, tracce e \emph{log}. 
+Grazie ai \emph{monitor} sintetici è possibile infatti rilevare:
 \begin{itemize}
     \item rallentamenti o interruzioni nei percorsi chiave dell'applicazione;
     \item problemi lato \gls{uig}\glsfirstoccur o di caricamento delle pagine;
@@ -625,8 +691,8 @@ Questo approccio consente di simulare l'esperienza dell'utente finale e di indiv
 
 
 \section{Integrazione con MCP Server e strumenti AI}
-Durante il periodo di stage è stata analizzata la possibilità di integrare la piattaforma di osservabilità con strumenti di intelligenza artificiale generativa basati sul protocollo \gls{mcpg} (Model Context Protocol). 
-Tale integrazione sarebbe utile per abilitare funzionalità avanzate come il riassunto dei log e l'interazione con i dati tramite agenti conversazionali.
+Durante il periodo di \emph{stage} è stata analizzata la possibilità di integrare la piattaforma di osservabilità con strumenti di intelligenza artificiale generativa basati sul protocollo \gls{mcpg} (Model Context Protocol). 
+Tale integrazione sarebbe utile per abilitare funzionalità avanzate come il riassunto dei \emph{log} e l'interazione con i dati tramite agenti conversazionali.
 
 
 \subsection{Limitazioni della versione 8.15 dello stack}
@@ -634,7 +700,7 @@ In fase di analisi è emerso che le funzionalità \gls{aig} più recenti come gl
 Tuttavia, questa versione non è stata adottata nel progetto per due motivi principali:
 \begin{itemize}
     \item non tutte le immagini \emph{Docker} necessarie risultano ancora disponibili o stabili per un ambiente completamente containerizzato;
-    \item la clientela dell'azienda presso cui è stato svolto lo stage utilizza stabilmente versioni \textbf{8.x}, rendendo necessaria la compatibilità con tale ecosistema.
+    \item la clientela dell'azienda presso cui è stato svolto lo \emph{stage} utilizza stabilmente versioni \textbf{8.x}, rendendo necessaria la compatibilità con tale ecosistema.
 \end{itemize}
 Per questi motivi l'integrazione con gli strumenti \gls{aig} nativi dello \emph{stack} non è stata implementata, pur essendo stata valutata e studiata.
 
@@ -643,7 +709,7 @@ Per questi motivi l'integrazione con gli strumenti \gls{aig} nativi dello \emph{
 Nonostante l'impossibilità di utilizzare le funzionalità \gls{aig} avanzate, è stata preparata una procedura per l'inizializzazione corretta dell'\emph{MCP Server} con \emph{Elastic 8.15.3}, con l'obiettivo di predisporre l'infrastruttura per futuri sviluppi. \\
 La procedura include:
 \begin{itemize}
-    \item l'avvio del container \texttt{mcp-server-elasticsearch} tramite \emph{docker compose};
+    \item l'avvio del \emph{container} \texttt{mcp-server-elasticsearch} tramite \emph{docker compose};
     \item la configurazione delle variabili d'ambiente per autenticazione ed \emph{endpoint};
     \item la registrazione del \emph{server MCP} con un \emph{client} compatibile.
 \end{itemize}
@@ -654,11 +720,11 @@ Questa fase ha permesso di verificare la piena compatibilità del \emph{server M
 La configurazione del \emph{server MCP} costituisce una base solida per eventuali evoluzioni del progetto verso l'impiego di agenti di intelligenza artificiale direttamente all'interno di \emph{Kibana}, non appena tali strumenti saranno pienamente supportati in versioni stabili dello \emph{stack Elastic}. \\
 L'infrastruttura realizzata è quindi predisposta per integrare funzionalità di analisi e automazione, mantenendo allo stesso tempo la compatibilità con gli ambienti utilizzati in produzione dall'azienda.
 
-
+\newpage
 
 \section{Sintesi dei flussi end-to-end}
 La Figura \ref{fig:sintesi-flussi} fornisce una visione complessiva del funzionamento della piattaforma di osservabilità realizzata. \\
-Il diagramma integra tutte le \emph{pipeline} sviluppate durante il progetto, ovvero la raccolta di metriche, tracce e log, il monitoraggio sintetico e l'analisi finale, evidenziando il ruolo di ciascun componente e il flusso dei dati dalla sorgente fino alla visualizzazione in \emph{Kibana}.
+Il diagramma integra tutte le \emph{pipeline} sviluppate durante il progetto, ovvero la raccolta di metriche, tracce e \emph{log}, il monitoraggio sintetico e l'analisi finale, evidenziando il ruolo di ciascun componente e il flusso dei dati dalla sorgente fino alla visualizzazione in \emph{Kibana}.
 
 \begin{figure}[H] 
     \centering 
