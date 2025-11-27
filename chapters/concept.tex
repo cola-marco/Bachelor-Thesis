@@ -264,7 +264,7 @@ compatibilità, strumenti, \emph{standard} aziendali o legali.
 \hline
 \endlastfoot
 
-ROV-1 & Il sistema deve utilizzare i prodotti della suite \emph{Elastic Stack}
+ROV-1 & Il sistema deve utilizzare i prodotti della \emph{suite} \emph{Elastic Stack}
 (\emph{Elasticsearch, Logstash, Kibana, Beats, APM Server/Agent}). & Obbligatorio \\
 \hline
 
@@ -372,7 +372,7 @@ L'architettura della soluzione di monitoraggio si compone dei seguenti moduli pr
 
     \item \textbf{OpenTelemetry Java Agent:} agente di strumentazione automatica avviato con l'applicazione \emph{PetClinic}, utilizzato per raccogliere metriche e tracce delle transazioni lato \emph{backend} (chiamate \gls{httpg}, query al \emph{database}, eccezioni, tempi di risposta). I dati generati vengono inviati all'\emph{APM Server} attraverso il protocollo \gls{otlpg};
     
-    \item \textbf{RUM Agent JavaScript:} agente di monitoraggio \gls{rumg} eseguito nel \emph{frontend} dell'applicazione, che raccoglie dati sulle interazioni utente, sui tempi di caricamento delle pagine e sulle prestazioni percepite nel \emph{browser};
+    \item \textbf{RUM Agent JavaScript:} agente di monitoraggio \gls{rumg}\glsfirstoccur eseguito nel \emph{frontend} dell'applicazione, che raccoglie dati sulle interazioni utente, sui tempi di caricamento delle pagine e sulle prestazioni percepite nel \emph{browser};
     
 \end{itemize}
 

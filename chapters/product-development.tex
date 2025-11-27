@@ -7,7 +7,7 @@
 L'architettura realizzata durante il tirocinio ha l'obiettivo di fornire un sistema completo di osservabilità per la \emph{web app PetClinic}, integrando in un ambiente unico la raccolta dei \emph{log}, metriche, tracce e monitoraggio sintetico. \\
 Per raggiungere questo obiettivo è stato utilizzato l'ecosistema \emph{Elastic Stack}, \emph{Docker} e \emph{OpenTelemetry}. \\
 L'applicazione \emph{PetClinic} è strumentata tramite l'\emph{OpenTelemetry Java Agent}, che esporta metriche e tracce verso un \emph{OpenTelemetry Collector}. Quest'ultimo funge da punto di aggregazione e inoltra i dati al sistema \gls{apm} gestito da \emph{Elastic Agent} tramite \emph{Fleet}. \\
-In parallelo, i \emph{log} dell'applicazione vengono scritti su un file locale dal \emph{container} \emph{PetClinic} e successivamente raccolti da \emph{Logstash}, che li elabora e li inoltra verso \emph{Elasticsearch} seguendo una \emph{pipeline} personalizzata. \\
+In parallelo, i \emph{log} dell'applicazione vengono scritti su un \emph{file} locale dal \emph{container} \emph{PetClinic} e successivamente raccolti da \emph{Logstash}, che li elabora e li inoltra verso \emph{Elasticsearch} seguendo una \emph{pipeline} personalizzata. \\
 Per quanto riguarda la visualizzazione dei dati, è stato utilizzato \emph{Kibana}, tramite cui è possibile monitorare l'andamento dell'applicazione, creare \emph{dashboard}, analizzare metriche di \emph{performance}, effettuare ricerche sui \emph{log} ed eseguire attività di \emph{anomaly detection}. \\
 Accanto ai dati reali provenienti dall'applicazione, è stato integrato un sistema di \emph{Synthetic Monitoring} basato su \emph{Kibana Synthetics}, che utilizza \emph{script Playwright} per simulare il comportamento degli utenti e verificare la disponibilità e il corretto funzionamento dei principali flussi di navigazione. Trattandosi di un applicazione di prova infatti l'utilizzo di monitoraggio sintetico permette di lavorare con una quantità più significativa di dati. \\
 Nel complesso, l'architettura si presenta come una \emph{pipeline} altamente modulare, in cui ogni componente è orchestrato tramite \emph{Docker Compose}. Questa struttura rende l'ambiente facilmente replicabile, facilitando sia le attività di sviluppo che quelle di \emph{troubleshooting}. \\
@@ -42,12 +42,12 @@ elastic-project/
 \end{lstlisting}
 Questa organizzazione è stata costruita con l'obiettivo di isolare le responsabilità dei vari componenti:
 \begin{itemize}
-    \item \textbf{docker-compose.yml} rappresenta il \emph{file} principale per l'orchestrazione dei \emph{container}, in cui vengono definiti i servizi fondamentali. La scelta di accorpare tutti i servizi in un unico file semplifica la fase di avvio e garantisce un ambiente riproducibile;
+    \item \textbf{docker-compose.yml} rappresenta il \emph{file} principale per l'orchestrazione dei \emph{container}, in cui vengono definiti i servizi fondamentali. La scelta di accorpare tutti i servizi in un unico \emph{file} semplifica la fase di avvio e garantisce un ambiente riproducibile;
     \item \textbf{spring-petclinic/} contiene il codice dell'applicazione \emph{PetClinic} e il relativo \emph{Dockerfile} per la creazione dell'immagine personalizzata con l'\emph{OpenTelemetry Java Agent} integrato;
     \item \textbf{collector/} include la configurazione dell'\emph{OpenTelemetry Collector} nel \emph{file} \emph{config.yaml}, responsabile della ricezione dei dati \gls{otlpg} provenienti da \emph{PetClinic} e del loro inoltro al sistema \gls{apmg} gestito da \emph{Fleet};
     \item \textbf{logstash.conf} definisce la \emph{pipeline} di \emph{Logstash} che legge e filtra i \emph{log} dell'applicazione, applicando un primo livello di arricchimento e inviando i dati a \emph{Elasticsearch};
     \item \textbf{logs/} funge da volume locale in cui l'applicazione \emph{PetClinic} rende disponibili i \emph{file} di \emph{log};
-    \item \textbf{mcp-server-elasticsearch/} contiene i \emph{file} necessari per l'esecuzione del \emph{server} \gls{mcpg}\glsfirstoccur dedicato a \emph{Elasticsearch}, che abilita l'interazione con strumenti di \gls{aig} generativa come \emph{Claude Code};
+    \item \textbf{mcp-server-elasticsearch/} contiene i \emph{file} necessari per l'esecuzione del \emph{server} \gls{mcpg} dedicato a \emph{Elasticsearch}, che abilita l'interazione con strumenti di \gls{aig} generativa come \emph{Claude Code};
     \item \textbf{.env} contiene le variabili d'ambiente necessarie per la configurazione dei servizi.
 \end{itemize}
 Questa struttura ha permesso di lavorare in modo indipendente sulle singole componenti del sistema senza introdurre interferenze tra servizi, e ha contribuito a semplificare la fase di diagnosi dei problemi.
@@ -118,7 +118,7 @@ I \emph{log} vengono arricchiti con metadati aggiuntivi, tra cui:
 \begin{itemize}
     \item \texttt{service.name};
     \item \texttt{event.dataset};
-    \item campi relativi ai data stream di \emph{Elasticsearch}.
+    \item campi relativi ai \emph{data stream} di \emph{Elasticsearch}.
 \end{itemize}
 Queste informazioni migliorano la struttura dei documenti, permettendo un'analisi più efficace e una migliore organizzazione dei dati nei \emph{data view}.
 
@@ -466,7 +466,7 @@ Questo controllo è stato utile per confermare il corretto funzionamento della \
 Alcuni esempi di \emph{query} utilizzate sono:
 \begin{itemize}
   \item \texttt{GET petclinic-logs-*/\_search?size=5} per verificare che i documenti applicativi arrivino all'indice corretto;
-  \item \texttt{GET petclinic-logs-*/\_mapping} per verificare che il \emph{mapping} dei campi sia in linea con il template di indicizzazione.
+  \item \texttt{GET petclinic-logs-*/\_mapping} per verificare che il \emph{mapping} dei campi sia in linea con il \emph{template} di indicizzazione.
 \end{itemize}
 La risposta di Elasticsearch ha confermato che:
 \begin{itemize}
@@ -487,8 +487,10 @@ La \emph{dashboard} dedicata al \emph{frontend} analizza il comportamento degli 
 Essa comprende cinque visualizzazioni principali:
 \begin{itemize}
     \item \textbf{Funnel di navigazione}: con l'asse X impostato su \texttt{transaction.name} e l'asse Y sul \texttt{countof(records)}, per rappresentare i percorsi più frequenti;
-    \item \textbf{Tempo di caricamento per pagina}: con \texttt{url.full} sull'asse X e \texttt{avg(transaction.duration.us)} sull'asse Y;
-    \item \textbf{Errori JavaScript per browser}: con \texttt{countof(error.id)} sull'asse Y e \texttt{user\_agent.name} sull'asse X;
+    \item \textbf{Tempo di caricamento per pagina}: con \texttt{url.full} sull'asse X e \\ 
+    \texttt{avg(transaction.duration.us)} sull'asse Y;
+    \item \textbf{Errori JavaScript per browser}: con \texttt{countof(error.id)} sull'asse Y e \\
+    \texttt{user\_agent.name} sull'asse X;
     \item \textbf{Interazioni per tipo}: basata su \texttt{span.name} sull'asse X e \texttt{countof(records)} sull'asse Y;
     \item \textbf{Distribuzione dei browser per indirizzo IP}: utilizzata per analizzare la provenienza e l'ambiente \emph{client} delle sessioni.
 \end{itemize}
@@ -505,10 +507,12 @@ Essa comprende cinque visualizzazioni principali:
 La \emph{dashboard} relativa al \emph{backend} fornisce invece una panoramica dello stato di salute della \emph{web app} e delle sue \emph{performance} lato \emph{server}. \\ 
 Anche in questo caso sono presenti cinque visualizzazioni:
 \begin{itemize}
-    \item \textbf{Tempo medio di risposta per endpoint}: con \texttt{url.path} in X e \texttt{avg(transaction.duration.us)} in Y;
+    \item \textbf{Tempo medio di risposta per endpoint}: con \texttt{url.path} in X e \\
+    \texttt{avg(transaction.duration.us)} in Y;
     \item \textbf{Errori per tipo di eccezione}: con \texttt{error.exception.type} rappresentato in un grafico a torta;
-    \item \textbf{Chiamate lente} (oltre 2 secondi): identificate tramite un filtro su \texttt{transaction.duration.us >= 2000000} e rappresentate in formato tabellare;
-    \item \textbf{Distribuzione delle richieste per metodo HTTP}: basata su \texttt{http.request.method} in un grafico a torta;
+    \item \textbf{Chiamate lente} (oltre 2 secondi): identificate tramite un filtro su \\
+    \texttt{transaction.duration.us >= 2000000} e rappresentate in formato tabellare;
+    \item \textbf{Distribuzione delle richieste per metodo HTTP}: \\ basata su \texttt{http.request.method} in un grafico a torta;
     \item \textbf{Conteggio totale delle richieste}: che fornisce una vista aggregata dei volumi di traffico applicativo.
 \end{itemize}
 \vspace{0.5cm}
@@ -561,7 +565,7 @@ L'integrazione del modulo \gls{mlg}\glsfirstoccur fornisce alla piattaforma di o
 \end{itemize}
 
 
-
+\newpage
 
 \section{Synthetic Monitoring}
 Il \emph{Synthetic Monitoring} è stato utilizzato per simulare in modo automatico le interazioni degli utenti con \emph{PetClinic}, per monitorarne la disponibilità, i tempi di risposta e il corretto funzionamento. \\ 
@@ -586,7 +590,7 @@ Sono stati implementati sette \emph{monitor}, ciascuno focalizzato su un flusso 
     \item \textbf{navigation}: navigazione sequenziale tra \emph{Home, Find Owners, Veterinarians, Error} e ritorno alle sezioni principali;
     \item \textbf{veterinarians}: esplorazione della pagina dei veterinari e delle sue sottosezioni.
 \end{itemize}
-Ciascun monitor esegue ad intervalli di tempo regolari il relativo \emph{script}, registrando attività nell'applicazione, che a sua volta invia le metriche e i risultati prodotti a \emph{Elasticsearch} secondo le \emph{pipeline} previste, consentendo di analizzare la disponibilità dell'applicazione, i tempi di risposta e l'eventuale presenza di errori direttamente nella sezione \emph{Synthetics} di \emph{Kibana}. \\
+Ciascun \emph{monitor} esegue ad intervalli di tempo regolari il relativo \emph{script}, registrando attività nell'applicazione, che a sua volta invia le metriche e i risultati prodotti a \emph{Elasticsearch} secondo le \emph{pipeline} previste, consentendo di analizzare la disponibilità dell'applicazione, i tempi di risposta e l'eventuale presenza di errori direttamente nella sezione \emph{Synthetics} di \emph{Kibana}. \\
 Un esempio di \emph{script Playwright} utilizzato per il \emph{monitor} \textbf{add\_owner\_pet} è il seguente:
 \begin{lstlisting}
 step('Go to petclinic and add owner + pet', async () => {
@@ -693,16 +697,16 @@ Questo approccio consente di simulare l'esperienza dell'utente finale e di indiv
 
 
 \section{Integrazione con MCP Server e strumenti AI}
-Durante il periodo di \emph{stage} è stata analizzata la possibilità di integrare la piattaforma di osservabilità con strumenti di intelligenza artificiale generativa basati sul protocollo \gls{mcpg} (Model Context Protocol). 
+Durante il periodo di \emph{stage} è stata analizzata la possibilità di integrare la piattaforma di osservabilità con strumenti di intelligenza artificiale generativa basati sul protocollo \gls{mcp}. 
 Tale integrazione sarebbe utile per abilitare funzionalità avanzate come il riassunto dei \emph{log} e l'interazione con i dati tramite agenti conversazionali.
 
 
 \subsection{Limitazioni della versione 8.15 dello stack}
-In fase di analisi è emerso che le funzionalità \gls{aig} più recenti come gli \emph{Elastic AI Agents}, l'\emph{AI Assistant} integrato in \emph{Kibana} e le automazioni basate su agenti sono disponibili solo a partire dalla versione \textbf{9.2} dello \emph{stack Elastic}. \\  
+In fase di analisi è emerso che le funzionalità \gls{aig} più recenti come gli \emph{Elastic AI Agents}, l'\emph{AI Assistant} integrato in \emph{Kibana} e le automazioni basate su agenti sono disponibili solo a partire dalla versione 9.2 dello \emph{stack Elastic}. \\  
 Tuttavia, questa versione non è stata adottata nel progetto per due motivi principali:
 \begin{itemize}
     \item non tutte le immagini \emph{Docker} necessarie risultano ancora disponibili o stabili per un ambiente completamente containerizzato;
-    \item la clientela dell'azienda presso cui è stato svolto lo \emph{stage} utilizza stabilmente versioni \textbf{8.x}, rendendo necessaria la compatibilità con tale ecosistema.
+    \item la clientela dell'azienda presso cui è stato svolto lo \emph{stage} utilizza stabilmente versioni 8.x, rendendo necessaria la compatibilità con tale ecosistema.
 \end{itemize}
 Per questi motivi l'integrazione con gli strumenti \gls{aig} nativi dello \emph{stack} non è stata implementata, pur essendo stata valutata e studiata.
 
